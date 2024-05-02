@@ -1,0 +1,15 @@
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\bin\Debug\net8.0\Test.exe
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\bin\Debug\net8.0\Test.deps.json
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\bin\Debug\net8.0\Test.runtimeconfig.json
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\bin\Debug\net8.0\Test.dll
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\bin\Debug\net8.0\Test.pdb
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\obj\Debug\net8.0\Test.GeneratedMSBuildEditorConfig.editorconfig
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\obj\Debug\net8.0\Test.AssemblyInfoInputs.cache
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\obj\Debug\net8.0\Test.AssemblyInfo.cs
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\obj\Debug\net8.0\Test.csproj.CoreCompileInputs.cache
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\obj\Debug\net8.0\Test.sourcelink.json
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\obj\Debug\net8.0\Test.dll
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\obj\Debug\net8.0\refint\Test.dll
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\obj\Debug\net8.0\Test.pdb
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\obj\Debug\net8.0\Test.genruntimeconfig.cache
+F:\lsh\git\code\PracticeCpp\Cs_base\Test\obj\Debug\net8.0\ref\Test.dll
