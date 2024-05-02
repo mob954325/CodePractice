@@ -1,0 +1,15 @@
+F:\lsh\git\code\PracticeCpp\Cs_Base\bin\Debug\net8.0\Cs_Base.exe
+F:\lsh\git\code\PracticeCpp\Cs_Base\bin\Debug\net8.0\Cs_Base.deps.json
+F:\lsh\git\code\PracticeCpp\Cs_Base\bin\Debug\net8.0\Cs_Base.runtimeconfig.json
+F:\lsh\git\code\PracticeCpp\Cs_Base\bin\Debug\net8.0\Cs_Base.dll
+F:\lsh\git\code\PracticeCpp\Cs_Base\bin\Debug\net8.0\Cs_Base.pdb
+F:\lsh\git\code\PracticeCpp\Cs_Base\obj\Debug\net8.0\Cs_Base.GeneratedMSBuildEditorConfig.editorconfig
+F:\lsh\git\code\PracticeCpp\Cs_Base\obj\Debug\net8.0\Cs_Base.AssemblyInfoInputs.cache
+F:\lsh\git\code\PracticeCpp\Cs_Base\obj\Debug\net8.0\Cs_Base.AssemblyInfo.cs
+F:\lsh\git\code\PracticeCpp\Cs_Base\obj\Debug\net8.0\Cs_Base.csproj.CoreCompileInputs.cache
+F:\lsh\git\code\PracticeCpp\Cs_Base\obj\Debug\net8.0\Cs_Base.sourcelink.json
+F:\lsh\git\code\PracticeCpp\Cs_Base\obj\Debug\net8.0\Cs_Base.dll
+F:\lsh\git\code\PracticeCpp\Cs_Base\obj\Debug\net8.0\refint\Cs_Base.dll
+F:\lsh\git\code\PracticeCpp\Cs_Base\obj\Debug\net8.0\Cs_Base.pdb
+F:\lsh\git\code\PracticeCpp\Cs_Base\obj\Debug\net8.0\Cs_Base.genruntimeconfig.cache
+F:\lsh\git\code\PracticeCpp\Cs_Base\obj\Debug\net8.0\ref\Cs_Base.dll
