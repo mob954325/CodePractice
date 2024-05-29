@@ -1,4 +1,4 @@
-# Practice CP Languages
+# Practice Languages
 
 Save practiced languages to reminding
 
