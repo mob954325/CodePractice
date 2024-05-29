@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cs_Base
-{
-    /// <summary>
+/// <summary>
     /// 미로의 한 칸
     /// </summary>
-    struct Cell
+struct Cell
     {
         /// <summary>
         /// x 좌표
@@ -32,24 +30,18 @@ namespace Cs_Base
         }
     }
 
-    public class Recursive_backtracking
-    {
-        
-    }
-    /// result
-    /// 1 0 0 0
-    /// 1 1 1 0
-    /// 0 0 1 1
-}
-
-
-public class MainSpace
+public class Recursive_backtracking
 {
-    public static void Main(string[] args)
-    {
-        Random rand = new Random();
+    public int width;
+    public int height;
 
-        int number = rand.Next(0, 100);
-        Console.WriteLine(number);
+    Recursive_backtracking(int width, int height) 
+    { 
+        this.width = width;
+        this.height = height;
     }
 }
+/// result
+/// 1 0 0 0
+/// 1 1 1 0
+/// 0 0 1 1
