@@ -8,27 +8,27 @@ using System.Threading.Tasks;
     /// 미로의 한 칸
     /// </summary>
 struct Cell
+{
+    /// <summary>
+    /// x 좌표
+    /// </summary>
+    int x;
+    
+    /// <summary>
+    /// y 좌표
+    /// </summary>
+    int y;
+    
+    /// <summary>
+    /// 해당 cell 방분 여부
+    /// </summary>
+    public bool visited;
+    
+    public Cell(int x, int y)
     {
-        /// <summary>
-        /// x 좌표
-        /// </summary>
-        int x;
-
-        /// <summary>
-        /// y 좌표
-        /// </summary>
-        int y;
-
-        /// <summary>
-        /// 해당 cell 방분 여부
-        /// </summary>
-        public bool visited;
-
-        public Cell(int x, int y)
-        {
-            visited = false;
-        }
+        visited = false;
     }
+}
 
 public class Recursive_backtracking
 {
@@ -41,6 +41,7 @@ public class Recursive_backtracking
         this.height = height;
     }
 }
+
 /// result
 /// 1 0 0 0
 /// 1 1 1 0
