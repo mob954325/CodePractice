@@ -1,4 +1,4 @@
 #include <iostream>
 
 // Test cpp file
-// гя╠ш аж╪╝ ев╫╨ф╝
+// М∙°Й╦─ М┘▄Л┼╓М┼╦
