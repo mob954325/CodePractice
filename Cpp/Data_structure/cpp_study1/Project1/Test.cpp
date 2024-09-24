@@ -1,4 +1,9 @@
+// Hello World
+
 #include <iostream>
 
-// Test cpp file
-// 한글 테스트
+int main()
+{
+    std::cout << "Hello, World";
+    return 0;
+}
