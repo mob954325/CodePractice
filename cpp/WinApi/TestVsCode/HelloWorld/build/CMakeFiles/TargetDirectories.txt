@@ -1,0 +1,9 @@
+D:/CodePractice/cpp/WinApi/TestVS/HelloWorld/build/CMakeFiles/HelloWorld.dir
+D:/CodePractice/cpp/WinApi/TestVS/HelloWorld/build/CMakeFiles/Experimental.dir
+D:/CodePractice/cpp/WinApi/TestVS/HelloWorld/build/CMakeFiles/Nightly.dir
+D:/CodePractice/cpp/WinApi/TestVS/HelloWorld/build/CMakeFiles/Continuous.dir
+D:/CodePractice/cpp/WinApi/TestVS/HelloWorld/build/CMakeFiles/NightlyMemoryCheck.dir
+D:/CodePractice/cpp/WinApi/TestVS/HelloWorld/build/CMakeFiles/PACKAGE.dir
+D:/CodePractice/cpp/WinApi/TestVS/HelloWorld/build/CMakeFiles/RUN_TESTS.dir
+D:/CodePractice/cpp/WinApi/TestVS/HelloWorld/build/CMakeFiles/ALL_BUILD.dir
+D:/CodePractice/cpp/WinApi/TestVS/HelloWorld/build/CMakeFiles/ZERO_CHECK.dir

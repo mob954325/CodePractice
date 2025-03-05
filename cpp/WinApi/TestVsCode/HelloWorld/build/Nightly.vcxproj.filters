@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\CodePractice\cpp\WinApi\TestVS\HelloWorld\build\CMakeFiles\a07cfe0a733c64d2ffa8b8e0b6f60118\Nightly.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\CodePractice\cpp\WinApi\TestVS\HelloWorld\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\CodePractice\cpp\WinApi\TestVS\HelloWorld\build\CMakeFiles\Nightly" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{661870F2-618D-3061-A986-15DBB4AFC2DC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
