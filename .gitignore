@@ -134,3 +134,7 @@ ipch/
 
 # Cmake
 **/CMakePresets.json
+
+# Cs
+**/*.config
+**/*.csproj
