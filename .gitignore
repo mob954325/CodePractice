@@ -432,6 +432,6 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Visual Studio Project File
-*.sin
-*.vcsproj
-*.vcxproj.filters
+**/*.sln
+**/*.vcsproj
+**/*.vcxproj.filters
