@@ -1,0 +1,1 @@
+int? a = null; // int nullable 타입
