@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +22,11 @@ namespace Constructor
         {
             name = playerName;
             level = playerLevel;
+        }
+
+        ~Player()
+        {
+            Console.WriteLine("Player 객체 소멸");
         }
 
         // 정적 생성자 -> 제공되지 않으면 C#의 기본값이 지정됨
