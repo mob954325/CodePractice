@@ -1,0 +1,35 @@
+Main.cpp
+- 게임 루프 실행 위치
+
+GameLogic.h
+- 초기화, 업데이트, 렌더 함수, 랜더사이에 작동할 렌더 프로세스 정의
+class GameLogic
+	virtual void Initialize();		// 실행 시 초기화
+	virtual void Update();		// 매 시간 업데이트할 함수
+	void Render();			// 더블 버퍼링 내용 실행
+	virtual void RenderProcess();	// 더블 버퍼링 중 filpping 전 실행할 내용
+
+GameLogic.cpp
+- 초기화, 업데이트, 렌더 함수내 소스파일의 중복내용 정의
+	virtual void Initialize();
+	virtual void Update();
+	void Render();
+	virtual void RenderProcess();
+
+	Core.cpp
+	- 전체 게임 루프 정의
+
+== Scenes
+
+	MenuScene.cpp
+	- 메인 메뉴 씬
+		- 타이틀, 시작 종료 버튼
+	PlayScene.cpp
+	- 플레이 씬
+		- 실제 플레이어 활동하는 공간
+	EndingScene.cpp
+	- 플레이씬이 종료되면 나오는 씬
+
+
+
+
