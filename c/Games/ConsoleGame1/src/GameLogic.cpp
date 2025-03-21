@@ -19,5 +19,5 @@ void GameLogic::Render()
 
 void GameLogic::RenderProcess()
 {
-	ConsoleRenderer::ScreenDrawString(0, 0, "잘있어라 세상아", FG_BLACK);
+	ConsoleRenderer::ScreenDrawString(0, 0, "aaa", FG_RED);
 }

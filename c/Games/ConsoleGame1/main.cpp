@@ -2,8 +2,11 @@
 
 int main()
 {
-	GameLogic gl = GameLogic();
+	GameLogic gl;
 	gl.Initialize();
-	gl.Update();
-	gl.Render();
+	while (1)
+	{
+		gl.Update();
+		gl.Render();
+	}
 }
