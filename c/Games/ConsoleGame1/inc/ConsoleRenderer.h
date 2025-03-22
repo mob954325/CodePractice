@@ -58,6 +58,15 @@ namespace ConsoleRenderer
 	bool ScreenDrawChar(int x, int y, char ch, WORD attr);
 	bool ScreenDrawString(int x, int y, const char* pStr, WORD attr);
 	bool ScreenSetAttributes(WORD attr);
+	/// <summary>
+	/// 유니코드 문자열 출력 함수
+	/// </summary>
+	/// <param name="x">콘솔 창의 x 좌표</param>
+	/// <param name="y">콘솔 창의 y 좌표</param>
+	/// <param name="pStr">유니코드 문자열</param>
+	/// <param name="attr">문자 속성 , ConsoleRenderer.h 참조</param>
+	/// <returns>속성 적용 성공하면 true 아니면 false</returns>
+	bool ScreenDrawWString(int x, int y, const wchar_t* pStr, WORD attr);
 
 	int ScreenWidth();
 	int ScreenHeight();
