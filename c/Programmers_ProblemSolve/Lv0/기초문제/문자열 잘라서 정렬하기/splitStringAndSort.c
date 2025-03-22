@@ -7,21 +7,11 @@
 
 #define MAXSIZE 100001
 
-int compare(void* arg1, void* arg2)
+int compare(const void* a, const void* b) 
 {
-    char* str1 = (char*)arg1;
-    char* str2 = (char*)arg2;
-
-    int strLen1 = strlen(str1);
-    int strLen2 = strlen(str2);
-    int n = strLen1 < strLen2 ? strLen1 : strLen2;
-
-    for (int i = 0; i < n; i++)
-    {
-        if (str1[i] == str2[i]) continue;
-        
-        return str1[i] < str2[i];
-    }
+    char* x = *(char**)a;
+    char* y = *(char**)b;
+    return strcmp(x, y);
 }
 
 // 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
@@ -32,33 +22,46 @@ char** solution(const char* myString) {
     char** result = (char**)malloc(MAXSIZE * sizeof(char*));
     char* temp = (char*)malloc(MAXSIZE * sizeof(char)); // 문자열 저장용
     int tempCnt = 0, resultCnt = 0;
+    temp[0] = '\0';
 
     for (int i = 0; i < n; i++)
     {
-        if (myString[i] == 'x')
+        if (tempCnt != 0 && myString[i] == 'x')
         {
+            temp[tempCnt++] = '\0';
             result[resultCnt] = (char*)malloc((tempCnt + 1) * sizeof(char));
 
             // 문자열 처리
             strcpy(result[resultCnt], temp);
 
+            for (int j = 0; j < tempCnt; j++)
+            {
+                temp[j] = '\0';
+            }
+
             // 조건 처리
             tempCnt = 0;
             resultCnt++;
         }
-        else // x가 아니면
+        else if (myString[i] != 'x')
         {
             temp[tempCnt++] = myString[i];
-            temp[tempCnt] = '\0';
         }
     }
 
     // 마지막 문자열 처리
-    result[resultCnt] = (char*)malloc((tempCnt + 1) * sizeof(char));
-    strcpy(result[resultCnt++], temp);
+    if (tempCnt != 0)
+    {
+        temp[tempCnt++] = '\0';
+        result[resultCnt] = (char*)malloc((tempCnt) * sizeof(char));
+        strcpy(result[resultCnt++], temp);
+    }
     free(temp);
 
-    qsort(result, resultCnt, MAXSIZE, compare);
+    // 정렬
+    if (resultCnt != 0) qsort(result, resultCnt, sizeof(char*), compare);
+
+    // 복사
     char** answer = (char**)malloc(resultCnt * sizeof(char*));
     for (int i = 0; i < resultCnt; i++)
     {
@@ -73,5 +76,5 @@ char** solution(const char* myString) {
 
 int main()
 {
-    solution("dxccxbbbxaaaa");
+    solution("bxxaxx");
 }
