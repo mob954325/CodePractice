@@ -1,7 +1,8 @@
-#include "ConsoleRenderer.h"
 #include "GameLogic.h"
+#include "MenuScene.h"
 
-#include <locale.h>
+enum Scene SceneCurrent = Scene::MENU;
+enum Scene SceneNext = Scene::MENU;
 
 void GameLogic::Initialize()
 {
@@ -10,18 +11,58 @@ void GameLogic::Initialize()
 
 void GameLogic::Update()
 {
+	// ì”¬ ì „í™˜
+	if (SceneCurrent != SceneNext)
+	{
+		SceneCurrent = SceneNext;
+		// ì „í™˜ ì‹œ ì´ˆê¸°í™”
+		switch (SceneCurrent)
+		{
+		case MENU:
+			MenuScene::Initialize();
+			break;
+		case PLAY:
+			//PlayScene::Initialize();
+			break;
+		case END:
+			//EndScene::Initialize();
+			break;
+		default:
+			break;
+		}
+	}
+
+	switch (SceneCurrent)
+	{
+	case MENU:
+		MenuScene::Update();
+		break;
+	case PLAY:
+		//PlayScene::Update();
+		break;
+	case END:
+		//EndScene::Update();
+		break;
+	}
+
+	// ì—…ë°ì´íŠ¸
 }
 
 void GameLogic::Render()
 {
 	ConsoleRenderer::ScreenClear();
-	GameLogic::RenderProcess();
+	// ì”¬ ì¶œë ¥
+	switch (SceneCurrent)
+	{
+	case MENU:
+		MenuScene::Render();
+		break;
+	case PLAY:
+		//PlayScene::Render();
+		break;
+	case END:
+		//EndScene::Render();
+		break;
+	}
 	ConsoleRenderer::ScreenFlipping();
-}
-
-void GameLogic::RenderProcess()
-{
-	ConsoleRenderer::ScreenDrawString(0, 2, "aaa", FG_RED);
-	ConsoleRenderer::ScreenDrawWString(0, 0, L"ÀÎ°£À» ±¸¼ºÇÏ´Â°Ç ¹«¾ùÀÎ°¡ ?", FG_RED);
-	ConsoleRenderer::ScreenDrawWString(0, 0, L"°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÀÚÂ÷Ä«³ªÆÄÇÏasdfasdfsadfasdf?", FG_RED);
 }

@@ -1,23 +1,25 @@
+== 게임
+장르 - 횡스크롤 슈팅 게임
+목표
+	1. 단일 리스트 구현 및 사용
+	2. 구조체로 플레이어, 적 구현
+게임 목표
+	1. 생존 및 보스 잡기
+
+== 파일 구조
+
 Main.cpp
 - 게임 루프 실행 위치
 
 GameLogic.h
 - 초기화, 업데이트, 렌더 함수, 랜더사이에 작동할 렌더 프로세스 정의
 class GameLogic
-	virtual void Initialize();		// 실행 시 초기화
-	virtual void Update();		// 매 시간 업데이트할 함수
-	void Render();			// 더블 버퍼링 내용 실행
-	virtual void RenderProcess();	// 더블 버퍼링 중 filpping 전 실행할 내용
+	void Initialize();		// 실행 시 초기화
+	void Update();			// 매 시간 업데이트할 함수
+	void Render();			// 콘솔에 출력할 내용
 
 GameLogic.cpp
-- 초기화, 업데이트, 렌더 함수내 소스파일의 중복내용 정의
-	virtual void Initialize();
-	virtual void Update();
-	void Render();
-	virtual void RenderProcess();
-
-	Core.cpp
-	- 전체 게임 루프 정의
+- 게임 전체 루프 실행하는 공간
 
 == Scenes
 
@@ -30,6 +32,9 @@ GameLogic.cpp
 	EndingScene.cpp
 	- 플레이씬이 종료되면 나오는 씬
 
+== 기능들
 
-
-
+Input.h
+	키 입력 확인 기능 정의
+List.h
+	연결 리스트 정의
