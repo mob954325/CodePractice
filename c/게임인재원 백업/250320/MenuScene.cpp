@@ -1,5 +1,7 @@
 #include "MenuScene.h"
 #include "ConsoleRenderer.h"
+#include "Input.h"
+#include "Game.h"
 
 void MenuScene::Initialize()
 {
@@ -8,12 +10,10 @@ void MenuScene::Initialize()
 
 void MenuScene::Update()
 {
+	if (Input::IsKeyReleased(VK_SPACE)) GameControl::SceneChangeToNext();
 }
 
 void MenuScene::Render()
 {
-	ConsoleRenderer::ScreenClear();
-	ConsoleRenderer::ScreenDrawString(0, 0, "Î©îÏù∏Î©îÎâ¥", FG_PINK_DARK);
-	ConsoleRenderer::ScreenFlipping();
+	ConsoleRenderer::ScreenDrawString(0, 0, "∏ﬁ¿Œ∏ﬁ¥∫", FG_PINK_DARK);
 }
- 

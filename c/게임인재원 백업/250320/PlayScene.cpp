@@ -1,7 +1,9 @@
-#pragma once
 #include "PlayScene.h"
-#include <iostream>
 #include "ConsoleRenderer.h"
+#include "Input.h"
+#include "Game.h"
+
+#include <iostream>
 
 void PlayScene::Initialize()
 {
@@ -10,11 +12,10 @@ void PlayScene::Initialize()
 
 void PlayScene::Update()
 {
+	if (Input::IsKeyReleased(VK_SPACE)) GameControl::SceneChangeToNext();
 }
 
 void PlayScene::Render()
 {
-	ConsoleRenderer::ScreenClear();
 	ConsoleRenderer::ScreenDrawString(0, 0, "«√∑π¿Ã", FG_PINK_DARK);
-	ConsoleRenderer::ScreenFlipping();
 }

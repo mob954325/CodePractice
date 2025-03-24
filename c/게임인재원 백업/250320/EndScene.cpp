@@ -1,7 +1,12 @@
-#pragma once
 #include "EndScene.h"
-#include <iostream>
 #include "ConsoleRenderer.h"
+#include "Input.h"
+#include "Game.h"
+#include "Time.h"
+
+#include <iostream>
+
+void EndGame();
 
 void EndScene::Initialize()
 {
@@ -10,12 +15,23 @@ void EndScene::Initialize()
 
 void EndScene::Update()
 {
-
+	if(Input::IsKeyReleased(VK_SPACE)) GameControl::SceneChangeToNext();
+	EndGame();
 }
 
 void EndScene::Render()
 {
-	ConsoleRenderer::ScreenClear();
 	ConsoleRenderer::ScreenDrawString(0, 0, "끝", FG_PINK_DARK);
-	ConsoleRenderer::ScreenFlipping();
+}
+
+/// <summary>
+/// 5초 시간 지나면 씬을 메뉴로 변경하는 함수
+/// </summary>
+void EndGame()
+{
+	if (Time::GetElapsedTime() > 5.0f)
+	{
+		GameControl::SceneChangeByName(Scene::MENU);
+		//GameControl::SceneChangeToNext();
+	}
 }

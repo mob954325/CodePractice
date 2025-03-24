@@ -1,8 +1,9 @@
-#pragma once
 #include "Game.h"
 #include "MenuScene.h"
 #include "PlayScene.h"
 #include "EndScene.h"
+#include "ConsoleRenderer.h"
+#include "Input.h"
 
 #include <iostream>
 #include <windows.h>
@@ -10,33 +11,63 @@
 enum Scene SceneCurrent = Scene::MENU;
 enum Scene SceneNext = Scene::MENU;
 
-LARGE_INTEGER freq, curr, prev;
-float deltaTime = 0, timeElapsed = 0;
-
-int isKeyPressed = 0;
-
-void EndingFinish();
+void CheckSceneChange();
 
 void GameControl::Initialize()
 {
-	QueryPerformanceFrequency(&freq);	// 초당 tick수 가져오기
-	prev = freq;	
-
 	MenuScene::Initialize(); // 메뉴초기화 실행
 }
 
 void GameControl::Update()
 {
-	QueryPerformanceCounter(&curr);
-	deltaTime = static_cast<float>(curr.QuadPart - prev.QuadPart) / freq.QuadPart;
-	timeElapsed += deltaTime;
-	prev = curr;
+	CheckSceneChange();
 
+	// 업데이트
+	switch (SceneCurrent)
+	{
+	case MENU:
+		MenuScene::Update();
+		break;
+	case PLAY:
+		PlayScene::Update();
+		break;
+	case END:
+		EndScene::Update();
+		break;
+	}
+}
+
+void GameControl::Render()
+{
+	ConsoleRenderer::ScreenClear();
+	// 씬 출력
+	switch (SceneCurrent)
+	{
+	case MENU:
+		MenuScene::Render();
+		break;
+	case PLAY:
+		PlayScene::Render();
+		break;
+	case END:
+		EndScene::Render();
+		break;
+	}
+
+	ConsoleRenderer::ScreenFlipping();
+}
+
+// === Change Scene Functions
+
+/// <summary>
+/// 씬 전환 확인 함수
+/// </summary>
+void CheckSceneChange()
+{
 	// 씬 전환
 	if (SceneCurrent != SceneNext)
 	{
 		SceneCurrent = SceneNext;
-		timeElapsed = 0.0f;
 		// 전환 시 초기화
 		switch (SceneCurrent)
 		{
@@ -53,53 +84,14 @@ void GameControl::Update()
 			break;
 		}
 	}
-
-	if (SceneCurrent == Scene::END)
-	{
-		EndingFinish();
-	}
 }
 
-void GameControl::InputProcess()
+void GameControl::SceneChangeByName(Scene sceneName)
 {
-	if (isKeyPressed == 0 && (GetAsyncKeyState(VK_SPACE) & 0x8000))
-	{
-		SceneNext = (Scene)((SceneCurrent + 1) % SCENECOUNT);
-		isKeyPressed = 1;
-	}
-	else if(!GetAsyncKeyState(VK_SPACE))
-	{
-		isKeyPressed = 0;
-	}
+	SceneNext = sceneName;
 }
 
-void GameControl::Render()
+void GameControl::SceneChangeToNext()
 {
-	// 씬 출력
-	switch (SceneCurrent)
-	{
-	case MENU:
-		MenuScene::Update();
-		MenuScene::Render();
-		break;
-	case PLAY:
-		PlayScene::Update();
-		PlayScene::Render();
-		break;
-	case END:
-		EndScene::Update();
-		EndScene::Render();
-		break;
-	}
+	SceneNext = (Scene)((SceneCurrent + 1) % Scene::SCENECOUNT);
 }
-
-void EndingFinish()
-{
-	if (timeElapsed > 5.0f)
-	{
-		SceneNext = Scene::MENU;
-	}
-}
-
-// add
-// 엔딩 10초후 메인메뉴

@@ -1,11 +1,11 @@
 #pragma once
-#define SCENECOUNT 3
 
 enum Scene
 {
 	MENU = 0,
 	PLAY,
-	END
+	END,
+	SCENECOUNT
 };
 
 namespace GameControl
@@ -14,5 +14,6 @@ namespace GameControl
 	void Update();
 	void Render();
 
-	void InputProcess();
+	void SceneChangeByName(Scene sceneName);
+	void SceneChangeToNext();
 }
