@@ -1,10 +1,13 @@
 //#define _CRTDBG_MAP_ALLOC
+#define _DEBUG
+#include "DebugUtility.h"
 
 #include "Windows.h"
 #include "Time.h"
 #include "ConsoleRenderer.h"
 #include "Input.h"
 #include "GameLogic.h"
+
 
 int main()
 {
@@ -23,6 +26,8 @@ int main()
 		Input::Update();
 		GameLogic::Update();
 		GameLogic::Render();
+
+		__CheckFPS();
 	};
 
 	ConsoleRenderer::ScreenRelease();

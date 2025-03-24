@@ -8,7 +8,6 @@ void changeScene2();
 
 void PlayScene::Initialize()
 {
-	ConsoleRenderer::ScreenInit();
 	Player::PlayerInit();
 }
 

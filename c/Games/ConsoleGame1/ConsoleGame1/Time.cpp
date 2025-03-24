@@ -15,6 +15,9 @@ namespace Time
 		QueryPerformanceFrequency(&frequency);	// 고성능 타이머가 1초 동안 증가시킬수 있는 TickCount 값
 		QueryPerformanceCounter(&intialCounter);  // 초기 TickCount 값
 		prevCounter = intialCounter;
+
+		deltaTime = 0.0f;
+		totalTimeValue = 0.0f;
 	}
 
 	void UpdateTime()

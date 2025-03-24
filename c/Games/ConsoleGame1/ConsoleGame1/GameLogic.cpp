@@ -12,7 +12,6 @@ void CheckSceneChange();
 void GameLogic::Initialize()
 {
 	MenuScene::Initialize(); // 메뉴초기화 실행
-	ConsoleRenderer::ScreenInit();
 }
 
 void GameLogic::Update()

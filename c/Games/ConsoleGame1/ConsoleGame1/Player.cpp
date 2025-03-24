@@ -1,3 +1,4 @@
+#include "DebugUtility.h"
 #include "ConsoleRenderer.h"
 #include "Player.h"
 #include "Input.h"
@@ -8,39 +9,42 @@ namespace Player
 	COORD playerCoord = { 0,0 };
 	COORD nextCoord = { 0,0 };
 	float timer = 0.0f;
-	float maxInputTimer = 0.2f;
+	float maxInputTimer = 0.08f;
 
 
 	int PlayerInit()
 	{
-		nextCoord = { 0,0 };
+		nextCoord = { 2,2 };
 		playerCoord = { 0,0 };
 		return 1;
 	}
 
 	void Move()
 	{
-		// InputDelay =========================
 		timer += Time::GetDeltaTime();
+
 		if (timer < maxInputTimer) return;
 
-		// PlayerMove =========================
 		nextCoord = playerCoord;
 		if (Input::IsKeyDown('W'))
 		{
-			playerCoord.Y -= 1;
+			nextCoord.Y -= 1;
+			__PrintDebugLog("Up\n");
 		}
 		if (Input::IsKeyDown('S'))
 		{
-			playerCoord.Y += 1;
+			nextCoord.Y += 1;
+			__PrintDebugLog("Down\n");
 		}
 		if (Input::IsKeyDown('A'))
 		{
-			playerCoord.X -= 1;
+			nextCoord.X -= 1;
+			__PrintDebugLog("Back\n");
 		}
 		if (Input::IsKeyDown('D'))
 		{
-			playerCoord.X += 1;
+			nextCoord.X += 1;
+			__PrintDebugLog("Front\n");
 		}
 
 		timer = 0; // timer Reset
@@ -48,6 +52,7 @@ namespace Player
 		if (IsVaildPosition(nextCoord) == 1)
 		{
 			playerCoord = nextCoord;
+			__PrintDebugLog("Move\n");
 		}
 	}
 
@@ -56,6 +61,7 @@ namespace Player
 		if (Input::IsKeyPressed('F'))
 		{
 			// 발사
+			__PrintDebugLog("Shoot\n");
 		}
 	}
 
