@@ -1,8 +1,9 @@
 #pragma once
 #include <Windows.h>
+#include "List.h"
 
-#define MAXWIDTH 256
-#define MAXHEIGHT 256
+#define MAXWIDTH 128
+#define MAXHEIGHT 32
 
 namespace Player
 {
@@ -10,6 +11,7 @@ namespace Player
 
 	void Move();
 	void Shoot();
+	void ShootRender(); // TODO : 나중에 소스파일 따로 추가
 
 	void RenderPlayer();
 

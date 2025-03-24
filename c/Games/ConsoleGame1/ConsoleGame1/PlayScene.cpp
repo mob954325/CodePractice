@@ -22,6 +22,8 @@ void PlayScene::Render()
 	ConsoleRenderer::ScreenDrawString(50, 0, "Play", BG_GREEN);
 	Player::RenderPlayer();
 	Player::RenderPlayerPosition();
+	Player::ShootRender();
+
 	changeScene2();
 }
 

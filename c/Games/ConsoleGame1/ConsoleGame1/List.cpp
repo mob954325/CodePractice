@@ -1,31 +1,35 @@
 #include "List.h"
 
-void AddNode(Node* head, int value)
+Node* AddNode(Node* head, Data value)
 {
 	if (head == NULL)
 	{
 		head = (Node*)malloc(sizeof(Node));
-		head->data.INT = value;
+		head->data = value;
 		head->next = NULL;
 	}
 	else
 	{
 		Node* preHead = head;
 		head = (Node*)malloc(sizeof(Node));
-		head->data.INT = value;
+		head->data = value;
 		head->next = preHead;
 	}
+
+	return head;
 }
 
 // 10 <- 20 <- 50(head)
 
-void DeleteNode(Node* head, int value)
+void DeleteNode(Node* head, int index)
 {
 	Node* currNode = head;
 	Node* prevNode = NULL;
+
+	int currIndex = 0;
 	while (currNode != NULL)
 	{
-		if (currNode->data.INT == value) // 해당 값을 가진 노드를 발견했다.
+		if (currIndex == index) // 해당 인덱스 찾음
 		{
 			Node* nextNode = currNode->next;
 			free(currNode); // 메모리 해제
@@ -44,6 +48,8 @@ void DeleteNode(Node* head, int value)
 			prevNode = currNode;
 			currNode = currNode->next;
 		}
+
+		currIndex++;
 	}
 
 	if (currNode == NULL) printf("Invaild Node Value...\n");

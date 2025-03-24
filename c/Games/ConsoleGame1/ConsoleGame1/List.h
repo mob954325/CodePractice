@@ -1,11 +1,12 @@
 #pragma once
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <windows.h>
 typedef union
 {
 	int INT;
 	float FLOAT;
+	COORD COORD;
 } Data;
 
 typedef struct Node
@@ -14,5 +15,5 @@ typedef struct Node
 	struct Node* next;
 } Node;
 
-Node* AddNode();
-void DeleteNode();
+Node* AddNode(Node* head, Data value);
+void DeleteNode(Node* head, int index);
