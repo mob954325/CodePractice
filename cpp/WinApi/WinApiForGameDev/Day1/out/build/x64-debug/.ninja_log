@@ -1,0 +1,9 @@
+# ninja log v6
+9	1054	7587339115930969	CMakeFiles/winmain.dir/winmain.cpp.obj	8b66c985761e6d37
+22	1095	7587342577110726	CMakeFiles/keylogger.dir/keylogger.cpp.obj	56eac743b605e256
+16	1179	7583164156209640	CMakeFiles/homework2template.dir/homework2template.cpp.obj	501f76ff8285b71b
+1055	1460	7587339126381570	winmain.exe	b7dc7b7cb6f27390
+1096	1321	7587342587842985	keylogger.exe	ce502d40339417c8
+1179	1846	7583164167835751	homework2template.exe	311fecef61d39951
+8	1057	7587352308803229	CMakeFiles/winmain.dir/winmain.cpp.obj	8b66c985761e6d37
+1058	1280	7587352319302932	winmain.exe	b7dc7b7cb6f27390

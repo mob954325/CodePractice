@@ -1,0 +1,7 @@
+# ninja log v6
+31	621	7589735338959449	CMakeFiles/window.dir/input.cpp.obj	357c4a6abd491b88
+22	1077	7589735338868054	CMakeFiles/window.dir/winMain.cpp.obj	9ece19bb48aa67d7
+1078	1626	7589735349431117	window.exe	4c6634b3247a568b
+12	614	7589740898790981	CMakeFiles/window.dir/input.cpp.obj	357c4a6abd491b88
+7	1064	7589740898745798	CMakeFiles/window.dir/winMain.cpp.obj	9ece19bb48aa67d7
+1064	1313	7589740909319393	window.exe	4c6634b3247a568b

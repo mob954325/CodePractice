@@ -1,0 +1,7 @@
+# ninja log v6
+5	29	7591534236854493	D:/CodePractice/cpp/WinApi/WinApiForGameDev/Day14/out/build/x64-debug/CMakeFiles/cmake.verify_globs	c978e5e92dcbc049
+39	600	7591534237190418	CMakeFiles/window.dir/platform/src/input.cpp.obj	4b87ef7b73dc833b
+34	633	7591534237140394	CMakeFiles/window.dir/platform/src/gameWindowBuffer.cpp.obj	6e6b70cffd673b5
+31	1091	7591534237105173	CMakeFiles/window.dir/game/src/gameLogic.cpp.obj	6737b48e635fb509
+44	1107	7591534237244212	CMakeFiles/window.dir/platform/src/winMain.cpp.obj	99d8903f51603476
+1107	1670	7591534247870952	window.exe	c4ff9d21f05be8e7

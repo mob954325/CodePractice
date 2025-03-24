@@ -1,0 +1,21 @@
+# ninja log v6
+9	1015	7587313671234293	CMakeFiles/winmainconsole.dir/winmainconsole.cpp.obj	9eda7d4e618abb6b
+9	61	7587314600205826	CMakeFiles/winmainconsole.dir/winmainconsole.cpp.obj	9eda7d4e618abb6b
+22	1031	7587314664356667	CMakeFiles/colors.dir/colors.cpp.obj	9e15c100a91f9eda
+1032	1809	7587314674448579	colors.exe	732f285a2872f91e
+25	1150	7587332018954572	CMakeFiles/consoleBuffer.dir/consoleBuffer.cpp.obj	4b175e9eebd81050
+1151	1639	7587332030219879	consoleBuffer.exe	2ea18f5450f51f49
+24	1184	7587332113248023	CMakeFiles/consoleBuffer.dir/consoleBuffer.cpp.obj	4b175e9eebd81050
+1185	1392	7587332124855477	consoleBuffer.exe	2ea18f5450f51f49
+15	1336	7587332456013250	CMakeFiles/consoleBuffer.dir/consoleBuffer.cpp.obj	4b175e9eebd81050
+1337	1548	7587332469237343	consoleBuffer.exe	2ea18f5450f51f49
+23	1069	7587333119452755	CMakeFiles/consoleBuffer.dir/consoleBuffer.cpp.obj	4b175e9eebd81050
+1070	1401	7587333129916117	consoleBuffer.exe	2ea18f5450f51f49
+26	1118	7587335836083808	CMakeFiles/winmainconsole.dir/winmainconsole.cpp.obj	9eda7d4e618abb6b
+1119	1639	7587335847019496	winmainconsole.exe	e1d497dedf141396
+23	1066	7587337479680508	CMakeFiles/cursor.dir/cursor.cpp.obj	3743b7535efad5c6
+1066	1779	7587337490123726	cursor.exe	8fd899fa800de248
+23	1059	7587362326817131	CMakeFiles/winmainconsole.dir/winmainconsole.cpp.obj	9eda7d4e618abb6b
+1060	1267	7587362337185819	winmainconsole.exe	e1d497dedf141396
+23	1016	7587362682945250	CMakeFiles/consoleBuffer.dir/consoleBuffer.cpp.obj	4b175e9eebd81050
+1017	1259	7587362692882909	consoleBuffer.exe	2ea18f5450f51f49

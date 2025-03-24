@@ -1,0 +1,7 @@
+# ninja log v6
+5	1042	7587398871987269	CMakeFiles/dialogBox.dir/Dialogue.cpp.obj	59ad1793b202b366
+1043	1521	7587398882361861	dialogBox.exe	7c75dd9bddb77cab
+20	1024	7587401587217931	CMakeFiles/dialogBox.dir/Dialogue.cpp.obj	59ad1793b202b366
+1025	1240	7587401597262275	dialogBox.exe	7c75dd9bddb77cab
+6	1089	7587405332122906	CMakeFiles/dialogBox2.dir/DialogueAbstraction.cpp.obj	33cb1e97826b6f68
+1090	1553	7587405342972126	dialogBox2.exe	57d8781942d0880c

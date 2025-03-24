@@ -1,0 +1,87 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Day2",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "colors::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-colors-Debug-403a1cb390a894b30f84.json",
+					"name" : "colors",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "consoleBuffer::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-consoleBuffer-Debug-082522d8dea219b1fcc7.json",
+					"name" : "consoleBuffer",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cursor::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cursor-Debug-61caf11b1570e24b4a96.json",
+					"name" : "cursor",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "winmainconsole::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-winmainconsole-Debug-09aee22f96f235675881.json",
+					"name" : "winmainconsole",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/CodePractice/cpp/WinApi/WinApiForGameDev/Day2/out/build/x64-debug",
+		"source" : "D:/CodePractice/cpp/WinApi/WinApiForGameDev/Day2"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

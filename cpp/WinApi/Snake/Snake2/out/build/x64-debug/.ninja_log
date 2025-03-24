@@ -1,0 +1,9 @@
+# ninja log v6
+971	1209	7594343970694296	Snake2.exe	b52c6db3ad797e14
+54	825	7598490836744449	CMakeFiles/window.dir/platform/src/gameWindowBuffer.cpp.obj	e901f241956232a5
+58	832	7598490836794449	CMakeFiles/window.dir/platform/src/input.cpp.obj	11f6a1e2881c2fb9
+68	1329	7599372538538788	CMakeFiles/window.dir/platform/src/main.cpp.obj	3030f103449c0b27
+29	59	7599372538149134	D:/CodePractice/cpp/WinApi/Snake/Snake2/out/build/x64-debug/CMakeFiles/cmake.verify_globs	bfde694dc35b80e
+53	1100	7599371971012218	CMakeFiles/window.dir/game/src/gameLogic.cpp.obj	88679e66c2445862
+1344	2395	7599372551288103	window.exe	de069be6ec3c7c2d
+64	1343	7599372538493760	CMakeFiles/window.dir/game/src/snake.cpp.obj	51a1028c0ec016a4

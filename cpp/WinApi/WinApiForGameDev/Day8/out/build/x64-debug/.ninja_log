@@ -1,0 +1,12 @@
+# ninja log v6
+576	1068	7588175059000690	victim.exe	9244e3fd37a5bc32
+7	993	7588177108324385	CMakeFiles/hacker.dir/hacker.cpp.obj	add0f52b5c6d594a
+7	574	7588175053308799	CMakeFiles/victim.dir/victim.cpp.obj	2dd1a06955f87e5d
+13	1027	7588177108379549	CMakeFiles/virtualScanner.dir/virtualScanner.cpp.obj	fd21895e3e1cc167
+1028	1235	7588177118524643	virtualScanner.exe	83ff6ab09d13a1d4
+31	224	7588181081071987	build.ninja	722ed0992bc39914
+994	1214	7588177118194037	hacker.exe	eab3bf8af16cb275
+48	1144	7588181080289378	CMakeFiles/victimPlayer.dir/victimPlayer.cpp.obj	f92547daa83eb317
+44	1182	7588181080234267	CMakeFiles/playerVirtualScanner.dir/playerVirtualScanner.cpp.obj	b1b09f81d14f8321
+1183	2227	7588181091627270	playerVirtualScanner.exe	4496e9e904d42ffc
+1145	2428	7588181091259691	victimPlayer.exe	9d108975906d848e
