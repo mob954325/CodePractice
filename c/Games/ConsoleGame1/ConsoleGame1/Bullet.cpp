@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "GameManager.h"
 
 namespace Bullet
 {
@@ -36,7 +37,7 @@ namespace Bullet
 		for (int i = 0; i < bulletCount; i++)
 		{
 			Node* currBullet = FindNode(BulletList, i);
-			ConsoleRenderer::ScreenDrawChar(currBullet->data.coords.X, currBullet->data.coords.Y, 'o', FG_RED);
+			ConsoleRenderer::ScreenDrawChar(currBullet->data.coords.X, currBullet->data.coords.Y, 'o', FG_YELLOW);
 		}
 	}
 

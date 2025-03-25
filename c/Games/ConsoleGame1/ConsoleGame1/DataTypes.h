@@ -1,6 +1,14 @@
 #pragma once
 #include <windows.h>
 
+#define ENEMY_SPAWN_AREA_WIDTH 5
+#define ENEMY_SPAWN_AREA_HEIGHT 21
+
+#define MAXWIDTH 128
+#define MAXHEIGHT 32
+
+#define NON_EVENT_POSITION_X -999
+
 enum Tag
 {
 	None = 0,
