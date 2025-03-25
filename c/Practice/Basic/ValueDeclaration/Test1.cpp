@@ -14,6 +14,7 @@ namespace Test
 
 	void Print()
 	{
-		printf("%d // %d", array1[0], array1[1]);
+		printf("asf");
+		printf("aa%d // %d", array1[0], array1[1]);
 	}
 }
