@@ -6,11 +6,11 @@
 
 #include <random>
 
-namespace Enemy
+namespace EnemyManager
 {
+	void EnemyManagerInitialize();
 	void EnemyUpdate();
 	void EnemyRender();
-	void OnSceneEnd();
 
 	void SpawnEnemy();
 	void SpawnEnemyAtPosition(COORD spawnPosition);

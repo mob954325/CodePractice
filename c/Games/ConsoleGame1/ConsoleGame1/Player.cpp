@@ -4,8 +4,7 @@
 #include "ConsoleRenderer.h"
 #include "Input.h"
 #include "Time.h"
-
-#include "Bullet.h"
+#include "BulletManager.h"
 
 namespace Player
 {
@@ -64,7 +63,7 @@ namespace Player
 	{
 		if (Input::IsKeyPressed('F'))
 		{
-			Bullet::CreateBullet(playerCoord, Tag::PlayerObject);
+			BulletManager::CreateBullet(playerCoord, Tag::PlayerObject);
 			__PrintDebugLog("Shoot\n");
 		}
 	}

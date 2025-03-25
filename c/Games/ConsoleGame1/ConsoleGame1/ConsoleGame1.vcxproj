@@ -128,13 +128,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="Bullet.h" />
+    <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="BulletManager.h" />
     <ClCompile Include="ConsoleRenderer.cpp" />
     <ClCompile Include="DataTypes.cpp" />
     <ClCompile Include="DebugUtility.cpp" />
     <ClCompile Include="EndScene.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Intput.cpp" />
@@ -150,7 +150,7 @@
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="DebugUtility.h" />
     <ClInclude Include="EndScene.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Input.h" />

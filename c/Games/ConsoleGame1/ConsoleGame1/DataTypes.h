@@ -7,8 +7,6 @@
 #define MAXWIDTH 128
 #define MAXHEIGHT 32
 
-#define NON_EVENT_POSITION_X -999
-
 enum Tag
 {
 	None = 0,
@@ -16,13 +14,16 @@ enum Tag
 	EnemyObject,
 };
 
-struct Object
+struct ScreenElement
 {
 	Tag tag = Tag::None;
 	// 오브젝트 크기
 	int size = 0;
 	// 오브젝트 크기만큼의 좌표값
 	COORD coords;
+
+	// 임시 변수
+	int health = 1;
 };
 
-Object SetObjectValue(int objSize, COORD Coords, Tag tag);
+ScreenElement SetScreenElementValue(int objSize, COORD Coords, Tag tag);

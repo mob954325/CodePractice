@@ -26,6 +26,7 @@ void GameLoop::Update()
 		break;
 	case PLAY:
 		PlayScene::Update();
+		PlayScene::CheckCollider();
 		break;
 	case END:
 		EndScene::Update();

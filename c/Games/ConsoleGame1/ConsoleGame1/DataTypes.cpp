@@ -1,8 +1,8 @@
 #include "DataTypes.h"
 
-Object SetObjectValue(int objSize, COORD Coords, Tag tag)
+ScreenElement SetScreenElementValue(int objSize, COORD Coords, Tag tag)
 {
-	Object obj;
+	ScreenElement obj;
 	obj.size = objSize;
 	obj.coords = Coords;
 	obj.tag = tag;

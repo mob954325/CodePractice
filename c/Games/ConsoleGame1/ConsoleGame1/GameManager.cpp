@@ -1,62 +1,32 @@
 #include "GameManager.h"
+
 #include "DebugUtility.h"
 
 namespace GameManager
 {
-	Tag gameBufferState[MAXHEIGHT][MAXWIDTH];
+	// 여기에 리스트 관리
+	ObjectNode* BulletList = NULL;
+	ObjectNode* EnemyList = NULL;
 
-	int FindNodeByCoord(Node* head, COORD position);
+	Tag gameBufferState[MAXHEIGHT][MAXWIDTH];
 
 	void GameManagerInitialize()
 	{
-		ClearGameBufferState();
+		// 초기화
 	}
 
-	void ClearGameBufferState()
+	void OnPlaySceneEnd()
 	{
-		for (int y = 0; y < MAXHEIGHT; y++)
-		{
-			for (int x = 0; x < MAXWIDTH; x++)
-			{
-				gameBufferState[y][x] = Tag::None;
-			}
-		}
+		FreeAllNode(BulletList);
+		FreeAllNode(EnemyList);
 	}
 
-	void UpdateGameBufferState(Node* head)
+	Node*& GetBulldetList()
 	{
-		Node* currNode = head;
-		while (currNode != NULL)
-		{
-			byte y = currNode->data.coords.Y;
-			byte x = currNode->data.coords.X;
-
-			if (gameBufferState[y][x] != Tag::None)
-			{
-				DebugLog("Event!!!\n"); // 이벤트 발생
-
-				int eventedNodeIndex = FindNodeByCoord(head, { x, y });
-				DeleteNode(&head, eventedNodeIndex);
-			}
-			gameBufferState[y][x] = head->data.tag;
-
-			currNode = currNode->prev;
-		}
+		return BulletList;
 	}
-
-	int FindNodeByCoord(Node* head, COORD position)
+	Node*& GetEnemyList()
 	{
-		int enemyCount = NodeCount(head);
-		for (int i = 0; i < enemyCount; i++)
-		{
-			Node* currNode = FindNode(head, i);
-			if ((currNode->data.coords.X == position.X)
-				&& (currNode->data.coords.Y == position.Y))
-			{
-				return i;
-			}
-		}
-
-		return -1;
+		return EnemyList;
 	}
 }

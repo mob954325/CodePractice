@@ -4,10 +4,11 @@
 #include "Input.h"
 #include "GameLoop.h"
 #include "Player.h"
-#include "Bullet.h"
-#include "Enemy.h"
-
+#include "BulletManager.h"
+#include "EnemyManager.h"
 #include "GameManager.h"
+
+#include "DebugUtility.h"
 
 // 임시 사용 함수
 void changeScene2();
@@ -15,20 +16,22 @@ void SetInGameTime();
 
 void PlayScene::Initialize()
 {
+	GameManager::GameManagerInitialize();
+	EnemyManager::EnemyManagerInitialize();
+	BulletManager::BulletManagerInitialize();
+
 	Player::PlayerInit();
 
 	// 임시 적 스폰
-	Enemy::SpawnEnemyAtPosition({20,5}); 
+	EnemyManager::SpawnEnemyAtPosition({20,5}); 
 }
 
 void PlayScene::Update()
 {
-	GameManager::ClearGameBufferState();
+	//EnemyManager::SetEnemySpanwer(0.4f);
+	BulletManager::BulletUpdate();
 
-	//Enemy::SetEnemySpanwer(0.4f);
-	Bullet::BulletUpdate();
-
-	Enemy::EnemyUpdate();
+	EnemyManager::EnemyUpdate();
 
 	Player::Move();
 	Player::Shoot();
@@ -38,9 +41,9 @@ void PlayScene::Update()
 
 void PlayScene::Render()
 {
-	Bullet::BulletRender();
+	BulletManager::BulletRender();
 
-	Enemy::EnemyRender();
+	EnemyManager::EnemyRender();
 
 	Player::RenderPlayerPosition();
 	Player::RenderPlayer();
@@ -49,12 +52,42 @@ void PlayScene::Render()
 	SetInGameTime();
 }
 
+void PlayScene::CheckCollider()
+{
+	// 총알이 뭐랑 닿았는지 확인하기
+	Node* bulletList = GameManager::GetBulldetList();
+	Node* enemyList = GameManager::GetEnemyList();
+
+	int bulletCount = NodeCount(bulletList);
+
+	for (int i = 0; i < bulletCount; i++)
+	{
+		Node* currBullet = FindNode(bulletList, i);
+		int enemyCount = NodeCount(enemyList);
+
+		DebugLog("1\n");	
+		for (int j = 0; j < enemyCount; j++)
+		{
+			DebugLog("2\n");
+			Node* currEnemy = FindNode(enemyList, j);
+			if ((currBullet->data.coords.X == currEnemy->data.coords.X)
+				&& (currBullet->data.coords.Y == currEnemy->data.coords.Y))
+			{
+				// 총알이랑 위치 겹치는 적
+				DebugLog("Enemy Hit\n");
+				
+				currBullet->data.health--;
+				currEnemy->data.health--;
+			}
+		}
+	}
+}
+
 void changeScene2()
 {
 	if (Input::IsKeyPressed(VK_SPACE))
 	{
-		Bullet::OnSceneEnd();
-		Enemy::OnSceneEnd();
+		GameManager::OnPlaySceneEnd();
 		GameLoop::SceneChangeToNext();
 	}
 }

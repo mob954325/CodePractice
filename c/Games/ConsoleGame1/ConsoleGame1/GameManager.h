@@ -5,7 +5,10 @@
 namespace GameManager
 {
 	void GameManagerInitialize();
+	void OnPlaySceneEnd();
 
-	void ClearGameBufferState();
-	void UpdateGameBufferState(Node* head);
+	Node*& GetBulldetList();
+	Node*& GetEnemyList();
+	//void ClearGameBufferState();
+	//void UpdateGameBufferState(Node* head);
 }

@@ -5,14 +5,14 @@
 
 typedef struct Node
 {
-	Object data;
+	ScreenElement data;
 	struct Node* next;
 	struct Node* prev;
 } ObjectNode;
 
 // Function =================================
 
-void AddNode(Node** head, Object value);
+void AddNode(Node** head, ScreenElement value);
 void DeleteNode(Node** head, int index);
 Node* FindNode(Node* head, int index);
 int NodeCount(Node* head);

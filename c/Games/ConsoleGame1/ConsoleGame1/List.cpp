@@ -1,6 +1,6 @@
 #include "List.h"
 
-void AddNode(Node** head, Object value)
+void AddNode(Node** head, ScreenElement value)
 {
 	if (*head == NULL)
 	{
@@ -22,27 +22,31 @@ void AddNode(Node** head, Object value)
 
 void DeleteNode(Node** head, int index)
 {
-	Node* currNode = FindNode(*head, index);
-	Node* prevNode = currNode->prev;
-	if (currNode != NULL)
-	{
-		Node* nextNode = currNode->next;
-		if (nextNode == NULL) // head
-		{
-			if (prevNode != NULL)
-			{
-				*head = prevNode;
-				(*head)->next = NULL;
-			}
-		}
-		else
-		{
-			prevNode->next = nextNode;
-			nextNode->prev = prevNode;
-		}
+	if (*head == NULL) return;
 
-		free(currNode); // 메모리 해제
+	Node* currNode = FindNode(*head, index);
+
+	if (currNode == NULL) return;
+
+	Node* prevNode = currNode->prev;
+	Node* nextNode = currNode->next;
+
+	if (nextNode == NULL) // 첫 번째 노드
+	{
+		*head = prevNode;
+
+		if (*head != NULL)
+		{
+			(*head)->next = NULL;
+		}
 	}
+	else
+	{
+		if (prevNode != NULL) prevNode->next = nextNode;
+		if (nextNode != NULL) nextNode->prev = prevNode;
+	}
+
+	free(currNode); // 메모리 해제
 }
 
 Node* FindNode(Node* head, int index)
@@ -64,7 +68,7 @@ Node* FindNode(Node* head, int index)
 		currIndex++;
 	}
 
-	return currNode; // NULL
+	return NULL; // NULL
 }
 
 int NodeCount(Node* head)

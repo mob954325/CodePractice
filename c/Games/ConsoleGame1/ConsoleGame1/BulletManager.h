@@ -4,10 +4,10 @@
 #include "Time.h"
 #include "DataTypes.h"
 
-namespace Bullet
+namespace BulletManager
 {
+	void BulletManagerInitialize();
 	void CreateBullet(COORD spawnPos, Tag tag);
 	void BulletUpdate();
 	void BulletRender();
-	void OnSceneEnd();
 }
