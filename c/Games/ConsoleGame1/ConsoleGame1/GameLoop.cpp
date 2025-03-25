@@ -1,4 +1,4 @@
-#include "GameLogic.h"
+#include "GameLoop.h"
 #include "MenuScene.h"
 #include "PlayScene.h"
 #include "EndScene.h"
@@ -9,12 +9,12 @@ enum Scene SceneNext = Scene::MENU;
 
 void CheckSceneChange();
 
-void GameLogic::Initialize()
+void GameLoop::Initialize()
 {
 	MenuScene::Initialize(); // 메뉴초기화 실행
 }
 
-void GameLogic::Update()
+void GameLoop::Update()
 {
 	CheckSceneChange();
 
@@ -33,7 +33,7 @@ void GameLogic::Update()
 	}
 }
 
-void GameLogic::Render()
+void GameLoop::Render()
 {
 	ConsoleRenderer::ScreenClear();
 	// 씬 출력
@@ -82,12 +82,12 @@ void CheckSceneChange()
 	}
 }
 
-void GameLogic::SceneChangeByName(Scene sceneName)
+void GameLoop::SceneChangeByName(Scene sceneName)
 {
 	SceneNext = sceneName;
 }
 
-void GameLogic::SceneChangeToNext()
+void GameLoop::SceneChangeToNext()
 {
 	SceneNext = (Scene)((SceneCurrent + 1) % Scene::SCENECOUNT);
 }

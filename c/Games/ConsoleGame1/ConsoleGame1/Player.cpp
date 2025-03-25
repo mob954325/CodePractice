@@ -1,19 +1,20 @@
+#include "Player.h"
+
 #include "DebugUtility.h"
 #include "ConsoleRenderer.h"
-#include "Player.h"
 #include "Input.h"
 #include "Time.h"
 
+#include "Bullet.h"
+
 namespace Player
 {
+	// Player
 	COORD playerCoord = { 0,0 };
 	COORD nextCoord = { 0,0 };
-	Node* BulletList = NULL;
 
-	float timer = 0.0f;
-	float maxInputTimer = 0.08f;
-
-	COORD testCoord = { 0,0 };
+	float inputTimer = 0.0f;
+	float maxInputTime = 0.08f;
 
 	int PlayerInit()
 	{
@@ -25,10 +26,9 @@ namespace Player
 
 	void Move()
 	{
-		timer += Time::GetDeltaTime();
+		inputTimer += Time::GetDeltaTime();
 
-		if (timer < maxInputTimer) return;
-		testCoord.X++; // test
+		if (inputTimer < maxInputTime) return;
 
 		nextCoord = playerCoord;
 		if (Input::IsKeyDown('W'))
@@ -52,50 +52,21 @@ namespace Player
 			//__PrintDebugLog("Front\n");
 		}
 
-		timer = 0; // timer Reset
-
 		if (IsVaildPosition(nextCoord) == 1)
 		{
 			playerCoord = nextCoord;
 		}
+
+		inputTimer = 0; // timer Reset
 	}
 
 	void Shoot()
 	{
 		if (Input::IsKeyPressed('F'))
 		{
-			// 발사
-			Data spawnCoord;
-			spawnCoord.COORD = playerCoord;
-			spawnCoord.COORD.X++;
-
-			BulletList = AddNode(BulletList, spawnCoord);
-			ConsoleRenderer::ScreenDrawChar(spawnCoord.COORD.X, spawnCoord.COORD.Y, ' ', BG_RED);
-
+			Bullet::CreateBullet(playerCoord, Tag::PlayerObject);
 			__PrintDebugLog("Shoot\n");
 		}
-	}
-	
-	void ShootRender()
-	{
-		Node* currNode = BulletList;
-
-		if (testCoord.X	 < 20)
-		{
-			ConsoleRenderer::ScreenDrawChar(testCoord.X, 5, 'o', FG_BLUE);
-		}
-
-		//int cnt = 0;
-		//while (currNode != NULL)
-		//{
-		//	COORD* currPos = &currNode->data.COORD;
-		//	currPos->X++;
-		//	
-		//	ConsoleRenderer::ScreenDrawChar(currPos->X, currPos->Y, 'a', BG_RED);
-
-		//	currNode = currNode->next;
-		//	cnt++;
-		//}
 	}
 
 	void RenderPlayer()

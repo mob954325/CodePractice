@@ -8,7 +8,7 @@ enum Scene
 	SCENECOUNT
 };
 
-namespace GameLogic
+namespace GameLoop
 {
 	void Initialize();		// 실행 시 초기화
 	void Update();			// 매 시간 업데이트할 함수

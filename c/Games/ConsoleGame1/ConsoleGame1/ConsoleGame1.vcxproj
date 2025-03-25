@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -128,10 +128,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Bullet.h" />
     <ClCompile Include="ConsoleRenderer.cpp" />
+    <ClCompile Include="DataTypes.cpp" />
     <ClCompile Include="DebugUtility.cpp" />
     <ClCompile Include="EndScene.cpp" />
-    <ClCompile Include="GameLogic.cpp" />
+    <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="Intput.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />
@@ -142,9 +145,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleRenderer.h" />
+    <ClInclude Include="DataTypes.h" />
     <ClInclude Include="DebugUtility.h" />
     <ClInclude Include="EndScene.h" />
-    <ClInclude Include="GameLogic.h" />
+    <ClInclude Include="GameLoop.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="MenuScene.h" />

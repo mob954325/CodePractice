@@ -2,18 +2,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <windows.h>
-typedef union
-{
-	int INT;
-	float FLOAT;
-	COORD COORD;
-} Data;
+#include "DataTypes.h"
+
+// Node =================================
 
 typedef struct Node
 {
-	Data data;
+	Object data;
 	struct Node* next;
-} Node;
+	struct Node* prev;
+} ObjectNode;
 
-Node* AddNode(Node* head, Data value);
-void DeleteNode(Node* head, int index);
+// Function =================================
+
+void AddNode(Node** head, Object value);
+void DeleteNode(Node** head, int index);
+Node* FindNode(Node* head, int index);
+int NodeCount(Node* head);
+void FreeAllNode(Node* head);

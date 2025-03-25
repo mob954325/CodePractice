@@ -1,7 +1,7 @@
 #include "MenuScene.h"
 #include "ConsoleRenderer.h"
 #include "Input.h"
-#include "GameLogic.h"
+#include "GameLoop.h"
 
 void changeScene();
 
@@ -24,7 +24,7 @@ void changeScene()
 {
 	if (Input::IsKeyPressed(VK_SPACE))
 	{
-		GameLogic::SceneChangeToNext();
+		GameLoop::SceneChangeToNext();
 	}
 }
  

@@ -1,6 +1,5 @@
 #pragma once
 #include <Windows.h>
-#include "List.h"
 
 #define MAXWIDTH 128
 #define MAXHEIGHT 32
