@@ -1,5 +1,6 @@
 #include "EnemyManager.h"
 
+#include "BulletManager.h"
 #include "DebugUtility.h"
 #include "GameManager.h"
 
@@ -56,7 +57,11 @@ namespace EnemyManager
 		{
 			Node* currEnemy = FindNode(EnemyList, i);
 			
+			BulletManager::CreateBullet({ (short)(currEnemy->data.coords.X - 3),currEnemy->data.coords.Y }, -1, Tag::PlayerObject);
+			__PrintDebugLog("Shoot\n");
 		}
+
+		enemyShootTimer = 0;
 	}
 
 	void EnemyRender()
@@ -77,13 +82,13 @@ namespace EnemyManager
 		byte spawnPositionY = rand() % ENEMY_SPAWN_AREA_HEIGHT;
 
 		// TODO : 랜덤시드 변경 코드 넣기
-		ScreenElement enemyData = SetScreenElementValue(1, { (byte)(spawnPositionX + MAXWIDTH), spawnPositionY }, Tag::EnemyObject);
+		ScreenElement enemyData = SetScreenElementValue(1, { (byte)(spawnPositionX + MAXWIDTH), spawnPositionY }, -1, Tag::EnemyObject);
 		AddNode(&EnemyList, enemyData);
 	}
 
 	void SpawnEnemyAtPosition(COORD spawnPosition)
 	{
-		ScreenElement enemyData = SetScreenElementValue(1, spawnPosition, Tag::EnemyObject);
+		ScreenElement enemyData = SetScreenElementValue(1, spawnPosition, -1, Tag::EnemyObject);
 		AddNode(&EnemyList, enemyData);
 	}
 

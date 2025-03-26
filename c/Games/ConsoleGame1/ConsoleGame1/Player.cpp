@@ -63,7 +63,7 @@ namespace Player
 	{
 		if (Input::IsKeyPressed('F'))
 		{
-			BulletManager::CreateBullet(playerCoord, Tag::PlayerObject);
+			BulletManager::CreateBullet(playerCoord, 1, Tag::PlayerObject);
 			__PrintDebugLog("Shoot\n");
 		}
 	}

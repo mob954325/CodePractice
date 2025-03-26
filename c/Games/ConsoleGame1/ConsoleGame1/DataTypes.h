@@ -21,8 +21,10 @@ struct ScreenElement
 	int size = 3;
 	// 오브젝트 크기만큼의 좌표값
 	COORD coords; // TODO : 실수값을 가지는 벡터로 바꾸기
+
+	float speed = 0;
 	// 체력
 	int health = 1;
 };
 
-ScreenElement SetScreenElementValue(int objSize, COORD Coords, Tag tag);
+ScreenElement SetScreenElementValue(int objSize, COORD Coords, float speed, Tag tag);

@@ -7,7 +7,7 @@
 namespace BulletManager
 {
 	void BulletManagerInitialize();
-	void CreateBullet(COORD spawnPos, Tag tag);
+	void CreateBullet(COORD spawnPos, float speed, Tag tag);
 	void BulletUpdate();
 	void BulletRender();
 }

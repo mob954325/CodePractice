@@ -33,6 +33,7 @@ void PlayScene::Update()
 	BulletManager::BulletUpdate();
 
 	EnemyManager::EnemyUpdate();
+	EnemyManager::EnemyShoot();
 
 	Player::Move();
 	Player::Shoot();

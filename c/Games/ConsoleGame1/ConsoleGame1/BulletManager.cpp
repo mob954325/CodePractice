@@ -15,9 +15,9 @@ namespace BulletManager
 		BulletList = GameManager::GetBulldetList();
 	}
 
-	void CreateBullet(COORD spawnPos, Tag tag)
+	void CreateBullet(COORD spawnPos, float speed, Tag tag)
 	{
-		ScreenElement bulletData = SetScreenElementValue(1, { (byte)(spawnPos.X + 1),  spawnPos.Y }, tag);
+		ScreenElement bulletData = SetScreenElementValue(1, { (byte)(spawnPos.X + 1), spawnPos.Y }, speed, tag);
 		AddNode(&BulletList, bulletData);
 	}
 
@@ -38,7 +38,7 @@ namespace BulletManager
 				DeleteNode(&BulletList, i);
 				continue;
 			}
-			currBullet->data.coords.X++;
+			currBullet->data.coords.X += (byte)currBullet->data.speed;
 		}
 
 		bulletUpdateTimer = 0.0f;
