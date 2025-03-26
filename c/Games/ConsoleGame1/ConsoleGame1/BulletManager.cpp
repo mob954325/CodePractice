@@ -30,6 +30,8 @@ namespace BulletManager
 		for (int i = 0; i < bulletCount; i++)
 		{
 			Node* currBullet = FindNode(BulletList, i);
+
+			// 출력하는 위치에 벗어나면 총알 제거
 			if ((currBullet->data.coords.X == MAXWIDTH)
 			|| (currBullet->data.health <= 0))
 			{

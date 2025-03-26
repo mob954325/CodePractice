@@ -10,6 +10,7 @@ namespace EnemyManager
 {
 	void EnemyManagerInitialize();
 	void EnemyUpdate();
+	void EnemyShoot();
 	void EnemyRender();
 
 	void SpawnEnemy();

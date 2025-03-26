@@ -9,7 +9,11 @@ namespace EnemyManager
 
 	float enemyUpdateTimer = 0.0f;
 	float maxEnemyUpdateTime = 0.1f;
+
 	float spawnTimer = 0.0f;
+
+	float enemyShootTimer = 0.0f;
+	float maxEnemyShootTime = 0.3f;
 
 	void EnemyManagerInitialize()
 	{
@@ -18,7 +22,7 @@ namespace EnemyManager
 
 	void EnemyUpdate()
 	{
-		enemyUpdateTimer += Time::GetDeltaTime();
+		enemyShootTimer += Time::GetDeltaTime();
 		if (enemyUpdateTimer < maxEnemyUpdateTime) return;
 
 		int enemyCount = NodeCount(EnemyList);
@@ -26,6 +30,7 @@ namespace EnemyManager
 		{
 			Node* currEnemy = FindNode(EnemyList, i);
 
+			// 체력이 없거나 출력하는 위치에 벗어나면 적 제거
 			if ((currEnemy->data.coords.X == 0)
 			|| (currEnemy->data.health <= 0))
 			{
@@ -33,11 +38,25 @@ namespace EnemyManager
 				continue;
 			}
 
-			currEnemy->data.coords.X;
+			currEnemy->data.coords.X; // 임시
 			//currEnemy->data.coords.Y++;
 		}
 
 		enemyUpdateTimer = 0.0f;
+	}
+
+	void EnemyShoot()
+	{
+		enemyShootTimer += Time::GetDeltaTime();
+
+		if (enemyShootTimer < maxEnemyShootTime) return;
+
+		int enemyCount = NodeCount(EnemyList);
+		for (int i = 0; i < enemyCount; i++)
+		{
+			Node* currEnemy = FindNode(EnemyList, i);
+			
+		}
 	}
 
 	void EnemyRender()

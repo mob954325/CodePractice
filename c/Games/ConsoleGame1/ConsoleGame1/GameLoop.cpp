@@ -2,6 +2,7 @@
 #include "MenuScene.h"
 #include "PlayScene.h"
 #include "EndScene.h"
+#include "Collider.h"
 #include "ConsoleRenderer.h"
 
 enum Scene SceneCurrent = Scene::MENU;
@@ -26,7 +27,7 @@ void GameLoop::Update()
 		break;
 	case PLAY:
 		PlayScene::Update();
-		PlayScene::CheckCollider();
+		Collider::CheckCollider();
 		break;
 	case END:
 		EndScene::Update();

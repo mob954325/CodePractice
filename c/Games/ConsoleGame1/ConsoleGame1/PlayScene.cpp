@@ -7,6 +7,7 @@
 #include "BulletManager.h"
 #include "EnemyManager.h"
 #include "GameManager.h"
+#include "Collider.h"
 
 #include "DebugUtility.h"
 
@@ -50,37 +51,6 @@ void PlayScene::Render()
 
 	ConsoleRenderer::ScreenDrawString(50, 0, "Play", BG_GREEN);
 	SetInGameTime();
-}
-
-void PlayScene::CheckCollider()
-{
-	// 총알이 뭐랑 닿았는지 확인하기
-	Node* bulletList = GameManager::GetBulldetList();
-	Node* enemyList = GameManager::GetEnemyList();
-
-	int bulletCount = NodeCount(bulletList);
-
-	for (int i = 0; i < bulletCount; i++)
-	{
-		Node* currBullet = FindNode(bulletList, i);
-		int enemyCount = NodeCount(enemyList);
-
-		DebugLog("1\n");	
-		for (int j = 0; j < enemyCount; j++)
-		{
-			DebugLog("2\n");
-			Node* currEnemy = FindNode(enemyList, j);
-			if ((currBullet->data.coords.X == currEnemy->data.coords.X)
-				&& (currBullet->data.coords.Y == currEnemy->data.coords.Y))
-			{
-				// 총알이랑 위치 겹치는 적
-				DebugLog("Enemy Hit\n");
-				
-				currBullet->data.health--;
-				currEnemy->data.health--;
-			}
-		}
-	}
 }
 
 void changeScene2()

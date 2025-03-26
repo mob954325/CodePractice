@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="BulletManager.h" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ConsoleRenderer.cpp" />
     <ClCompile Include="DataTypes.cpp" />
     <ClCompile Include="DebugUtility.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="ConsoleRenderer.h" />
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="DebugUtility.h" />
