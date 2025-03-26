@@ -1,31 +1,33 @@
 /ConsoleGame1
-  main.cpp
-  GameLoop.cpp
-  GameManager.cpp	
+  main.cpp				# GameLoop 실행
+  GameLoop.cpp			# 게임 생명주기 실행
+  GameManager.cpp		# 모든 오브젝트를 관리하는 소스파일
   /Objects
     BulletManager.h
-    BulletManager.cpp
+    BulletManager.cpp		# 모든 총알 오브젝트를 관리 및 업데이트 하는 소스 파일
     EnemyManager.h
-    EnemyManager.cpp
+    EnemyManager.cpp		# 모든 적 오브젝트를 관리 및 업데이트 하는 소스 파일
     Player.h
-    Player.cpp
+    Player.cpp			# 플레이어 조작을 관리 및 실행하는 소스 파일
   /Scenes
      MenuScene.h
-     MenuScene.cpp
-     PlayerScene.h
-     PlayerScene.cpp
+     MenuScene.cpp		# 메인메뉴 루프 소스 파일
+     PlayScene.h
+     PlayScene.cpp		# 플레이 씬 루프 소스 파일
      EndScene.h
-     EndScene.cpp
+     EndScene.cpp			# 엔딩 씬 루프 소스 파일
   /Utilities
     ConsoleRenderer.h
-    ConsoleRenderer.cpp
-    DataTypes.h
-    DataTypes.cpp
-    DebugUtility.h
+    ConsoleRenderer.cpp	# 콘솔 출력 함수가 있는 소스 파일
+    DataTypes.h			# 이 게임에 필요한 각종 값 및 구조체가 선언된 헤더파일
+    DataTypes.cpp			# 정의한 구조체 초기화 함수가 존재함
+    DebugUtility.h			# vs 디버그 출력 함수가 선언된 헤더파일
     DebugUtility.cpp
-    Intput.h
+    Intput.h				# 사용자 인풋 체크 함수가 선언된 헤더파일
     Intput.cpp
-    List.h
+    List.h				# 연결 리스트를 조작하는 함수가 선언된 헤더파일
     List.cpp
-    Time.h
+    Time.h				# 시스템시간을 이용한 시간값 가져오는 함수가 선언된 헤더파일
     Time.cpp
+    Collider.h			# 각 오브젝트 충돌을 체크하는 함수가 선언된 헤더파일
+    Collider.cpp			# 게임메니저에서 관리하는 리스트로 충돌 체크가 정의된 소스 파일
