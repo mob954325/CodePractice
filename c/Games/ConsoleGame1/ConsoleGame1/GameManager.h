@@ -7,7 +7,7 @@ namespace GameManager
 	void GameManagerInitialize();
 	void OnPlaySceneEnd();
 
-	Node*& GetBulldetList();
+	Node*& GetBulletList();
 	Node*& GetEnemyList();
 	//void ClearGameBufferState();
 	//void UpdateGameBufferState(Node* head);

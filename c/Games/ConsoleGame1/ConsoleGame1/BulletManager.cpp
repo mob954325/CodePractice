@@ -1,18 +1,19 @@
 #include "BulletManager.h"
 
 #include "GameManager.h"
+#include "DebugUtility.h"
 
 namespace BulletManager
 {
-	Node*& BulletList = GameManager::GetBulldetList();
+	Node*& BulletList = GameManager::GetBulletList();
 
 	float bulletUpdateTimer = 0.0f;
-	float maxBulletUpdateTime = 0.04f;
+	float maxBulletUpdateTime = 0.08f;
 	
 
 	void BulletManagerInitialize()
 	{
-		BulletList = GameManager::GetBulldetList();
+		BulletList = GameManager::GetBulletList();
 	}
 
 	void CreateBullet(COORD spawnPos, float speed, Tag tag)
@@ -32,13 +33,15 @@ namespace BulletManager
 			Node* currBullet = FindNode(BulletList, i);
 
 			// 출력하는 위치에 벗어나면 총알 제거
-			if ((currBullet->data.coords.X == MAXWIDTH)
+			if ((currBullet->data.coords.X == 20)
+			|| (currBullet->data.coords.X == 0)
 			|| (currBullet->data.health <= 0))
 			{
-				DeleteNode(&BulletList, i);
+				DebugLog("bullet delete");
+				DeleteNode(&currBullet, &BulletList);
 				continue;
 			}
-			currBullet->data.coords.X += (byte)currBullet->data.speed;
+			currBullet->data.coords.X += (SHORT)currBullet->data.speed;
 		}
 
 		bulletUpdateTimer = 0.0f;

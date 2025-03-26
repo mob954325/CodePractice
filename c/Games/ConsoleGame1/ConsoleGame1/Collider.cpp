@@ -5,7 +5,7 @@ namespace Collider
 	void CheckCollider()
 	{
 		// 총알이 뭐랑 닿았는지 확인하기
-		Node* bulletList = GameManager::GetBulldetList();
+		Node* bulletList = GameManager::GetBulletList();
 		Node* enemyList = GameManager::GetEnemyList();
 
 		int bulletCount = NodeCount(bulletList);

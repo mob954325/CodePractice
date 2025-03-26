@@ -17,11 +17,11 @@ namespace GameManager
 
 	void OnPlaySceneEnd()
 	{
-		FreeAllNode(BulletList);
-		FreeAllNode(EnemyList);
+		FreeAllNode(&BulletList);
+		FreeAllNode(&EnemyList);
 	}
 
-	Node*& GetBulldetList()
+	Node*& GetBulletList()
 	{
 		return BulletList;
 	}

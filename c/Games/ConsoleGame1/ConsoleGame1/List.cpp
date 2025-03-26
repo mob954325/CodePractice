@@ -12,42 +12,47 @@ void AddNode(Node** head, ScreenElement value)
 	else
 	{
 		Node* prevNode = *head;
+
+		// 새 노드 생성
 		*head = (Node*)malloc(sizeof(Node));
+		(*head)->next = prevNode;
+		(*head)->prev = NULL;
 		(*head)->data = value;
-		(*head)->next = NULL;
-		(*head)->prev = prevNode;
-		prevNode->next = *head;
+
+		// prevNode 노드 수정
+		prevNode->prev = *head;
 	}
 }
 
-void DeleteNode(Node** head, int index)
+void DeleteNode(Node** node, Node** head)
 {
-	if (*head == NULL) return;
+	if (!node || !(*node)) return;
 
-	Node* currNode = FindNode(*head, index);
+	Node* prevNode = (*node)->prev;
+	Node* nextNode = (*node)->next;
 
-	if (currNode == NULL) return;
-
-	Node* prevNode = currNode->prev;
-	Node* nextNode = currNode->next;
-
-	if (nextNode == NULL) // 첫 번째 노드
+	// 첫 번째 노드인 경우, head를 갱신
+	if (prevNode == NULL)
 	{
-		*head = prevNode;
-
-		if (*head != NULL)
-		{
-			(*head)->next = NULL;
+		*head = nextNode;  // 헤드를 다음 노드로 변경
+		if (nextNode) {
+			nextNode->prev = NULL;
 		}
 	}
 	else
 	{
-		if (prevNode != NULL) prevNode->next = nextNode;
-		if (nextNode != NULL) nextNode->prev = prevNode;
+		prevNode->next = nextNode;
 	}
 
-	free(currNode); // 메모리 해제
+	if (nextNode)
+	{
+		nextNode->prev = prevNode;
+	}
+
+	free(*node);  // 메모리 해제
+	*node = NULL; // Dangling pointer 방지
 }
+
 
 Node* FindNode(Node* head, int index)
 {
@@ -62,7 +67,7 @@ Node* FindNode(Node* head, int index)
 		}
 		else
 		{
-			currNode = currNode->prev;
+			currNode = currNode->next;
 		}
 
 		currIndex++;
@@ -75,10 +80,12 @@ int NodeCount(Node* head)
 {
 	Node* currNode = head;
 
+	if (!currNode) return 0;
+
 	int cnt = 0;
 	while (currNode != NULL)
 	{
-		currNode = currNode->prev;
+		currNode = currNode->next;
 		cnt++;
 	}
 
@@ -86,11 +93,12 @@ int NodeCount(Node* head)
 }
 
 
-void FreeAllNode(Node* head)
+void FreeAllNode(Node** head)
 {
-	int size = NodeCount(head);
+	int size = NodeCount(*head);
 	for (int i = 0; i < size; i++)
 	{
-		DeleteNode(&head, 0);
+		Node* currNode = FindNode(*head, i);
+		DeleteNode(&currNode, head);
 	}
 }

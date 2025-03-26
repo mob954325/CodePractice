@@ -13,7 +13,7 @@ typedef struct Node
 // Function =================================
 
 void AddNode(Node** head, ScreenElement value);
-void DeleteNode(Node** head, int index);
+void DeleteNode(Node** node, Node** head);
 Node* FindNode(Node* head, int index);
 int NodeCount(Node* head);
-void FreeAllNode(Node* head);
+void FreeAllNode(Node** head);

@@ -23,7 +23,7 @@ namespace EnemyManager
 
 	void EnemyUpdate()
 	{
-		enemyShootTimer += Time::GetDeltaTime();
+		enemyUpdateTimer += Time::GetDeltaTime();
 		if (enemyUpdateTimer < maxEnemyUpdateTime) return;
 
 		int enemyCount = NodeCount(EnemyList);
@@ -35,7 +35,7 @@ namespace EnemyManager
 			if ((currEnemy->data.coords.X == 0)
 			|| (currEnemy->data.health <= 0))
 			{
-				DeleteNode(&EnemyList, i);
+				DeleteNode(&currEnemy, &EnemyList);
 				continue;
 			}
 
@@ -57,7 +57,7 @@ namespace EnemyManager
 		{
 			Node* currEnemy = FindNode(EnemyList, i);
 			
-			BulletManager::CreateBullet({ (short)(currEnemy->data.coords.X - 3),currEnemy->data.coords.Y }, -1, Tag::PlayerObject);
+			//BulletManager::CreateBullet({ (short)(currEnemy->data.coords.X - 3),currEnemy->data.coords.Y }, -1, Tag::PlayerObject);
 			__PrintDebugLog("Shoot\n");
 		}
 
