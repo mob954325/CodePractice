@@ -57,8 +57,8 @@ namespace EnemyManager
 		{
 			Node* currEnemy = FindNode(EnemyList, i);
 			
-			//BulletManager::CreateBullet({ (short)(currEnemy->data.coords.X - 3),currEnemy->data.coords.Y }, -1, Tag::PlayerObject);
-			__PrintDebugLog("Shoot\n");
+			BulletManager::CreateBullet({ (short)(currEnemy->data.coords.X - 3),currEnemy->data.coords.Y }, -1, Tag::EnemyObject);
+			__PrintDebugLog("Enemy Shoot\n");
 		}
 
 		enemyShootTimer = 0;

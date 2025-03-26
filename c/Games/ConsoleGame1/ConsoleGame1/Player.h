@@ -1,4 +1,10 @@
 #pragma once
+#include "ConsoleRenderer.h"
+#include "Input.h"
+#include "Time.h"
+#include "BulletManager.h"
+#include "GameManager.h"
+
 #include <Windows.h>
 
 namespace Player

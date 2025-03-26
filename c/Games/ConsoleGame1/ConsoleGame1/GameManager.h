@@ -9,6 +9,7 @@ namespace GameManager
 
 	Node*& GetBulletList();
 	Node*& GetEnemyList();
+	ScreenElement* GetPlayerInfo();
 	//void ClearGameBufferState();
 	//void UpdateGameBufferState(Node* head);
 }

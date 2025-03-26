@@ -1,15 +1,11 @@
 #include "Player.h"
 
 #include "DebugUtility.h"
-#include "ConsoleRenderer.h"
-#include "Input.h"
-#include "Time.h"
-#include "BulletManager.h"
 
 namespace Player
 {
 	// Player
-	COORD playerCoord = { 0,0 };
+	struct ScreenElement* playerInfo;
 	COORD nextCoord = { 0,0 };
 
 	float inputTimer = 0.0f;
@@ -17,8 +13,8 @@ namespace Player
 
 	int PlayerInit()
 	{
+		playerInfo = GameManager::GetPlayerInfo();
 		nextCoord = { 2,2 };
-		playerCoord = { 2,2 };
 
 		return 1;
 	}
@@ -29,31 +25,31 @@ namespace Player
 
 		if (inputTimer < maxInputTime) return;
 
-		nextCoord = playerCoord;
+		nextCoord = playerInfo->coords;
 		if (Input::IsKeyDown('W'))
 		{
-			nextCoord.Y -= 1;
+			nextCoord.Y -= playerInfo->speed;
 			//__PrintDebugLog("Up\n");
 		}
 		if (Input::IsKeyDown('S'))
 		{
-			nextCoord.Y += 1;
+			nextCoord.Y += playerInfo->speed;
 			//__PrintDebugLog("Down\n");
 		}
 		if (Input::IsKeyDown('A'))
 		{
-			nextCoord.X -= 1;
+			nextCoord.X -= playerInfo->speed;
 			//__PrintDebugLog("Back\n");
 		}
 		if (Input::IsKeyDown('D'))
 		{
-			nextCoord.X += 1;
+			nextCoord.X += playerInfo->speed;
 			//__PrintDebugLog("Front\n");
 		}
 
 		if (IsVaildPosition(nextCoord) == 1)
 		{
-			playerCoord = nextCoord;
+			playerInfo->coords = nextCoord;
 		}
 
 		inputTimer = 0; // timer Reset
@@ -63,14 +59,14 @@ namespace Player
 	{
 		if (Input::IsKeyPressed('F'))
 		{
-			BulletManager::CreateBullet(playerCoord, 1, Tag::PlayerObject);
+			BulletManager::CreateBullet(playerInfo->coords, 1, Tag::PlayerObject);
 			__PrintDebugLog("Shoot\n");
 		}
 	}
 
 	void RenderPlayer()
 	{
-		ConsoleRenderer::ScreenDrawChar(playerCoord.X, playerCoord.Y, 'P', FG_GREEN);
+		ConsoleRenderer::ScreenDrawChar(playerInfo->coords.X, playerInfo->coords.Y, 'P', FG_GREEN);
 	}
 
 	void RenderPlayerPosition()
@@ -78,8 +74,8 @@ namespace Player
 		char xChar[10];
 		char yChar[10];
 
-		_itoa_s(playerCoord.X, xChar, 10);
-		_itoa_s(playerCoord.Y, yChar, 10);
+		_itoa_s(playerInfo->coords.X, xChar, 10);
+		_itoa_s(playerInfo->coords.Y, yChar, 10);
 
 		ConsoleRenderer::ScreenDrawString(30, 0, xChar, FG_GREEN);
 		ConsoleRenderer::ScreenDrawString(30, 2, yChar, FG_GREEN);

@@ -31,13 +31,13 @@ namespace BulletManager
 		for (int i = 0; i < bulletCount; i++)
 		{
 			Node* currBullet = FindNode(BulletList, i);
+			if (!currBullet) return;
 
 			// 출력하는 위치에 벗어나면 총알 제거
 			if ((currBullet->data.coords.X == 20)
 			|| (currBullet->data.coords.X == 0)
 			|| (currBullet->data.health <= 0))
 			{
-				DebugLog("bullet delete");
 				DeleteNode(&currBullet, &BulletList);
 				continue;
 			}
