@@ -49,9 +49,9 @@ namespace GameManager
 
 	int CheckVaildPosition(Vector2 pos, Vector2 scale)
 	{
-		if (pos.x - scale.x / 2 <= 1 //
+		if (pos.x - scale.x / 2 < 0 //
 		|| pos.x + scale.x / 2 > MAXWIDTH
-		|| pos.y - scale.y / 2 < 1 //
+		|| pos.y - scale.y / 2 < 0 //
 		|| pos.y + scale.y / 2 > MAXHEIGHT) return 0;
 
 		return 1;

@@ -61,6 +61,7 @@ namespace Collider
 					if (CheckCircleArea(currBullet->data, *player) == 1)
 					{
 						player->health--;
+						PlayScreenUI::ActivePlayerHitEffect();
 						currBullet->data.health--;
 					}
 				}
@@ -69,6 +70,7 @@ namespace Collider
 					if (CheckEllipaseArea(currBullet->data, *player) == 1)
 					{
 						player->health--;
+						PlayScreenUI::ActivePlayerHitEffect();
 						currBullet->data.health--;
 					}
 				}

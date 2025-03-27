@@ -8,7 +8,7 @@
 #include "GameLoop.h"
 
 
-int main() 
+int wmain() 
 {
 	ENABLE_LEAK_CHECK();
 

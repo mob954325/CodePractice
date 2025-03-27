@@ -2,7 +2,12 @@
 
 namespace PlayScreenUI
 {
+	void Anim(); // 임시
 	ScreenElement* playerInfo;	
+
+	float feedBackTimer = 0;
+	float maxFeedBackTime = 1.5f;
+	int isPlayerHit = 0; // 1 : true, 0 : false
 
 	void PlayScreenUIInitialize()
 	{
@@ -11,30 +16,21 @@ namespace PlayScreenUI
 
 	void RenderUI()
 	{
-		//RanderGameFrame(); //-> 프레임 드랍 심함
+		feedBackTimer += Time::GetDeltaTime();
+		if (feedBackTimer > maxFeedBackTime) isPlayerHit = 0;
+
+		RanderGameFrame(); //-> 프레임 드랍 심함
 		RenderPlayerHp();
 		RenderPlayTime();
-		RanderScore();
+		RenderScore();
+		RenderProfile();
 	}
 
 	void RanderGameFrame()
 	{
-		for (int y = 0; y <= MAXHEIGHT; y++)
+		for (int x = 0; x <= MAXWIDTH + 30; x++)
 		{
-			// 위, 아래
-			if (y == 0 || y == MAXHEIGHT)
-			{
-				for (int x = 0; x <= MAXWIDTH; x++)
-				{
-					ConsoleRenderer::ScreenDrawChar(x, y, '#', FG_WHITE);
-				}
-			}
-			// 중간
-			else
-			{
-				ConsoleRenderer::ScreenDrawChar(0, y, '#', FG_WHITE);
-				ConsoleRenderer::ScreenDrawChar(MAXWIDTH, y, '#', FG_WHITE);
-			}
+			ConsoleRenderer::ScreenDrawChar(x, MAXHEIGHT, L'-', FG_BLUE_DARK);
 		}
 	}
 
@@ -68,12 +64,13 @@ namespace PlayScreenUI
 		_itoa_s(min, minBuffer, 10);
 		_itoa_s(sec, secBuffer, 10);
 
-		ConsoleRenderer::ScreenDrawString(positionX, MAXHEIGHT + 3, minBuffer, FG_BLUE);
-		ConsoleRenderer::ScreenDrawString(positionX + 2, MAXHEIGHT + 3, " : ", FG_BLUE);
-		ConsoleRenderer::ScreenDrawString(positionX + 4, MAXHEIGHT + 3, secBuffer, FG_BLUE);
+		ConsoleRenderer::ScreenDrawString(positionX, MAXHEIGHT + 3, "Time : ", FG_BLUE);
+		ConsoleRenderer::ScreenDrawString(positionX + 8, MAXHEIGHT + 3, minBuffer, FG_BLUE);
+		ConsoleRenderer::ScreenDrawString(positionX + 10, MAXHEIGHT + 3, " : ", FG_BLUE);
+		ConsoleRenderer::ScreenDrawString(positionX + 14, MAXHEIGHT + 3, secBuffer, FG_BLUE);
 	}
 
-	void RanderScore()
+	void RenderScore()
 	{
 		int positionX = 10;
 
@@ -83,5 +80,47 @@ namespace PlayScreenUI
 
 		ConsoleRenderer::ScreenDrawString(0, MAXHEIGHT + 1, "Score : ", FG_GRAY);
 		ConsoleRenderer::ScreenDrawString(positionX, MAXHEIGHT + 1, scoreBuffer, FG_GRAY);
+	}
+
+	wchar_t face1[12] = L"| l _ l  |";
+	wchar_t face2[12] = L"| - _ -  |";
+	wchar_t face3[12] = L"| > ~ <  |";
+
+	void RenderProfile()
+	{
+		if (isPlayerHit == 1)
+		{
+			// hit
+			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 2, "+--------+", FG_RED);
+			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 3, face3, FG_RED);
+			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 4, "|        |", FG_RED);
+			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 5, "+--------+", FG_RED);
+		}
+		else
+		{
+			Anim();
+		}
+	}
+
+	void ActivePlayerHitEffect()
+	{
+		isPlayerHit = 1;
+		feedBackTimer = 0;
+	}
+
+
+	void Anim()
+	{
+		if ((int)Time::GetTotalTime() % 2 == 0)
+		{
+			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 3, face1, FG_GRAY);
+		}
+		else
+		{
+			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 3, face2, FG_GRAY);
+		}
+		ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 2, "+--------+", FG_GRAY);
+		ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 4, "|        |", FG_GRAY);
+		ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 5, "+--------+", FG_GRAY);
 	}
 }

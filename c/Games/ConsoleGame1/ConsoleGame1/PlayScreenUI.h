@@ -11,5 +11,8 @@ namespace PlayScreenUI
 	void RanderGameFrame();
 	void RenderPlayerHp();
 	void RenderPlayTime();
-	void RanderScore();
+	void RenderScore();
+	void RenderProfile();
+
+	void ActivePlayerHitEffect();
 }
