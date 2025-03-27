@@ -7,6 +7,8 @@
 
 #include <Windows.h>
 
+#define PLAYER_SHOTDELAY 0.5
+
 enum PlayerState
 {
 	NonImmune = 0,	// 피격 받음

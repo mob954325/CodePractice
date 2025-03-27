@@ -14,6 +14,9 @@ namespace Player
 	enum PlayerState state;
 	Vector2 nextVec = { 0,0 };
 
+	float shotTimer = 0;
+	float maxShotTimer = PLAYER_SHOTDELAY;
+
 	int PlayerInit()
 	{
 		playerInfo = GameManager::GetPlayerInfo();
@@ -67,11 +70,16 @@ namespace Player
 
 	void Shoot()
 	{
-		if (Input::IsKeyPressed('F'))
+		shotTimer += Time::GetDeltaTime();
+		if (shotTimer < maxShotTimer) return;
+
+		if (Input::IsKeyDown('F'))
 		{
 			BulletManager::CreateBullet(playerInfo->position, 20, Tag::PlayerObject);
 			__PrintDebugLog("Shoot\n");
 		}
+
+		shotTimer = 0;
 	}
 
 	void RenderPlayer()

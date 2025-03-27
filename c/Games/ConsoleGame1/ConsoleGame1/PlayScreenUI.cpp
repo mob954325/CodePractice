@@ -95,6 +95,7 @@ namespace PlayScreenUI
 			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 3, face3, FG_RED);
 			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 4, "|        |", FG_RED);
 			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 5, "+--------+", FG_RED);
+			ConsoleRenderer::ScreenDrawString(78, MAXHEIGHT + 5,"▒▒▓▒░▓▒▒▒░░░▒▒▒▒", FG_RED);
 		}
 		else
 		{
