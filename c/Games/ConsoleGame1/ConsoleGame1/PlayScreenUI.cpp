@@ -75,5 +75,13 @@ namespace PlayScreenUI
 
 	void RanderScore()
 	{
+		int positionX = 10;
+
+		int currScore = GameManager::GetCurrentPlayScore();
+		char scoreBuffer[100];
+		_itoa_s(currScore, scoreBuffer, 10);
+
+		ConsoleRenderer::ScreenDrawString(0, MAXHEIGHT + 1, "Score : ", FG_GRAY);
+		ConsoleRenderer::ScreenDrawString(positionX, MAXHEIGHT + 1, scoreBuffer, FG_GRAY);
 	}
 }

@@ -7,6 +7,10 @@
 
 #include <random>
 
+#define MAX_ENEMY_SIZE 5
+#define MAX_ENEMY_SPEED 17
+#define MIN_ENEMY_SPEED 8
+
 namespace EnemyManager
 {
 	void EnemyManagerInitialize();

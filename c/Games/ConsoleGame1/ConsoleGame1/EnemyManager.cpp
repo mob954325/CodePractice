@@ -31,6 +31,8 @@ namespace EnemyManager
 			if ((currEnemy->data.position.x <= 0)
 			|| (currEnemy->data.health <= 0))
 			{
+				int enemyScore = GameManager::GetScoreBySize(currEnemy->data);
+				GameManager::AddPlayScore(enemyScore);
 				DeleteNode(&currEnemy, &EnemyList);
 				continue;
 			}
@@ -93,9 +95,13 @@ namespace EnemyManager
 		float spawnPositionY = rand() % ENEMY_SPAWN_AREA_HEIGHT;
 
 		// TODO : 랜덤시드 변경 코드 넣기
-		int randomSizeX = rand() % 5;
-		int randomSizeY = rand() % 5;
-		ScreenElement enemyData = SetScreenElementValue( {2, 2}, 3, { (spawnPositionX + MAXWIDTH), spawnPositionY }, -20, Tag::EnemyObject);
+		float randomSizeX = rand() % MAX_ENEMY_SIZE;
+		float randomSizeY = rand() % MAX_ENEMY_SIZE;
+		float randomSpeed = rand() % MAX_ENEMY_SPEED;
+
+		if (randomSpeed < MIN_ENEMY_SPEED) randomSpeed = MIN_ENEMY_SPEED;
+
+		ScreenElement enemyData = SetScreenElementValue( { randomSizeX, randomSizeY }, randomSizeX + 1, { (spawnPositionX + MAXWIDTH), spawnPositionY }, -randomSpeed, Tag::EnemyObject);
 		AddNode(&EnemyList, enemyData);
 	}
 

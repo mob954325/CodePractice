@@ -7,13 +7,16 @@ namespace GameManager
 	// 여기에 리스트 관리
 	ObjectNode* BulletList = NULL;
 	ObjectNode* EnemyList = NULL;
-	ScreenElement playerElement = SetScreenElementValue({5,2}, 20, { MAXWIDTH / 2, MAXHEIGHT / 2 }, 10, Tag::PlayerObject);
+	ScreenElement playerElement = SetScreenElementValue({2,0}, 20, { MAXWIDTH / 2, MAXHEIGHT / 2 }, 10, Tag::PlayerObject);
 
 	Tag gameBufferState[MAXHEIGHT][MAXWIDTH];
+
+	int playScore = 0;
 
 	void GameManagerInitialize()
 	{
 		// 초기화
+		playScore = 0;
 	}
 
 	void OnPlaySceneEnd()
@@ -52,5 +55,20 @@ namespace GameManager
 		|| pos.y + scale.y / 2 > MAXHEIGHT) return 0;
 
 		return 1;
+	}
+
+	int GetScoreBySize(ScreenElement obj)
+	{
+		return obj.scale.x * SCORE_SCALE + obj.scale.y * SCORE_SCALE;
+	}
+
+	int GetCurrentPlayScore()
+	{
+		return playScore;
+	}
+
+	void AddPlayScore(int value)
+	{
+		playScore += value;
 	}
 }

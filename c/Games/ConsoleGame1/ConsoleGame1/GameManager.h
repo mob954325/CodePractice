@@ -2,6 +2,8 @@
 #include "DataTypes.h"
 #include "List.h"
 
+#define SCORE_SCALE 100
+
 enum GameState
 {
 	BeforeStart = 0,
@@ -32,4 +34,22 @@ namespace GameManager
 	/// <param name="scale">버퍼 크기</param>
 	/// <returns>유효하지 않으면 0, 유효하면 1</returns>
 	int CheckVaildPosition(Vector2 pos, Vector2 scale);
+
+	/// <summary>
+	/// 오브젝트 크기만큼 점수를 반환하는 함수
+	/// </summary>
+	/// <returns>크기 * SCORE_SCALE</returns>
+	int GetScoreBySize(ScreenElement obj);
+
+	/// <summary>
+	/// 현재 스코어 받기
+	/// </summary>
+	/// <returns>현재 누적된 스코어</returns>
+	int GetCurrentPlayScore();
+
+	/// <summary>
+	/// 스코어 추가하기
+	/// </summary>
+	/// <param name="value">추가할 스코어 값</param>
+	void AddPlayScore(int value);
 }
