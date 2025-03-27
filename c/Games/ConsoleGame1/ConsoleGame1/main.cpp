@@ -7,11 +7,13 @@
 #include "Input.h"
 #include "GameLoop.h"
 
+//#pragma execution_character_set( "utf-8" )
 
 int wmain() 
 {
-	ENABLE_LEAK_CHECK();
+	system("chcp 65001");
 
+	ENABLE_LEAK_CHECK();
 	ConsoleRenderer::ScreenInit();
 	Time::InitTime();
 	GameLoop::Initialize();

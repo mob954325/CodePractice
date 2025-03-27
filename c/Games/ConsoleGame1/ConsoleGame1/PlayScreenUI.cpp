@@ -95,10 +95,10 @@ namespace PlayScreenUI
 			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 3, face3, FG_RED);
 			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 4, "|        |", FG_RED);
 			ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 5, "+--------+", FG_RED);
-			ConsoleRenderer::ScreenDrawString(78, MAXHEIGHT + 5,"▒▒▓▒░▓▒▒▒░░░▒▒▒▒", FG_RED);
 		}
 		else
 		{
+			//ConsoleRenderer::ScreenDrawString(78, MAXHEIGHT + 5, L"안녕하세요", FG_RED); // 임시
 			Anim();
 		}
 	}
