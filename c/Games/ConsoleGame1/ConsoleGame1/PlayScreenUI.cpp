@@ -11,7 +11,7 @@ namespace PlayScreenUI
 
 	void RenderUI()
 	{
-		RanderGameFrame(); //-> 프레임 드랍 심함
+		//RanderGameFrame(); //-> 프레임 드랍 심함
 		RenderPlayerHp();
 		RenderPlayTime();
 		RanderScore();
