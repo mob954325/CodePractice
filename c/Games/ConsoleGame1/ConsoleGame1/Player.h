@@ -7,15 +7,27 @@
 
 #include <Windows.h>
 
+enum PlayerState
+{
+	NonImmune = 0,	// 피격 받음
+	Immune,			// 피격 받지 못함
+};
+
 namespace Player
 {
 	int PlayerInit();
-
-	void Move();
-	void Shoot();
+	void PlayerUpdate();
 	void RenderPlayer();
-	void RenderPlayerPosition();
 
-	// 존재할 수 있는 공간이면 1 아니면 2;
-	int IsVaildPosition(COORD pos);
+	/// <summary>
+	/// 플레이어아 무적인지 확인하는 함수
+	/// </summary>
+	/// <returns>무적이면 1 아니면 0 반환</returns>
+	int CheckPlayerImmune();
+	
+	/// <summary>
+	/// 플레이어 무적상태 변경 함수
+	/// </summary>
+	/// <param name="value">0 : 무적아님, 1 : 무적</param>
+	void ChangePlayerImmnueState(int value);
 }

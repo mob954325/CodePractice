@@ -31,6 +31,18 @@
     <Filter Include="헤더 파일\Scenes">
       <UniqueIdentifier>{e29ce9fd-ae65-4fd9-af05-6f773166d38d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Datas">
+      <UniqueIdentifier>{00ec0f78-4530-4762-a9db-832cb06b897d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Datas">
+      <UniqueIdentifier>{01a5d727-a698-4126-90bc-6d62a026a506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\UI">
+      <UniqueIdentifier>{514dd0af-b9d4-4ecc-859f-dca8f58e1139}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\UI">
+      <UniqueIdentifier>{a5a98673-d1c9-4f77-86f0-ac02713429dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameLoop.cpp">
@@ -51,12 +63,6 @@
     <ClCompile Include="EndScene.cpp">
       <Filter>소스 파일\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>소스 파일\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="List.cpp">
-      <Filter>소스 파일\Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="Intput.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
@@ -65,9 +71,6 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="DataTypes.cpp">
-      <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="BulletManager.cpp">
       <Filter>소스 파일\Objects</Filter>
@@ -83,6 +86,21 @@
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>소스 파일\Datas</Filter>
+    </ClCompile>
+    <ClCompile Include="DataTypes.cpp">
+      <Filter>소스 파일\Datas</Filter>
+    </ClCompile>
+    <ClCompile Include="List.cpp">
+      <Filter>소스 파일\Datas</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>소스 파일\Datas</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScreenUI.cpp">
+      <Filter>소스 파일\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,12 +119,6 @@
     <ClInclude Include="Input.h">
       <Filter>헤더 파일\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="List.h">
-      <Filter>헤더 파일\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>헤더 파일\Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="MenuScene.h">
       <Filter>헤더 파일\Scenes</Filter>
     </ClInclude>
@@ -116,9 +128,6 @@
     <ClInclude Include="PlayScene.h">
       <Filter>헤더 파일\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="DataTypes.h">
-      <Filter>헤더 파일\Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyManager.h">
       <Filter>헤더 파일\Objects</Filter>
     </ClInclude>
@@ -127,6 +136,21 @@
     </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>헤더 파일\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="DataTypes.h">
+      <Filter>헤더 파일\Datas</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>헤더 파일\Datas</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>헤더 파일\Datas</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>헤더 파일\Datas</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScreenUI.h">
+      <Filter>헤더 파일\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

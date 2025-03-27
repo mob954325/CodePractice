@@ -6,15 +6,13 @@
 
 namespace EnemyManager
 {
+	void EnemyShoot();
 	Node*& EnemyList = GameManager::GetEnemyList();
-
-	float enemyUpdateTimer = 0.0f;
-	float maxEnemyUpdateTime = 0.1f;
 
 	float spawnTimer = 0.0f;
 
 	float enemyShootTimer = 0.0f;
-	float maxEnemyShootTime = 0.3f;
+	float maxEnemyShootTime = 1.2f;
 
 	void EnemyManagerInitialize()
 	{
@@ -23,27 +21,24 @@ namespace EnemyManager
 
 	void EnemyUpdate()
 	{
-		enemyUpdateTimer += Time::GetDeltaTime();
-		if (enemyUpdateTimer < maxEnemyUpdateTime) return;
-
 		int enemyCount = NodeCount(EnemyList);
 		for (int i = 0; i < enemyCount; i++)
 		{
 			Node* currEnemy = FindNode(EnemyList, i);
+			if (!currEnemy) return;
 
 			// 체력이 없거나 출력하는 위치에 벗어나면 적 제거
-			if ((currEnemy->data.coords.X == 0)
+			if ((currEnemy->data.position.x <= 0)
 			|| (currEnemy->data.health <= 0))
 			{
 				DeleteNode(&currEnemy, &EnemyList);
 				continue;
 			}
 
-			currEnemy->data.coords.X; // 임시
-			//currEnemy->data.coords.Y++;
+			currEnemy->data.position.x += currEnemy->data.speed * Time::GetDeltaTime(); // 임시
 		}
 
-		enemyUpdateTimer = 0.0f;
+		EnemyShoot();
 	}
 
 	void EnemyShoot()
@@ -55,10 +50,10 @@ namespace EnemyManager
 		int enemyCount = NodeCount(EnemyList);
 		for (int i = 0; i < enemyCount; i++)
 		{
-			Node* currEnemy = FindNode(EnemyList, i);
-			
-			BulletManager::CreateBullet({ (short)(currEnemy->data.coords.X - 3),currEnemy->data.coords.Y }, -1, Tag::EnemyObject);
-			__PrintDebugLog("Enemy Shoot\n");
+			Node* currEnemy = FindNode(EnemyList, i);			
+
+			BulletManager::CreateBullet({ (currEnemy->data.position.x - 3), currEnemy->data.position.y }, -25, Tag::EnemyObject);
+			//__PrintDebugLog("Enemy Shoot\n");
 		}
 
 		enemyShootTimer = 0;
@@ -70,25 +65,43 @@ namespace EnemyManager
 		for (int i = 0; i < enemyCount; i++)
 		{
 			Node* currEnemy = FindNode(EnemyList, i);
-			ConsoleRenderer::ScreenDrawChar(currEnemy->data.coords.X, currEnemy->data.coords.Y, 'E', FG_RED);
+
+			for (int i = 0; i <= currEnemy->data.scale.y; i++)
+			{
+				for (int j = 0; j <= currEnemy->data.scale.x; j++)
+				{
+					int currX = (int)currEnemy->data.position.x - currEnemy->data.scale.x / 2 + j;
+					int currY = (int)currEnemy->data.position.y - currEnemy->data.scale.y / 2 + i;
+					if (currX == (int)currEnemy->data.position.x && currY == (int)currEnemy->data.position.y)
+					{
+						ConsoleRenderer::ScreenDrawChar(currX, currY, 'E', FG_SKY_DARK);
+					}
+					else
+					{
+						ConsoleRenderer::ScreenDrawChar(currX, currY, 'E', FG_RED);
+					}
+				}
+			}
 		}
 	}
 
 	// 적 스폰 ==================================================================================
 	
-	void SpawnEnemy()
+	void SpawnEnemyAtRandomPosition()
 	{
-		byte spawnPositionX = rand() % ENEMY_SPAWN_AREA_WIDTH;
-		byte spawnPositionY = rand() % ENEMY_SPAWN_AREA_HEIGHT;
+		float spawnPositionX = rand() % ENEMY_SPAWN_AREA_WIDTH;
+		float spawnPositionY = rand() % ENEMY_SPAWN_AREA_HEIGHT;
 
 		// TODO : 랜덤시드 변경 코드 넣기
-		ScreenElement enemyData = SetScreenElementValue(1, { (byte)(spawnPositionX + MAXWIDTH), spawnPositionY }, -1, Tag::EnemyObject);
+		int randomSizeX = rand() % 5;
+		int randomSizeY = rand() % 5;
+		ScreenElement enemyData = SetScreenElementValue( {2, 2}, 3, { (spawnPositionX + MAXWIDTH), spawnPositionY }, -20, Tag::EnemyObject);
 		AddNode(&EnemyList, enemyData);
 	}
 
-	void SpawnEnemyAtPosition(COORD spawnPosition)
+	void SpawnEnemyAtPosition(Vector2 spawnPosition)
 	{
-		ScreenElement enemyData = SetScreenElementValue(1, spawnPosition, -1, Tag::EnemyObject);
+		ScreenElement enemyData = SetScreenElementValue({3, 3}, spawnPosition, -1, Tag::EnemyObject);
 		AddNode(&EnemyList, enemyData);
 	}
 
@@ -98,7 +111,7 @@ namespace EnemyManager
 		spawnTimer += Time::GetDeltaTime();
 		if (spawnTimer < spawnDelay) return;
 
-		SpawnEnemy();
+		SpawnEnemyAtRandomPosition();
 		DebugLog("Enemy Spawned!!!\n");
 
 		spawnTimer = 0.0f;

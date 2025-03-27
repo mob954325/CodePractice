@@ -16,17 +16,14 @@ namespace BulletManager
 		BulletList = GameManager::GetBulletList();
 	}
 
-	void CreateBullet(COORD spawnPos, float speed, Tag tag)
+	void CreateBullet(Vector2 spawnPos, float speed, Tag tag)
 	{
-		ScreenElement bulletData = SetScreenElementValue(1, { (byte)(spawnPos.X + 1), spawnPos.Y }, speed, tag);
+		ScreenElement bulletData = SetScreenElementValue({0, 0}, { (spawnPos.x + 1), spawnPos.y }, speed, tag);
 		AddNode(&BulletList, bulletData);
 	}
 
 	void BulletUpdate()
 	{
-		bulletUpdateTimer += Time::GetDeltaTime();
-		if (bulletUpdateTimer < maxBulletUpdateTime) return;
-
 		int bulletCount = NodeCount(BulletList);
 		for (int i = 0; i < bulletCount; i++)
 		{
@@ -34,17 +31,15 @@ namespace BulletManager
 			if (!currBullet) return;
 
 			// 출력하는 위치에 벗어나면 총알 제거
-			if ((currBullet->data.coords.X == 20)
-			|| (currBullet->data.coords.X == 0)
+			if ((currBullet->data.position.x >= MAXWIDTH)
+			|| (currBullet->data.position.x <= 0)
 			|| (currBullet->data.health <= 0))
 			{
 				DeleteNode(&currBullet, &BulletList);
 				continue;
 			}
-			currBullet->data.coords.X += (SHORT)currBullet->data.speed;
+			currBullet->data.position.x += (currBullet->data.speed * Time::GetDeltaTime());
 		}
-
-		bulletUpdateTimer = 0.0f;
 	}
 
 	void BulletRender()
@@ -52,8 +47,9 @@ namespace BulletManager
 		int bulletCount = NodeCount(BulletList);
 		for (int i = 0; i < bulletCount; i++)
 		{
+			// TODO : 총알 범위 지정하기
 			Node* currBullet = FindNode(BulletList, i);
-			ConsoleRenderer::ScreenDrawChar(currBullet->data.coords.X, currBullet->data.coords.Y, 'o', FG_YELLOW);
+			ConsoleRenderer::ScreenDrawChar((int)currBullet->data.position.x, (int)currBullet->data.position.y, 'o', FG_YELLOW);
 		}
 	}
 }

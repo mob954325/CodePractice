@@ -4,69 +4,97 @@
 
 namespace Player
 {
+	// 멤버 함수
+	void Move();
+	void Shoot();
+	void RenderPlayerPosition();
+
 	// Player
 	struct ScreenElement* playerInfo;
-	COORD nextCoord = { 0,0 };
-
-	float inputTimer = 0.0f;
-	float maxInputTime = 0.08f;
+	enum PlayerState state;
+	Vector2 nextVec = { 0,0 };
 
 	int PlayerInit()
 	{
 		playerInfo = GameManager::GetPlayerInfo();
-		nextCoord = { 2,2 };
+		state = PlayerState::NonImmune;
+		nextVec = { 2,2 }; // 임시
 
 		return 1;
 	}
 
+	void PlayerUpdate()
+	{
+		if (playerInfo->health <= 0)
+		{
+			DebugLog("Player Dead\n");
+			ChangePlayerImmnueState(0);
+		}
+
+		Move();
+		Shoot();
+	}
+
 	void Move()
 	{
-		inputTimer += Time::GetDeltaTime();
-
-		if (inputTimer < maxInputTime) return;
-
-		nextCoord = playerInfo->coords;
+		nextVec = playerInfo->position;
 		if (Input::IsKeyDown('W'))
 		{
-			nextCoord.Y -= playerInfo->speed;
+			nextVec.y -= playerInfo->speed * Time::GetDeltaTime();
 			//__PrintDebugLog("Up\n");
 		}
 		if (Input::IsKeyDown('S'))
 		{
-			nextCoord.Y += playerInfo->speed;
+			nextVec.y += playerInfo->speed * Time::GetDeltaTime();
 			//__PrintDebugLog("Down\n");
 		}
 		if (Input::IsKeyDown('A'))
 		{
-			nextCoord.X -= playerInfo->speed;
+			nextVec.x -= playerInfo->speed * Time::GetDeltaTime();
 			//__PrintDebugLog("Back\n");
 		}
 		if (Input::IsKeyDown('D'))
 		{
-			nextCoord.X += playerInfo->speed;
+			nextVec.x += playerInfo->speed * Time::GetDeltaTime();
 			//__PrintDebugLog("Front\n");
 		}
 
-		if (IsVaildPosition(nextCoord) == 1)
+		if (GameManager::CheckVaildPosition(nextVec, playerInfo->scale) == 1)
 		{
-			playerInfo->coords = nextCoord;
+			playerInfo->position = nextVec;
 		}
-
-		inputTimer = 0; // timer Reset
 	}
 
 	void Shoot()
 	{
 		if (Input::IsKeyPressed('F'))
 		{
-			BulletManager::CreateBullet(playerInfo->coords, 1, Tag::PlayerObject);
+			BulletManager::CreateBullet(playerInfo->position, 20, Tag::PlayerObject);
 			__PrintDebugLog("Shoot\n");
 		}
 	}
 
 	void RenderPlayer()
 	{
-		ConsoleRenderer::ScreenDrawChar(playerInfo->coords.X, playerInfo->coords.Y, 'P', FG_GREEN);
+		for (int i = 0; i <= playerInfo->scale.y; i++)
+		{
+			for (int j = 0; j <= playerInfo->scale.x; j++)
+			{
+				// 좌측 상단부터 랜더링하기
+				int currX = (int)playerInfo->position.x - playerInfo->scale.x / 2 + j;
+				int currY = (int)playerInfo->position.y - playerInfo->scale.y / 2 + i;
+				if (currX == (int)playerInfo->position.x && currY == (int)playerInfo->position.y)
+				{
+					ConsoleRenderer::ScreenDrawChar(currX, currY, 'P', FG_RED);
+				}
+				else
+				{
+					ConsoleRenderer::ScreenDrawChar(currX, currY, '#', FG_GREEN);
+				}
+			}
+		}
+
+		RenderPlayerPosition();
 	}
 
 	void RenderPlayerPosition()
@@ -74,17 +102,21 @@ namespace Player
 		char xChar[10];
 		char yChar[10];
 
-		_itoa_s(playerInfo->coords.X, xChar, 10);
-		_itoa_s(playerInfo->coords.Y, yChar, 10);
+		_itoa_s((int)playerInfo->position.x, xChar, 10);
+		_itoa_s((int)playerInfo->position.y, yChar, 10);
 
-		ConsoleRenderer::ScreenDrawString(30, 0, xChar, FG_GREEN);
+		ConsoleRenderer::ScreenDrawString(30, 1, xChar, FG_GREEN);
 		ConsoleRenderer::ScreenDrawString(30, 2, yChar, FG_GREEN);
 	}
 
-	int IsVaildPosition(COORD pos)
+	int CheckPlayerImmune()
 	{
-		if (pos.X < 0 || pos.X > MAXWIDTH || pos.Y < 0 || pos.Y > MAXHEIGHT) return 0;
+		return state == PlayerState::Immune ? 1 : 0;
+	}
 
-		return 1;
+	void ChangePlayerImmnueState(int value)
+	{
+		if (value < 0 || value > 1) return; //유효하지 않는 숫자
+		state = (PlayerState)value;
 	}
 }

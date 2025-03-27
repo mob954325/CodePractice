@@ -3,6 +3,7 @@
 #include "DataTypes.h"
 #include "List.h"
 #include "Time.h"
+#include "Vector.h"
 
 #include <random>
 
@@ -10,10 +11,9 @@ namespace EnemyManager
 {
 	void EnemyManagerInitialize();
 	void EnemyUpdate();
-	void EnemyShoot();
 	void EnemyRender();
 
-	void SpawnEnemy();
-	void SpawnEnemyAtPosition(COORD spawnPosition);
+	void SpawnEnemyAtRandomPosition();
+	void SpawnEnemyAtPosition(Vector2 spawnPosition);
 	void SetEnemySpanwer(float spawnDelay);
 }

@@ -3,11 +3,12 @@
 #include "List.h"
 #include "Time.h"
 #include "DataTypes.h"
+#include "Vector.h"
 
 namespace BulletManager
 {
 	void BulletManagerInitialize();
-	void CreateBullet(COORD spawnPos, float speed, Tag tag);
+	void CreateBullet(Vector2 spawnPos, float speed, Tag tag);
 	void BulletUpdate();
 	void BulletRender();
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameManager.h"
 #include "DataTypes.h"
+#include "Player.h"
 
 #include "DebugUtility.h"
 

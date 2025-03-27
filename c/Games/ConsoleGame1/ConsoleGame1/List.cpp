@@ -98,7 +98,7 @@ void FreeAllNode(Node** head)
 	int size = NodeCount(*head);
 	for (int i = 0; i < size; i++)
 	{
-		Node* currNode = FindNode(*head, i);
+		Node* currNode = FindNode(*head, 0);
 		DeleteNode(&currNode, head);
 	}
 }
