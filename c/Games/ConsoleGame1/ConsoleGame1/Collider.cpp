@@ -35,7 +35,7 @@ namespace Collider
 					Node* currEnemy = FindNode(enemyList, j);
 
 					// 크기가 {0,0} = 한 칸만 차지하고 있으면
-					if (currEnemy->data.scale.x == 0 && currEnemy->data.scale.y == 0)
+					if (currEnemy->data.scale.x == 0 || currEnemy->data.scale.y == 0)
 					{
 						if (CheckCircleArea(currBullet->data, currEnemy->data) == 1)
 						{
@@ -56,7 +56,7 @@ namespace Collider
 			else if (currBullet->data.tag == Tag::EnemyObject)
 			{
 				// 크기가 {0,0} = 한 칸만 차지하고 있으면
-				if (player->scale.x == 0 && player->scale.y == 0)
+				if (player->scale.x == 0 || player->scale.y == 0)
 				{
 					if (CheckCircleArea(currBullet->data, *player) == 1)
 					{
