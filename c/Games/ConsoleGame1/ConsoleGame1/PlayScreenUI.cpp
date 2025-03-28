@@ -3,8 +3,11 @@
 namespace PlayScreenUI
 {
 	void Anim(); // 임시
+
 	ScreenElement* playerInfo;	
+	PlayerWeaponInfo* playerWeaponInfo;
 	GameState gameState;
+
 	float feedBackTimer = 0;
 	float maxFeedBackTime = 1.5f;
 	int isPlayerHit = 0; // 1 : true, 0 : false
@@ -13,6 +16,7 @@ namespace PlayScreenUI
 	{
 		gameState = GameState::BeforeStart();
 		playerInfo = GameManager::GetPlayerInfo();
+		playerWeaponInfo = GameManager::GetPlayerWeaponInfo();
 	}
 
 	void RenderUI()
@@ -23,6 +27,7 @@ namespace PlayScreenUI
 		RanderGameFrame(); //-> 프레임 드랍 심함
 		RenderPlayerHp();
 		RenderPlayTime();
+		RenderBoomCount();
 		RenderScore();
 		RenderProfile();
 	}
@@ -41,15 +46,27 @@ namespace PlayScreenUI
 
 		// 체력 숫자
 		int currHealth = playerInfo->health;
-		char hChar[10];
-		_itoa_s(currHealth, hChar, 10);
-		ConsoleRenderer::ScreenDrawString(0 , MAXHEIGHT + gap, hChar, FG_GREEN); 
+		char hpBuffer[10];
+		_itoa_s(currHealth, hpBuffer, 10);
+		ConsoleRenderer::ScreenDrawString(0 , MAXHEIGHT + gap, hpBuffer, FG_GREEN); 
 
 		// 체력 그림
 		for (int i = 0; i < currHealth; i++)
 		{
 			ConsoleRenderer::ScreenDrawChar(i + gap , MAXHEIGHT + gap, 'I', FG_BLUE_DARK);
 		}
+	}
+
+	void RenderBoomCount()
+	{
+		int gap = 5;
+
+		// 체력 숫자
+		int boomCount = playerWeaponInfo->boomCount;
+		char boomBuffer[3];
+		_itoa_s(boomCount, boomBuffer, 10);
+		ConsoleRenderer::ScreenDrawString(80, MAXHEIGHT + gap, "Boom : ", FG_GREEN);
+		ConsoleRenderer::ScreenDrawString(85, MAXHEIGHT + gap, boomBuffer, FG_GREEN);
 	}
 
 	void RenderPlayTime()

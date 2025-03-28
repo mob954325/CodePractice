@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ConsoleRenderer.h"
 #include "DataTypes.h"
 #include "List.h"
@@ -24,11 +24,12 @@ enum GameResultState
 namespace GameManager
 {
 	void GameManagerInitialize();
-	void OnPlaySceneEnd();
+	void FreeAllLists();
 
 	Node*& GetBulletList();
 	Node*& GetEnemyList();
 	ScreenElement* GetPlayerInfo();
+	PlayerWeaponInfo* GetPlayerWeaponInfo();
 
 	/// <summary>
 	/// 오브젝트 크기만큼 점수를 반환하는 함수
@@ -85,4 +86,9 @@ namespace GameManager
 	/// 게임 결과 보여주는 함수 ( 승리 1, 패배 0)
 	/// </summary>
 	void ShowGameResult();
+
+	/// <summary>
+	/// 모든 오브젝트를 없애고 점수를 반환하는 함수
+	/// </summary>
+	int KillALLOBJECTS();
 }

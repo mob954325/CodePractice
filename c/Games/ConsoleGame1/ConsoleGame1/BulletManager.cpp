@@ -1,4 +1,4 @@
-#include "BulletManager.h"
+﻿#include "BulletManager.h"
 
 #include "GameManager.h"
 #include "DebugUtility.h"
@@ -48,7 +48,8 @@ namespace BulletManager
 		for (int i = 0; i < bulletCount; i++)
 		{
 			Node* currBullet = FindNode(BulletList, i);
-			ConsoleRenderer::ScreenDrawChar((int)currBullet->data.position.x, (int)currBullet->data.position.y, 'o', FG_YELLOW);
+			if(currBullet->data.tag == Tag::PlayerObject) ConsoleRenderer::ScreenDrawChar((int)currBullet->data.position.x, (int)currBullet->data.position.y, L'▬', FG_BLUE);
+			else if(currBullet->data.tag == Tag::EnemyObject) ConsoleRenderer::ScreenDrawChar((int)currBullet->data.position.x, (int)currBullet->data.position.y, L'◀', FG_YELLOW);
 		}
 	}
 }

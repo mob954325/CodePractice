@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Vector.h"
 #include <windows.h>
 
@@ -29,9 +29,15 @@ struct ScreenElement
 	int health = 1;
 };
 
+struct PlayerWeaponInfo
+{
+	int boomCount = 0;
+	int upGradeLevel = 0; // 무기 형태로 바꿀수도 있을듯?
+};
+
 ScreenElement SetScreenElementValue(Vector2 scale, Vector2 vec, float speed, Tag tag);
 ScreenElement SetScreenElementValue(Vector2 scale, int maxHealth, Vector2 vec, float speed, Tag tag);
-
+PlayerWeaponInfo SetPlayerWeaponValue(int boomCount, int weaponLevel);
 
 /// <summary>
 /// 비율값으로 스크린 좌표값 구하는 함수 ( 0 - 1 사이 값 )

@@ -4,7 +4,7 @@
 
 namespace FileUtility
 {
-	char* path = (char*)malloc(MAX_BUFFER_SIZE * sizeof(char)); // TODO : 할당해제
+	//char* path = (char*)malloc(MAX_BUFFER_SIZE * sizeof(char)); // TODO : 할당해제
 
 	char* FileUtility::GetTextFromFile()
 	{

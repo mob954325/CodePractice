@@ -1,4 +1,4 @@
-#include "DataTypes.h"
+﻿#include "DataTypes.h"
 
 ScreenElement SetScreenElementValue(Vector2 objSize, Vector2 vec, float speed, Tag tag)
 {
@@ -21,6 +21,15 @@ ScreenElement SetScreenElementValue(Vector2 objSize, int maxHealth, Vector2 vec,
 	obj.speed = speed;
 
 	return obj;
+}
+
+PlayerWeaponInfo SetPlayerWeaponValue(int boomCount, int weaponLevel)
+{
+	PlayerWeaponInfo info;
+	info.boomCount = boomCount;
+	info.upGradeLevel = weaponLevel;
+
+	return info;
 }
 
 int GetScreenPositionByRatio(int type, float value)

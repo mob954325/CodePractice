@@ -1,4 +1,4 @@
-#include "Player.h"
+﻿#include "Player.h"
 
 #include "DebugUtility.h"
 
@@ -7,19 +7,25 @@ namespace Player
 	// 멤버 함수
 	void Move();
 	void Shoot();
+	void Boom();
+	void BoomEffect(float effectTime);
 	void RenderPlayerPosition();
-
 	// Player
-	struct ScreenElement* playerInfo;
+	ScreenElement* playerInfo;
+	PlayerWeaponInfo* playerWeaponInfo;
+
 	enum PlayerState state;
 	Vector2 nextVec = { 0,0 };
 
 	float shotTimer = 0;
 	float maxShotTimer = PLAYER_SHOTDELAY;
+	float boomEffectTimer = 0;
 
 	int PlayerInit()
 	{
+		boomEffectTimer = 10000;
 		playerInfo = GameManager::GetPlayerInfo();
+		playerWeaponInfo = GameManager::GetPlayerWeaponInfo();
 		state = PlayerState::NonImmune;
 		nextVec = { 2,2 }; // 임시
 
@@ -38,6 +44,7 @@ namespace Player
 
 		Move();
 		Shoot();
+		Boom();
 	}
 
 	void Move()
@@ -83,6 +90,19 @@ namespace Player
 		shotTimer = 0;
 	}
 
+	void Boom()
+	{
+		if (playerWeaponInfo->boomCount <= 0) return;
+
+		if (Input::IsKeyPressed('G'))
+		{
+			boomEffectTimer = 0;
+			int totalScore = GameManager::KillALLOBJECTS(); // 점수 획득 후 모든 생성된 오브젝트 제거 
+			GameManager::AddPlayScore(totalScore);
+			playerWeaponInfo->boomCount--;
+		}
+	}
+
 	void RenderPlayer()
 	{
 		for (int i = 0; i <= playerInfo->scale.y; i++)
@@ -94,16 +114,17 @@ namespace Player
 				int currY = (int)playerInfo->position.y - playerInfo->scale.y / 2 + i;
 				if (currX == (int)playerInfo->position.x && currY == (int)playerInfo->position.y)
 				{
-					ConsoleRenderer::ScreenDrawChar(currX, currY, 'P', FG_RED);
+					ConsoleRenderer::ScreenDrawChar(currX, currY, L'◉', FG_RED);
 				}
 				else
 				{
-					ConsoleRenderer::ScreenDrawChar(currX, currY, '#', FG_GREEN);
+					ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_GREEN);
 				}
 			}
 		}
 
 		RenderPlayerPosition();
+		BoomEffect(0.8f); // 폭탄 이펙트
 	}
 
 	void RenderPlayerPosition()
@@ -127,5 +148,23 @@ namespace Player
 	{
 		if (value < 0 || value > 1) return; //유효하지 않는 숫자
 		state = (PlayerState)value;
+	}
+
+	void BoomEffect(float effectTime)
+	{
+		if (playerWeaponInfo->boomCount < 0) return;
+
+		boomEffectTimer += Time::GetDeltaTime();
+
+		if (boomEffectTimer < effectTime)
+		{
+			for (int y = 0; y < MAXHEIGHT; y++)
+			{
+				for (int x = 0; x < MAXWIDTH; x++)
+				{
+					ConsoleRenderer::ScreenDrawChar(x, y, L'▒', FG_WHITE);
+				}
+			}
+		}
 	}
 }

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ConsoleRenderer.h"
 #include "GameManager.h"
 #include "DataTypes.h"
@@ -10,6 +10,7 @@ namespace PlayScreenUI
 	void RenderUI();
 	void RanderGameFrame();
 	void RenderPlayerHp();
+	void RenderBoomCount();
 	void RenderPlayTime();
 	void RenderScore();
 	void RenderProfile();

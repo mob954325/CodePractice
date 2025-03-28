@@ -5,9 +5,10 @@
 namespace GameManager
 {
 	// 여기에 리스트 관리
-	ObjectNode* BulletList = NULL;		// 총알 리스트
-	ObjectNode* EnemyList = NULL;		// 적 리스트
-	ScreenElement playerElement = {};	// 플레이어 정보
+	ObjectNode* BulletList = NULL;			// 총알 리스트
+	ObjectNode* EnemyList = NULL;			// 적 리스트
+	ScreenElement playerElement = {};		// 플레이어 기본 정보
+	PlayerWeaponInfo playerWeaponInfo = {}; // 플레이어 무기 정보
 
 	GameState gameState = GameState::BeforeStart;		// 현재 게임 상태
 	GameResultState gameResult = GameResultState::Lose;	// 게임 결과 상태
@@ -23,13 +24,47 @@ namespace GameManager
 		gameResult = GameResultState::Lose;
 
 		playerElement = SetScreenElementValue({ 2,0 }, 20, { MAXWIDTH / 2, MAXHEIGHT / 2 }, 10, Tag::PlayerObject);
+		playerWeaponInfo = SetPlayerWeaponValue(3, 0);
 		playScore = 0;
 	}
 
-	void OnPlaySceneEnd()
+	void FreeAllLists()
 	{
 		FreeAllNode(&BulletList);
 		FreeAllNode(&EnemyList);
+	}
+
+	int KillALLOBJECTS()
+	{		
+		int totalScore = 0;
+
+		// 적
+		int enemyCount = NodeCount(EnemyList);
+		for (int i = 0; i < enemyCount; i++)
+		{
+			Node* currEnemy = FindNode(EnemyList, i);
+			if (!currEnemy) continue;
+
+			int enemyScore = GameManager::GetScoreBySize(currEnemy->data);
+			totalScore += enemyScore;
+		}
+
+		// 총알
+		int bulletCount = NodeCount(BulletList);
+		for (int i = 0; i < bulletCount; i++)
+		{
+			Node* currBullet = FindNode(BulletList, i);
+			if (!currBullet) continue;
+
+			int bulletScore = GameManager::GetScoreBySize(currBullet->data);
+			totalScore += bulletScore;
+		}
+
+		// 모든 리스트 없애기
+		FreeAllNode(&BulletList);
+		FreeAllNode(&EnemyList);
+
+		return totalScore;
 	}
 
 	Node*& GetBulletList()
@@ -45,6 +80,11 @@ namespace GameManager
 	ScreenElement* GetPlayerInfo()
 	{
 		return &playerElement;
+	}
+
+	PlayerWeaponInfo* GetPlayerWeaponInfo()
+	{
+		return &playerWeaponInfo;
 	}
 
 	int GetScoreBySize(ScreenElement obj)
@@ -71,7 +111,7 @@ namespace GameManager
 	{
 		gameState = state;
 
-		if(state == GameState::PlayEnd) GameManager::OnPlaySceneEnd(); // 게임 종료를 받으면 할당한 데이터 제거
+		if(state == GameState::PlayEnd) GameManager::FreeAllLists(); // 게임 종료를 받으면 할당한 데이터 제거
 	}
 
 	void SetGameResultState(GameResultState state)

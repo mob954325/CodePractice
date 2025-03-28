@@ -1,4 +1,4 @@
-#include "EnemyManager.h"
+﻿#include "EnemyManager.h"
 
 #include "BulletManager.h"
 #include "DebugUtility.h"
@@ -41,7 +41,7 @@ namespace EnemyManager
 				continue;
 			}
 
-			currEnemy->data.position.x += currEnemy->data.speed * Time::GetDeltaTime(); // 임시
+			currEnemy->data.position.x += currEnemy->data.speed * Time::GetDeltaTime();
 		}
 
 		EnemyShoot();
@@ -80,11 +80,11 @@ namespace EnemyManager
 					int currY = (int)currEnemy->data.position.y - currEnemy->data.scale.y / 2 + i;
 					if (currX == (int)currEnemy->data.position.x && currY == (int)currEnemy->data.position.y)
 					{
-						ConsoleRenderer::ScreenDrawChar(currX, currY, 'E', FG_SKY_DARK);
+						ConsoleRenderer::ScreenDrawChar(currX, currY, L'◯', FG_SKY_DARK);
 					}
 					else
 					{
-						ConsoleRenderer::ScreenDrawChar(currX, currY, 'E', FG_RED);
+						ConsoleRenderer::ScreenDrawChar(currX, currY, L'▉', FG_RED);
 					}
 				}
 			}

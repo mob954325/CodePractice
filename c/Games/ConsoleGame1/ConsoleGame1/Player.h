@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ConsoleRenderer.h"
 #include "Input.h"
 #include "Time.h"
