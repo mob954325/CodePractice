@@ -82,10 +82,11 @@ namespace Collider
 	void CheckItemCollider()
 	{	
 		ScreenElement* player = GameManager::GetPlayerInfo();
-
+		PlayerWeaponInfo* playerWeaponInfo = GameManager::GetPlayerWeaponInfo();
 		Node* itemList = GameManager::GetItemList();
 		int itemCount = NodeCount(itemList);
 
+		// TODO : 최대 값 상수 추가하기
 		// 아이템 확인
 		for (int i = 0; i < itemCount; i++)
 		{
@@ -97,18 +98,17 @@ namespace Collider
 				if (CheckCircleArea(currItem->data, *player) == 1)
 				{
 					currItem->data.health--;
-					DebugLog("아이템획득1\n"); 
 					switch (currItem->data.additionalElement.itemtype)
 					{
+					DebugLog("아이템획득2\n");
 					case WeaponUpgrade:
-						
+						// 무기 미구현 
 						break;
 					case Boom:
-
+						if(playerWeaponInfo->boomCount < 3) playerWeaponInfo->boomCount++;
 						break;
 					case HpRestore:
 						if(player->health < 20) player->health++;
-						DebugLog("아이템획득2\n");
 						break;
 					default:
 						break;

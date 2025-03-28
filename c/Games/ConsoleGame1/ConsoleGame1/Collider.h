@@ -8,6 +8,7 @@
 
 namespace Collider
 {
+	void ColliderInitialize();
 	void CheckBulletCollider();
 	void CheckItemCollider();
 }
