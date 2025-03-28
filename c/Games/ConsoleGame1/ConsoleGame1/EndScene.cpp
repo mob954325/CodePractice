@@ -3,8 +3,6 @@
 #include "Input.h"
 #include "GameLoop.h"
 
-void changeScene3();
-
 void EndScene::Initialize()
 {
 	ConsoleRenderer::ScreenInit();
@@ -17,14 +15,5 @@ void EndScene::Update()
 
 void EndScene::Render()
 {
-	ConsoleRenderer::ScreenDrawString(0, 0, "End", FG_PINK_DARK);
-	changeScene3();
-}
-
-void changeScene3()
-{
-	if (Input::IsKeyPressed(VK_SPACE))
-	{
-		GameLoop::SceneChangeToNext();
-	}
+	EndSceneUI::RenderUI();
 }

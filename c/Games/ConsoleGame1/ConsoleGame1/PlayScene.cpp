@@ -1,7 +1,6 @@
 #include "PlayScene.h"
 
-// 임시 사용 함수
-void changeScene2();
+void TestVictory();
 
 void PlayScene::Initialize()
 {
@@ -9,6 +8,7 @@ void PlayScene::Initialize()
 	EnemyManager::EnemyManagerInitialize();
 	BulletManager::BulletManagerInitialize();
 	PlayScreenUI::PlayScreenUIInitialize();
+	Time::InitTime();
 
 	Player::PlayerInit();
 
@@ -19,18 +19,25 @@ void PlayScene::Initialize()
 
 void PlayScene::Update()
 {
+	if (GameManager::GetGameState() == GameState::PlayEnd) return;
+
 	EnemyManager::SetEnemySpanwer(1.2f);
 	BulletManager::BulletUpdate();
 
 	EnemyManager::EnemyUpdate();
 
 	Player::PlayerUpdate();
-
-	changeScene2();
+	TestVictory();
 }
 
 void PlayScene::Render()
 {
+	if (GameManager::GetGameState() == GameState::PlayEnd)
+	{
+		GameManager::ShowGameResult(1);
+		//return;
+	}
+
 	BulletManager::BulletRender();
 	EnemyManager::EnemyRender();
 	Player::RenderPlayer();
@@ -38,17 +45,10 @@ void PlayScene::Render()
 	PlayScreenUI::RenderUI();
 }
 
-void changeScene2()
+void TestVictory()
 {
 	if (Input::IsKeyPressed(VK_SPACE))
 	{
-		GameManager::OnPlaySceneEnd();
-		GameLoop::SceneChangeToNext();
+		GameManager::SetGameState(GameState::PlayEnd);
 	}
-}
-
-// 임시 시간 랜더링
-void SetInGameTime()
-{
-
 }

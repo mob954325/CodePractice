@@ -1,6 +1,10 @@
 #pragma once
+#include "ConsoleRenderer.h"
 #include "DataTypes.h"
 #include "List.h"
+#include "Time.h"
+#include "Input.h"
+#include "GameLoop.h"
 
 #define SCORE_SCALE 100
 
@@ -59,5 +63,8 @@ namespace GameManager
 	// 게임 상태 설정 함수
 	void SetGameState(GameState state);
 
-	void CehckVectory();
+	/// <summary>
+	/// 게임 결과 보여주는 함수 ( 승리 1, 패배 0)
+	/// </summary>
+	void ShowGameResult(int value);
 }

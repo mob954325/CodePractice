@@ -1,4 +1,5 @@
 #pragma once
+#include "EndSceneUI.h"
 
 namespace EndScene
 {
