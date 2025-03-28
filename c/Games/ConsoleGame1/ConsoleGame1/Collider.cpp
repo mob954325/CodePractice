@@ -1,4 +1,4 @@
-#include "Collider.h"
+﻿#include "Collider.h"
 
 namespace Collider
 {
@@ -14,7 +14,7 @@ namespace Collider
 	/// <returns>충돌하면 1, 충돌하지 않았으면 0 반환</returns>
 	int CheckEllipaseArea(ScreenElement obj1, ScreenElement obj2);
 
-	void CheckCollider()
+	void CheckBulletCollider()
 	{
 		// 총알이 뭐랑 닿았는지 확인하기
 		Node* bulletList = GameManager::GetBulletList();
@@ -23,6 +23,7 @@ namespace Collider
 
 		int bulletCount = NodeCount(bulletList);
 
+		// 총알 확인
 		for (int i = 0; i < bulletCount; i++)
 		{
 			Node* currBullet = FindNode(bulletList, i);
@@ -72,6 +73,66 @@ namespace Collider
 						player->health--;
 						PlayScreenUI::ActivePlayerHitEffect();
 						currBullet->data.health--;
+					}
+				}
+			}
+		}
+	}
+
+	void CheckItemCollider()
+	{	
+		ScreenElement* player = GameManager::GetPlayerInfo();
+
+		Node* itemList = GameManager::GetItemList();
+		int itemCount = NodeCount(itemList);
+
+		// 아이템 확인
+		for (int i = 0; i < itemCount; i++)
+		{
+			Node* currItem = FindNode(itemList, i);
+
+			// 크기가 {0,0} = 한 칸만 차지하고 있으면
+			if (currItem->data.scale.x == 0 || currItem->data.scale.y == 0)
+			{
+				if (CheckCircleArea(currItem->data, *player) == 1)
+				{
+					currItem->data.health--;
+					DebugLog("아이템획득1\n"); 
+					switch (currItem->data.additionalElement.itemtype)
+					{
+					case WeaponUpgrade:
+						
+						break;
+					case Boom:
+
+						break;
+					case HpRestore:
+						if(player->health < 20) player->health++;
+						DebugLog("아이템획득2\n");
+						break;
+					default:
+						break;
+					}
+				}
+			}
+			else // 나머지
+			{
+				if (CheckEllipaseArea(currItem->data, *player) == 1)
+				{
+					currItem->data.health--;
+					switch (currItem->data.additionalElement.itemtype)
+					{
+					case WeaponUpgrade:
+
+						break;
+					case Boom:
+
+						break;
+					case HpRestore:
+						break;
+						if (player->health < 20) player->health++;
+					default:
+						break;
 					}
 				}
 			}

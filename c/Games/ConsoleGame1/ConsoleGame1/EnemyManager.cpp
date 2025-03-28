@@ -1,8 +1,10 @@
 ﻿#include "EnemyManager.h"
 
 #include "BulletManager.h"
-#include "DebugUtility.h"
 #include "GameManager.h"
+#include "ItemManager.h"
+
+#include "DebugUtility.h"
 
 namespace EnemyManager
 {
@@ -35,6 +37,7 @@ namespace EnemyManager
 				{
 					int enemyScore = GameManager::GetScoreBySize(currEnemy->data);
 					GameManager::AddPlayScore(enemyScore);
+					ItemManager::CreateItem(currEnemy->data.position, -1, ItemType::HpRestore);
 				}
 
 				DeleteNode(&currEnemy, &EnemyList);

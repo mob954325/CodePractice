@@ -5,11 +5,7 @@
 
 namespace BulletManager
 {
-	Node*& BulletList = GameManager::GetBulletList();
-
-	float bulletUpdateTimer = 0.0f;
-	float maxBulletUpdateTime = 0.08f;
-	
+	Node*& BulletList = GameManager::GetBulletList();	
 
 	void BulletManagerInitialize()
 	{

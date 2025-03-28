@@ -59,14 +59,18 @@ namespace PlayScreenUI
 
 	void RenderBoomCount()
 	{
-		int gap = 5;
+		int gap = 2;
+		int boomTextPosX = GetScreenPositionByRatio(0, 0.3);
+		int boomTextPosY = GetScreenPositionByRatio(1, 1.1);
 
 		// 체력 숫자
 		int boomCount = playerWeaponInfo->boomCount;
-		char boomBuffer[3];
-		_itoa_s(boomCount, boomBuffer, 10);
-		ConsoleRenderer::ScreenDrawString(80, MAXHEIGHT + gap, "Boom : ", FG_GREEN);
-		ConsoleRenderer::ScreenDrawString(85, MAXHEIGHT + gap, boomBuffer, FG_GREEN);
+		ConsoleRenderer::ScreenDrawString(boomTextPosX, boomTextPosY, "Boom : ", FG_GREEN);
+		for (int i = 1; i <= boomCount; i++)
+		{
+			ConsoleRenderer::ScreenDrawChar((boomTextPosX * 1.2f)+ gap * i, boomTextPosY, L'⽶', FG_GREEN);
+
+		}
 	}
 
 	void RenderPlayTime()

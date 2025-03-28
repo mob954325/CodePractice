@@ -1,10 +1,11 @@
-#pragma once
+﻿#pragma once
 #include "ConsoleRenderer.h"
 #include "Input.h"
 #include "GameLoop.h"
 #include "Player.h"
 #include "BulletManager.h"
 #include "EnemyManager.h"
+#include "ItemManager.h"
 #include "GameManager.h"
 #include "Collider.h"
 

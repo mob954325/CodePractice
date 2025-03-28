@@ -13,6 +13,15 @@ enum Tag
 	None = 0,
 	PlayerObject,
 	EnemyObject,
+	ItemObject,
+};
+
+
+enum ItemType
+{
+	WeaponUpgrade = 0,
+	Boom,
+	HpRestore
 };
 
 struct ScreenElement
@@ -24,9 +33,15 @@ struct ScreenElement
 	// 오브젝트 크기만큼의 좌표값
 	Vector2 position; 
 	// 오브젝트 스피드
-	float speed = 0;
+	float speed = 0; // TODO : vector로 변경하기
 	// 체력
 	int health = 1;
+
+	// 추가 오브젝트 정보 ( 특정 오브젝트용 )
+	union AdditionalElement
+	{
+		ItemType itemtype;
+	} additionalElement;
 };
 
 struct PlayerWeaponInfo
@@ -37,6 +52,7 @@ struct PlayerWeaponInfo
 
 ScreenElement SetScreenElementValue(Vector2 scale, Vector2 vec, float speed, Tag tag);
 ScreenElement SetScreenElementValue(Vector2 scale, int maxHealth, Vector2 vec, float speed, Tag tag);
+ScreenElement SetItemElementValue(Vector2 scale, int maxHealth, Vector2 vec, float speed, ItemType itemtype);
 PlayerWeaponInfo SetPlayerWeaponValue(int boomCount, int weaponLevel);
 
 /// <summary>

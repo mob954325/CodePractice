@@ -28,6 +28,7 @@ namespace GameManager
 
 	Node*& GetBulletList();
 	Node*& GetEnemyList();
+	Node*& GetItemList();
 	ScreenElement* GetPlayerInfo();
 	PlayerWeaponInfo* GetPlayerWeaponInfo();
 

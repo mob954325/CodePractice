@@ -7,6 +7,7 @@ namespace GameManager
 	// 여기에 리스트 관리
 	ObjectNode* BulletList = NULL;			// 총알 리스트
 	ObjectNode* EnemyList = NULL;			// 적 리스트
+	ObjectNode* ItemList = NULL;			// 아이템 리스트
 	ScreenElement playerElement = {};		// 플레이어 기본 정보
 	PlayerWeaponInfo playerWeaponInfo = {}; // 플레이어 무기 정보
 
@@ -75,6 +76,11 @@ namespace GameManager
 	Node*& GetEnemyList()
 	{
 		return EnemyList;
+	}
+
+	Node*& GetItemList()
+	{
+		return ItemList;
 	}
 
 	ScreenElement* GetPlayerInfo()

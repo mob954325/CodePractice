@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameManager.h"
 #include "DataTypes.h"
 #include "Player.h"
@@ -8,5 +8,6 @@
 
 namespace Collider
 {
-	void CheckCollider();
+	void CheckBulletCollider();
+	void CheckItemCollider();
 }

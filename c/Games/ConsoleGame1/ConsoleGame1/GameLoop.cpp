@@ -1,4 +1,4 @@
-#include "GameLoop.h"
+﻿#include "GameLoop.h"
 #include "MenuScene.h"
 #include "PlayScene.h"
 #include "EndScene.h"
@@ -27,7 +27,8 @@ void GameLoop::Update()
 		break;
 	case PLAY:
 		PlayScene::Update();
-		Collider::CheckCollider();
+		Collider::CheckBulletCollider();
+		Collider::CheckItemCollider();
 		break;
 	case END:
 		EndScene::Update();
