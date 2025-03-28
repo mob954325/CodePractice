@@ -5,11 +5,12 @@
 namespace GameManager
 {
 	// 여기에 리스트 관리
-	ObjectNode* BulletList = NULL;	// 총알 리스트
-	ObjectNode* EnemyList = NULL;	// 적 리스트
-	ScreenElement playerElement = {};// 플레이어 정보
+	ObjectNode* BulletList = NULL;		// 총알 리스트
+	ObjectNode* EnemyList = NULL;		// 적 리스트
+	ScreenElement playerElement = {};	// 플레이어 정보
 
-	GameState gameState; // 현재 게임 상태
+	GameState gameState = GameState::BeforeStart;		// 현재 게임 상태
+	GameResultState gameResult = GameResultState::Lose;	// 게임 결과 상태
 	int playScore = 0;
 
 	float changeSceneTimer = 0;
@@ -18,7 +19,9 @@ namespace GameManager
 	void GameManagerInitialize()
 	{
 		// 초기화
-		gameState = GameState::BeforeStart();
+		gameState = GameState::BeforeStart;
+		gameResult = GameResultState::Lose;
+
 		playerElement = SetScreenElementValue({ 2,0 }, 20, { MAXWIDTH / 2, MAXHEIGHT / 2 }, 10, Tag::PlayerObject);
 		playScore = 0;
 	}
@@ -44,6 +47,38 @@ namespace GameManager
 		return &playerElement;
 	}
 
+	int GetScoreBySize(ScreenElement obj)
+	{
+		return obj.scale.x * SCORE_SCALE + obj.scale.y * SCORE_SCALE;
+	}
+
+	int GetCurrentPlayScore()
+	{
+		return playScore;
+	}
+
+	GameState GetGameState()
+	{
+		return gameState;
+	}
+
+	GameResultState GetGameReslutState()
+	{
+		return gameResult;
+	}
+
+	void SetGameState(GameState state)
+	{
+		gameState = state;
+
+		if(state == GameState::PlayEnd) GameManager::OnPlaySceneEnd(); // 게임 종료를 받으면 할당한 데이터 제거
+	}
+
+	void SetGameResultState(GameResultState state)
+	{
+		gameResult = state;
+	}
+
 	int CheckVaildPosition(Vector2 pos)
 	{
 		if (pos.x < 0 || pos.x > MAXWIDTH || pos.y < 0 || pos.y > MAXHEIGHT) return 0;
@@ -61,14 +96,15 @@ namespace GameManager
 		return 1;
 	}
 
-	int GetScoreBySize(ScreenElement obj)
+	int CheckIsPlayerDead()
 	{
-		return obj.scale.x * SCORE_SCALE + obj.scale.y * SCORE_SCALE;
-	}
+		if (playerElement.health <= 0)
+		{
+			playerElement.health = 0;
+			return 0;
+		}
 
-	int GetCurrentPlayScore()
-	{
-		return playScore;
+		return 1;
 	}
 
 	void AddPlayScore(int value)
@@ -76,36 +112,26 @@ namespace GameManager
 		playScore += value;
 	}
 
-	GameState GetGameState()
-	{
-		return gameState;
-	}
-
-	void SetGameState(GameState state)
-	{
-		gameState = state;
-
-		if(state == GameState::PlayEnd) GameManager::OnPlaySceneEnd(); // 게임 종료를 받으면 할당한 데이터 제거
-	}
-
-	void ShowGameResult(int value)
+	void ShowGameResult()
 	{
 		changeSceneTimer += Time::GetDeltaTime();
 
-		if (value <= 0)
-		{
+		int titlePosX = GetScreenPositionByRatio(0, 0.5);
+		int titlePosY = GetScreenPositionByRatio(1, 0.2);
 
+		if (gameResult == GameResultState::Lose)
+		{
+			ConsoleRenderer::ScreenDrawString(titlePosX, titlePosY, "Defeat ...", FG_RED_DARK);
 		}
-		else if (value >= 1)
+		else if (gameResult == GameResultState::Win)
 		{
-			int titlePosX = GetScreenPositionByRatio(0, 0.5);
-			int titlePosY = GetScreenPositionByRatio(1, 0.2);
+			gameResult = GameResultState::Win;
 			ConsoleRenderer::ScreenDrawString(titlePosX, titlePosY, "Victory !!!", FG_GREEN);
-
 		}
 
 		if (changeSceneTimer > maxChangeSceneTime)
 		{
+			changeSceneTimer = 0;
 			GameLoop::SceneChangeToNext();
 		}
 	}

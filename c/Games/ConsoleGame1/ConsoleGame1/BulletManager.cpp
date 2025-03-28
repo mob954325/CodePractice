@@ -47,7 +47,6 @@ namespace BulletManager
 		int bulletCount = NodeCount(BulletList);
 		for (int i = 0; i < bulletCount; i++)
 		{
-			// TODO : 총알 범위 지정하기
 			Node* currBullet = FindNode(BulletList, i);
 			ConsoleRenderer::ScreenDrawChar((int)currBullet->data.position.x, (int)currBullet->data.position.y, 'o', FG_YELLOW);
 		}

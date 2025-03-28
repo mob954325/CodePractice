@@ -11,6 +11,22 @@ namespace EndSceneUI
 
 		ShowTotalScore();
 		CheckSpaceToMenu();
+		ShowGameResult();
+	}
+
+	void ShowGameResult()
+	{
+		int scoreTextPosX = GetScreenPositionByRatio(0, 0.4);
+		int scoreTextPosY = GetScreenPositionByRatio(1, 0.7);
+
+		if (GameManager::GetGameReslutState() == GameResultState::Lose)
+		{
+			ConsoleRenderer::ScreenDrawString(scoreTextPosX, scoreTextPosY, "ÆÐ¹è", FG_GRAY);
+		}
+		else if (GameManager::GetGameReslutState() == GameResultState::Win)
+		{
+			ConsoleRenderer::ScreenDrawString(scoreTextPosX, scoreTextPosY, "½Â¸®", FG_GRAY);
+		}
 	}
 
 	void ShowTotalScore()

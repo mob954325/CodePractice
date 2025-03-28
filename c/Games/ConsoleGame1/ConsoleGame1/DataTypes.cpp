@@ -27,11 +27,11 @@ int GetScreenPositionByRatio(int type, float value)
 {
 	if (type == 0) // 가로
 	{
-		return MAXWIDTH * value;
+		return (int)(MAXWIDTH * value);
 	}
 	else if (type == 1) // 세로
 	{
-		return MAXHEIGHT * value;
+		return (int)(MAXHEIGHT * value);
 	}
 
 	return 0; // 잘못된 파라미터 값

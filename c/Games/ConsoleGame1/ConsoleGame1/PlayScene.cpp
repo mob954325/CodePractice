@@ -19,6 +19,11 @@ void PlayScene::Initialize()
 
 void PlayScene::Update()
 {
+	if (GameManager::CheckIsPlayerDead() == 0) // 플레이어 사망확인
+	{
+		GameManager::SetGameResultState(GameResultState::Lose);
+		GameManager::SetGameState(GameState::PlayEnd);
+	}
 	if (GameManager::GetGameState() == GameState::PlayEnd) return;
 
 	EnemyManager::SetEnemySpanwer(1.2f);
@@ -34,7 +39,7 @@ void PlayScene::Render()
 {
 	if (GameManager::GetGameState() == GameState::PlayEnd)
 	{
-		GameManager::ShowGameResult(1);
+		GameManager::ShowGameResult();
 		//return;
 	}
 

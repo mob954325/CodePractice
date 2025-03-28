@@ -15,6 +15,12 @@ enum GameState
 	PlayEnd,
 };
 
+enum GameResultState
+{
+	Lose = 0,
+	Win = 1
+};
+
 namespace GameManager
 {
 	void GameManagerInitialize();
@@ -23,6 +29,30 @@ namespace GameManager
 	Node*& GetBulletList();
 	Node*& GetEnemyList();
 	ScreenElement* GetPlayerInfo();
+
+	/// <summary>
+	/// 오브젝트 크기만큼 점수를 반환하는 함수
+	/// </summary>
+	/// <returns>크기 * SCORE_SCALE</returns>
+	int GetScoreBySize(ScreenElement obj);
+
+	/// <summary>
+	/// 현재 스코어 받기
+	/// </summary>
+	/// <returns>현재 누적된 스코어</returns>
+	int GetCurrentPlayScore();
+
+	// 게임 매니저 게임 상태 값을 가져오는 함수
+	GameState GetGameState();
+
+	// 게임 결과 상태 반환 함수
+	GameResultState GetGameReslutState();
+
+	// 게임 상태 설정 함수
+	void SetGameState(GameState state);
+
+	// 게임 결과 상태 설정 함수
+	void SetGameResultState(GameResultState state);
 
 	/// <summary>
 	/// 해당 위치가 유효한 위치인지 확인
@@ -40,16 +70,10 @@ namespace GameManager
 	int CheckVaildPosition(Vector2 pos, Vector2 scale);
 
 	/// <summary>
-	/// 오브젝트 크기만큼 점수를 반환하는 함수
+	/// 플레이어 사망 확인 함수
 	/// </summary>
-	/// <returns>크기 * SCORE_SCALE</returns>
-	int GetScoreBySize(ScreenElement obj);
-
-	/// <summary>
-	/// 현재 스코어 받기
-	/// </summary>
-	/// <returns>현재 누적된 스코어</returns>
-	int GetCurrentPlayScore();
+	/// <returns>사망 했으면 0, 생존해있으면 1</returns>
+	int CheckIsPlayerDead();
 
 	/// <summary>
 	/// 스코어 추가하기
@@ -57,14 +81,8 @@ namespace GameManager
 	/// <param name="value">추가할 스코어 값</param>
 	void AddPlayScore(int value);
 
-	// 게임 매니저 게임 상태 값을 가져오는 함수
-	GameState GetGameState();
-
-	// 게임 상태 설정 함수
-	void SetGameState(GameState state);
-
 	/// <summary>
 	/// 게임 결과 보여주는 함수 ( 승리 1, 패배 0)
 	/// </summary>
-	void ShowGameResult(int value);
+	void ShowGameResult();
 }

@@ -8,8 +8,6 @@
 #define MAXWIDTH 100
 #define MAXHEIGHT 24
 
-// TODO : UI를 위한 margin 값 설정하기
-
 enum Tag
 {
 	None = 0,

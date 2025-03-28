@@ -31,8 +31,12 @@ namespace EnemyManager
 			if ((currEnemy->data.position.x <= 0)
 			|| (currEnemy->data.health <= 0))
 			{
-				int enemyScore = GameManager::GetScoreBySize(currEnemy->data);
-				GameManager::AddPlayScore(enemyScore);
+				if (currEnemy->data.health <= 0)
+				{
+					int enemyScore = GameManager::GetScoreBySize(currEnemy->data);
+					GameManager::AddPlayScore(enemyScore);
+				}
+
 				DeleteNode(&currEnemy, &EnemyList);
 				continue;
 			}
