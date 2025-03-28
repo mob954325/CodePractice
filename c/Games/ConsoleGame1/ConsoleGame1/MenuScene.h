@@ -1,4 +1,5 @@
 #pragma once
+#include "MenuSceneUI.h"
 
 namespace MenuScene
 {

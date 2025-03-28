@@ -105,6 +105,9 @@
     <ClCompile Include="FileUtility.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="MenuSceneUI.cpp">
+      <Filter>소스 파일\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLoop.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="FileUtility.h">
       <Filter>헤더 파일\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuSceneUI.h">
+      <Filter>헤더 파일\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

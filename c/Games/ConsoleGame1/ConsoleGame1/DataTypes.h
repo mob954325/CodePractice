@@ -33,3 +33,12 @@ struct ScreenElement
 
 ScreenElement SetScreenElementValue(Vector2 scale, Vector2 vec, float speed, Tag tag);
 ScreenElement SetScreenElementValue(Vector2 scale, int maxHealth, Vector2 vec, float speed, Tag tag);
+
+
+/// <summary>
+/// 비율값으로 스크린 좌표값 구하는 함수 ( 0 - 1 사이 값 )
+/// </summary>
+/// <param name="type">0이면 가로 1이면 세로값</param>
+/// <param name="value">비율값</param>
+/// <returns>비율에 따른 스크린 좌표값</returns>
+int GetScreenPositionByRatio(int type, float value);

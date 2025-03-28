@@ -12,6 +12,7 @@ void PlayScene::Initialize()
 
 	Player::PlayerInit();
 
+	GameManager::SetGameState(GameState::Playing);
 	// 임시 적 스폰
 	//EnemyManager::SpawnEnemyAtPosition({20,5}); 
 }

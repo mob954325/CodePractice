@@ -1,4 +1,3 @@
-#define _DEBUG
 #include "DebugUtility.h"
 
 #include "Windows.h"
@@ -6,12 +5,12 @@
 #include "ConsoleRenderer.h"
 #include "Input.h"
 #include "GameLoop.h"
+#include <locale.h>
 
-//#pragma execution_character_set( "utf-8" )
 
 int wmain() 
 {
-	system("chcp 65001");
+	setlocale(LC_ALL, ""); // 유니코드 설정
 
 	ENABLE_LEAK_CHECK();
 	ConsoleRenderer::ScreenInit();

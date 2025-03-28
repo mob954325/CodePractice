@@ -28,6 +28,8 @@ namespace Player
 
 	void PlayerUpdate()
 	{
+		shotTimer += Time::GetDeltaTime();
+
 		if (playerInfo->health <= 0)
 		{
 			DebugLog("Player Dead\n");
@@ -70,7 +72,6 @@ namespace Player
 
 	void Shoot()
 	{
-		shotTimer += Time::GetDeltaTime();
 		if (shotTimer < maxShotTimer) return;
 
 		if (Input::IsKeyDown('F'))

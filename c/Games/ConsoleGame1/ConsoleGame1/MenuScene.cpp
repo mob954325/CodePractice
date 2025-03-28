@@ -18,6 +18,7 @@ void MenuScene::Update()
 void MenuScene::Render()
 {
 	ConsoleRenderer::ScreenDrawString(0, 0, "MainMenu", FG_PINK_DARK);
+	MenuSceneUI::RenderUI();
 }
 
 void changeScene()

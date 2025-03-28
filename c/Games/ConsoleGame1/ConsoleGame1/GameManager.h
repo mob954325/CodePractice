@@ -52,4 +52,12 @@ namespace GameManager
 	/// </summary>
 	/// <param name="value">추가할 스코어 값</param>
 	void AddPlayScore(int value);
+
+	// 게임 매니저 게임 상태 값을 가져오는 함수
+	GameState GetGameState();
+
+	// 게임 상태 설정 함수
+	void SetGameState(GameState state);
+
+	void CehckVectory();
 }

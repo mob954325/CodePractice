@@ -139,6 +139,7 @@
     <ClCompile Include="FileUtility.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="MenuSceneUI.cpp" />
     <ClCompile Include="PlayScreenUI.cpp" />
     <ClCompile Include="Intput.cpp" />
     <ClCompile Include="List.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="FileUtility.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="MenuSceneUI.h" />
     <ClInclude Include="PlayScreenUI.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="List.h" />

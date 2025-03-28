@@ -1,16 +1,17 @@
-#include "PlayScreenUI.h"
+﻿#include "PlayScreenUI.h"
 
 namespace PlayScreenUI
 {
 	void Anim(); // 임시
 	ScreenElement* playerInfo;	
-
+	GameState gameState;
 	float feedBackTimer = 0;
 	float maxFeedBackTime = 1.5f;
 	int isPlayerHit = 0; // 1 : true, 0 : false
 
 	void PlayScreenUIInitialize()
 	{
+		gameState = GameState::BeforeStart();
 		playerInfo = GameManager::GetPlayerInfo();
 	}
 
@@ -98,7 +99,7 @@ namespace PlayScreenUI
 		}
 		else
 		{
-			//ConsoleRenderer::ScreenDrawString(78, MAXHEIGHT + 5, L"안녕하세요", FG_RED); // 임시
+			ConsoleRenderer::ScreenDrawString(78, MAXHEIGHT + 5, L"█", FG_RED); // 임시
 			Anim();
 		}
 	}
