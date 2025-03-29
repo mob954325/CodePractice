@@ -93,7 +93,7 @@ namespace Collider
 			Node* currItem = FindNode(itemList, i);
 
 			// 크기가 {0,0} = 한 칸만 차지하고 있으면
-			if (currItem->data.scale.x == 0 || currItem->data.scale.y == 0)
+			if (player->scale.x == 0 || player->scale.y == 0)
 			{
 				if (CheckCircleArea(currItem->data, *player) == 1)
 				{
@@ -105,10 +105,12 @@ namespace Collider
 						// 무기 미구현 
 						break;
 					case Boom:
-						if(playerWeaponInfo->boomCount < 3) playerWeaponInfo->boomCount++;
+						if (playerWeaponInfo->boomCount < 3) playerWeaponInfo->boomCount++;
+						else GameManager::AddPlayScore(1000);
 						break;
 					case HpRestore:
-						if(player->health < 20) player->health++;
+						if (player->health < 20) player->health++;
+						else GameManager::AddPlayScore(1000);
 						break;
 					default:
 						break;
@@ -126,7 +128,8 @@ namespace Collider
 
 						break;
 					case Boom:
-
+						if (playerWeaponInfo->boomCount < 3) playerWeaponInfo->boomCount++;
+						else GameManager::AddPlayScore(1000);
 						break;
 					case HpRestore:
 						break;

@@ -1,6 +1,6 @@
 ﻿#include "DataTypes.h"
 
-ScreenElement SetScreenElementValue(Vector2 scale, Vector2 vec, float speed, Tag tag)
+ScreenElement SetScreenElementValue(Vector2 scale, Vector2 vec, Vector2 speed, Tag tag)
 {
 	ScreenElement obj;
 	obj.scale = scale;
@@ -11,7 +11,7 @@ ScreenElement SetScreenElementValue(Vector2 scale, Vector2 vec, float speed, Tag
 	return obj;
 }
 
-ScreenElement SetScreenElementValue(Vector2 scale, int maxHealth, Vector2 vec, float speed, Tag tag)
+ScreenElement SetScreenElementValue(Vector2 scale, int maxHealth, Vector2 vec, Vector2 speed, Tag tag)
 {
 	ScreenElement obj;
 	obj.scale = scale;
@@ -23,7 +23,7 @@ ScreenElement SetScreenElementValue(Vector2 scale, int maxHealth, Vector2 vec, f
 	return obj;
 }
 
-ScreenElement SetItemElementValue(Vector2 scale, int maxHealth, Vector2 vec, float speed, ItemType itemtype)
+ScreenElement SetItemElementValue(Vector2 scale, int maxHealth, Vector2 vec, Vector2 speed, ItemType itemtype)
 {
 	ScreenElement obj;
 	obj.scale = scale;

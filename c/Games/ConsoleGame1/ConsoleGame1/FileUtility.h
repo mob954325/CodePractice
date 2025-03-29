@@ -6,5 +6,7 @@
 
 namespace FileUtility
 {
-	char* GetTextFromFile();
+	void FileUtilityInitialize();
+	char* GetTextFromFile(const char* fileName);
+	void FreeAll();
 }

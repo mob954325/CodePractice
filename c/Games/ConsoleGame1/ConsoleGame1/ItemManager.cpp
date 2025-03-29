@@ -11,7 +11,7 @@ namespace ItemManager
 		ItemList = GameManager::GetItemList();
 	}
 	
-	void CreateItem(Vector2 spawnPos, float speed, ItemType type)
+	void CreateItem(Vector2 spawnPos, Vector2 speed, ItemType type)
 	{
 		ScreenElement ItemData = SetItemElementValue({ 0, 0 }, 1, { (spawnPos.x + 1), spawnPos.y }, speed, type);
 		AddNode(&ItemList, ItemData);
@@ -32,7 +32,8 @@ namespace ItemManager
 				DeleteNode(&currItem, &ItemList);
 				continue;
 			}
-			currItem->data.position.x += (currItem->data.speed * Time::GetDeltaTime());
+			currItem->data.position.x += (currItem->data.speed.x * Time::GetDeltaTime());
+			currItem->data.position.x += (currItem->data.speed.y * Time::GetDeltaTime());
 		}
 	}
 	

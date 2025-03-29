@@ -37,14 +37,15 @@ namespace EnemyManager
 				{
 					int enemyScore = GameManager::GetScoreBySize(currEnemy->data);
 					GameManager::AddPlayScore(enemyScore);
-					ItemManager::CreateItem(currEnemy->data.position, -1, ItemType::HpRestore);
+					ItemManager::CreateItem(currEnemy->data.position, {-10, -5}, ItemType::Boom);
 				}
 
 				DeleteNode(&currEnemy, &EnemyList);
 				continue;
 			}
 
-			currEnemy->data.position.x += currEnemy->data.speed * Time::GetDeltaTime();
+			currEnemy->data.position.x += currEnemy->data.speed.x * Time::GetDeltaTime();
+			currEnemy->data.position.x += currEnemy->data.speed.y * Time::GetDeltaTime();
 		}
 
 		EnemyShoot();
@@ -61,7 +62,7 @@ namespace EnemyManager
 		{
 			Node* currEnemy = FindNode(EnemyList, i);			
 
-			BulletManager::CreateBullet({ (currEnemy->data.position.x - 3), currEnemy->data.position.y }, -25, Tag::EnemyObject);
+			BulletManager::CreateBullet({ (currEnemy->data.position.x - 3), currEnemy->data.position.y }, {-25, 0}, Tag::EnemyObject);
 			//__PrintDebugLog("Enemy Shoot\n");
 		}
 
@@ -83,11 +84,11 @@ namespace EnemyManager
 					int currY = (int)currEnemy->data.position.y - currEnemy->data.scale.y / 2 + i;
 					if (currX == (int)currEnemy->data.position.x && currY == (int)currEnemy->data.position.y)
 					{
-						ConsoleRenderer::ScreenDrawChar(currX, currY, L'◯', FG_SKY_DARK);
+						ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_SKY_DARK);
 					}
 					else
 					{
-						ConsoleRenderer::ScreenDrawChar(currX, currY, L'▉', FG_RED);
+						ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_RED);
 					}
 				}
 			}
@@ -108,13 +109,13 @@ namespace EnemyManager
 
 		if (randomSpeed < MIN_ENEMY_SPEED) randomSpeed = MIN_ENEMY_SPEED;
 
-		ScreenElement enemyData = SetScreenElementValue( { randomSizeX, randomSizeY }, randomSizeX + 1, { (spawnPositionX + MAXWIDTH), spawnPositionY }, -randomSpeed, Tag::EnemyObject);
+		ScreenElement enemyData = SetScreenElementValue( { randomSizeX, randomSizeY }, randomSizeX + 1, { (spawnPositionX + MAXWIDTH), spawnPositionY }, {-randomSpeed, 0}, Tag::EnemyObject);
 		AddNode(&EnemyList, enemyData);
 	}
 
 	void SpawnEnemyAtPosition(Vector2 spawnPosition)
 	{
-		ScreenElement enemyData = SetScreenElementValue({3, 3}, spawnPosition, -1, Tag::EnemyObject);
+		ScreenElement enemyData = SetScreenElementValue({3, 3}, spawnPosition, { -1, 0 }, Tag::EnemyObject);
 		AddNode(&EnemyList, enemyData);
 	}
 

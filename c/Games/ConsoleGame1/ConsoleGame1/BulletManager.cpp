@@ -12,7 +12,7 @@ namespace BulletManager
 		BulletList = GameManager::GetBulletList();
 	}
 
-	void CreateBullet(Vector2 spawnPos, float speed, Tag tag)
+	void CreateBullet(Vector2 spawnPos, Vector2 speed, Tag tag)
 	{
 		ScreenElement bulletData = SetScreenElementValue({0, 0}, { (spawnPos.x + 1), spawnPos.y }, speed, tag);
 		AddNode(&BulletList, bulletData);
@@ -34,7 +34,8 @@ namespace BulletManager
 				DeleteNode(&currBullet, &BulletList);
 				continue;
 			}
-			currBullet->data.position.x += (currBullet->data.speed * Time::GetDeltaTime());
+			currBullet->data.position.x += (currBullet->data.speed.x * Time::GetDeltaTime());
+			currBullet->data.position.y += (currBullet->data.speed.y * Time::GetDeltaTime());
 		}
 	}
 

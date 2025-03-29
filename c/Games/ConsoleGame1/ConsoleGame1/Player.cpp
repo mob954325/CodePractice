@@ -52,22 +52,22 @@ namespace Player
 		nextVec = playerInfo->position;
 		if (Input::IsKeyDown('W'))
 		{
-			nextVec.y -= playerInfo->speed * Time::GetDeltaTime();
+			nextVec.y -= playerInfo->speed.y * Time::GetDeltaTime();
 			//__PrintDebugLog("Up\n");
 		}
 		if (Input::IsKeyDown('S'))
 		{
-			nextVec.y += playerInfo->speed * Time::GetDeltaTime();
+			nextVec.y += playerInfo->speed.y * Time::GetDeltaTime();
 			//__PrintDebugLog("Down\n");
 		}
 		if (Input::IsKeyDown('A'))
 		{
-			nextVec.x -= playerInfo->speed * Time::GetDeltaTime();
+			nextVec.x -= playerInfo->speed.x * Time::GetDeltaTime();
 			//__PrintDebugLog("Back\n");
 		}
 		if (Input::IsKeyDown('D'))
 		{
-			nextVec.x += playerInfo->speed * Time::GetDeltaTime();
+			nextVec.x += playerInfo->speed.x * Time::GetDeltaTime();
 			//__PrintDebugLog("Front\n");
 		}
 
@@ -83,7 +83,7 @@ namespace Player
 
 		if (Input::IsKeyDown('F'))
 		{
-			BulletManager::CreateBullet(playerInfo->position, 20, Tag::PlayerObject);
+			BulletManager::CreateBullet(playerInfo->position, {20, 0}, Tag::PlayerObject);
 			__PrintDebugLog("Shoot\n");
 		}
 
