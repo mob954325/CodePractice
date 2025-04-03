@@ -24,6 +24,7 @@
     <ProjectGuid>{1cc57028-bdb3-45d8-8e04-ffb8d8888ac0}</ProjectGuid>
     <RootNamespace>doublePointer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>DoublePointer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
