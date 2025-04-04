@@ -8,28 +8,9 @@
 int animState = 0; // idle, x, x; , 3개까지만
 int animFrameWidth = 80;
 
-void DrawImageOnScreen(int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight, Gdiplus::Graphics* graphics)
-{
-	// setimage attributes
+void DrawImageOnScreen(Gdiplus::Graphics* graphics, int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight);
 
-	// Initialize the color matrix.
-	// Notice the value 0.8 in row 4, column 4.
-	Gdiplus::ColorMatrix colorMatrix = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-							   0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-							   0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-							   0.0f, 0.0f, 0.0f, 0.2f, 0.0f,
-							   0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
-	// Create an ImageAttributes object and set its color matrix.
-	Gdiplus::ImageAttributes imageAtt;
-	imageAtt.SetColorMatrix(&colorMatrix, Gdiplus::ColorMatrixFlagsDefault,
-		Gdiplus::ColorAdjustTypeBitmap);
-
-	// draw
-	Gdiplus::Rect srcRect(srcX, srcY, srcWitdh, srcHeight); // 소스의 영역
-	Gdiplus::Rect destRect(x, y, srcRect.Width, srcRect.Height); // 화면에 그릴 영역
-
-	graphics->DrawImage(bitmap, destRect, srcRect.X, srcRect.Y, srcRect.Width, srcRect.Height, Gdiplus::UnitPixel, &imageAtt);
-}
+void DrawImageOnScreen(Gdiplus::Graphics* graphics, int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight, float alpha);
 
 void CheckFileLoad(HWND hwnd, Gdiplus::Bitmap* bitmap)
 {
@@ -176,6 +157,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	float maxAnimationTime = 0.08f;
 	int animFrame = 1;
 
+	float alphaValue = 1.0f;
+	float alphaIncreaseValue = 0.2f;
+
 	MSG msg = {};
 	while (true)
 	{
@@ -195,18 +179,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		PatBlt(g_BackBufferDC, 0, 0, g_width, g_height, BLACKNESS);
 
 		// Render()
-		DrawImageOnScreen(0, 50, g_pImageBitMap_Elf, 0, 0, elfWidth, elfHeight, g_pBackBufferGraphics);
+		DrawImageOnScreen(g_pBackBufferGraphics, 0, 50, g_pImageBitMap_Elf, 0, 0, elfWidth, elfHeight, alphaValue);
 
 		switch (animState)
 		{
 		case 0:
-			DrawImageOnScreen(0, 0, g_pImageBitmap_Turn, animFrameWidth * animFrame, 0, 100, turnBitmapHeight, g_pBackBufferGraphics);
+			DrawImageOnScreen(g_pBackBufferGraphics, 0, 0, g_pImageBitmap_Turn, animFrameWidth * animFrame, 0, 100, turnBitmapHeight);
 			break;
 		case 1:
-			DrawImageOnScreen(0, 0, g_pImageBitmap_Idle, animFrameWidth * animFrame, 0, 100, idleBitmapHeight, g_pBackBufferGraphics);
+			DrawImageOnScreen(g_pBackBufferGraphics, 0, 0, g_pImageBitmap_Idle, animFrameWidth * animFrame, 0, 100, idleBitmapHeight);
 			break;
 		case 2:
-			DrawImageOnScreen(0, 0, g_pImageBitmap_Hit, animFrameWidth * animFrame, 0, 100, hitBitmapHeight, g_pBackBufferGraphics);
+			DrawImageOnScreen(g_pBackBufferGraphics, 0, 0, g_pImageBitmap_Hit, animFrameWidth * animFrame, 0, 100, hitBitmapHeight);
 			break;
 		default:
 			break;
@@ -216,6 +200,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			animationTimer = 0.0f;
 			animFrame++;
 			animFrame %= 5;
+			alphaValue -= alphaIncreaseValue;
+			if (alphaValue <= 0.0f || alphaValue >= 1.0f)
+			{
+				alphaIncreaseValue *= -1;
+			}
 		}
 
 		// Rederer::EndDraw()
@@ -239,4 +228,35 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	UninitConsole();  // 콘솔 출력 해제
 	return (int)msg.wParam;
+}
+
+// Draw Functions ==========================================
+void DrawImageOnScreen(Gdiplus::Graphics* graphics, int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight)
+{
+	// draw
+	Gdiplus::Rect srcRect(srcX, srcY, srcWitdh, srcHeight); // 소스의 영역
+	Gdiplus::Rect destRect(x, y, srcRect.Width, srcRect.Height); // 화면에 그릴 영역
+
+	graphics->DrawImage(bitmap, destRect, srcRect.X, srcRect.Y, srcRect.Width, srcRect.Height, Gdiplus::UnitPixel);
+}
+
+void DrawImageOnScreen(Gdiplus::Graphics* graphics, int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight, float alpha)
+{
+	// setimage attributes
+
+// Initialize the color matrix.
+// Notice the value 0.8 in row 4, column 4.
+	Gdiplus::ColorMatrix colorMatrix = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+							   0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+							   0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+							   0.0f, 0.0f, 0.0f, alpha, 0.0f,
+							   0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+	// Create an ImageAttributes object and set its color matrix.
+	Gdiplus::ImageAttributes imageAtt;
+	imageAtt.SetColorMatrix(&colorMatrix, Gdiplus::ColorMatrixFlagsDefault,
+		Gdiplus::ColorAdjustTypeBitmap);
+
+	Gdiplus::Rect srcRect(srcX, srcY, srcWitdh, srcHeight); // 소스의 영역
+	Gdiplus::Rect destRect(x, y, srcRect.Width, srcRect.Height); // 화면에 그릴 영역
+	graphics->DrawImage(bitmap, destRect, srcRect.X, srcRect.Y, srcRect.Width, srcRect.Height, Gdiplus::UnitPixel, &imageAtt);
 }
