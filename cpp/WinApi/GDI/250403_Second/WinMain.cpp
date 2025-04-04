@@ -1,0 +1,172 @@
+﻿#include "WinMain.h"
+
+void Update();
+void Render();
+void Uninitialize();
+
+// WindowApi, Console
+LPCTSTR g_title = TEXT("20250403이성호");
+LPCTSTR g_szClassName = TEXT("윈도우 클래스 이름");
+
+int g_width = 1024;
+int g_height = 768;
+
+HWND g_hwnd;
+HDC g_FrontBufferDC;    // 앞면 DC
+HDC g_BackBufferDC;    // 뒷면 DC
+HBITMAP g_BackBufferBitmap;
+
+Scene currentScene = Scene::MENU;
+Scene nextScene = Scene::MENU;
+
+// 콘솔 초기화
+void InitConsole()
+{
+	AllocConsole();
+	FILE* fp;
+	freopen_s(&fp, "CONOUT$", "w", stdout);
+	SetConsoleTitle(L"윈도우 메시지 콘솔 로그");
+	printf("콘솔 로그 시작...\n\n");
+}
+
+void UninitConsole()
+{
+	// 표준 출력 스트림 닫기
+	fclose(stdout);
+	// 콘솔 해제
+	FreeConsole();
+}
+
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	switch (msg)
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	case WM_KEYDOWN:
+		Input::IsKeyDown(wParam);
+		Input::IsKeyPressed(wParam);
+		Input::IsKeyReleased(wParam);
+		break;
+	}
+
+	return DefWindowProc(hwnd, msg, wParam, lParam);
+}
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
+	LPSTR lpCmdLine, int nCmdShow)
+{
+	InitConsole();  // 콘솔 출력 초기화
+	Time::InitTime();
+
+	// 폴더 경로 콘솔 출력
+	char szPath[MAX_PATH] = { 0, };
+	GetCurrentDirectoryA(MAX_PATH, szPath);
+	printf("Current Directory : %s\n", szPath);
+
+	WNDCLASS wc = { 0 };
+	wc.lpfnWndProc = WndProc;
+	wc.hInstance = hInstance;
+	wc.lpszClassName = g_szClassName;
+	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);	// 기본 커서 모양
+	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);	// 기본 아이콘 모양
+	RegisterClass(&wc);
+
+	// 원하는 크기가 조정되어 리턴
+	RECT rcClient = { 0, 0, (LONG)g_width, (LONG)g_height };
+	AdjustWindowRect(&rcClient, WS_OVERLAPPEDWINDOW, FALSE);
+
+	// 윈도우 생성
+	HWND hwnd = CreateWindow(
+		g_szClassName,
+		g_title,
+		WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
+		NULL, NULL, hInstance, NULL);
+	g_hwnd = hwnd;
+
+	ShowWindow(hwnd, nCmdShow);
+	UpdateWindow(hwnd);
+
+
+	g_FrontBufferDC = GetDC(hwnd); //윈도우 클라이언트 영역의 DeviceContext얻기
+	g_BackBufferDC = CreateCompatibleDC(g_FrontBufferDC); // 호환되는 DeviceContext 생성
+	g_BackBufferBitmap = CreateCompatibleBitmap(g_FrontBufferDC, g_width, g_height); // 메모리 영역생성
+	SelectObject(g_BackBufferDC, g_BackBufferBitmap); // MemDC의 메모리영역 지정
+
+	// 초기화
+	Renderer::Initialize(hwnd, g_FrontBufferDC, g_BackBufferDC, g_width, g_height);
+	MenuScene::Initialize(hwnd, g_FrontBufferDC, g_BackBufferDC);
+
+	MSG msg = {};
+	while (true)
+	{
+		// 메세지 큐 
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			if (msg.message == WM_QUIT)
+				break;
+
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+
+		Input::Update();
+		Time::UpdateTime(); // 시간 업데이트
+		/*animationTimer += Time::GetDeltaTime();*/
+
+		Renderer::BeginDraw();
+		Update();
+		Render();
+		Renderer::EndDraw();
+	}
+
+	Renderer::Uninitialize();
+
+	//////////////////////////////////////////////////////////////////////////
+	UninitConsole();  // 콘솔 출력 해제
+	return (int)msg.wParam;
+}
+
+void Uninitialize()
+{
+	DeleteObject(g_BackBufferBitmap);
+	DeleteDC(g_BackBufferDC);
+	ReleaseDC(g_hwnd, g_FrontBufferDC);
+}
+
+void Update()
+{
+	switch (currentScene)
+	{
+	case MENU:
+		MenuScene::Update();
+		break;
+	case PLAY:
+		break;
+	case END:
+		break;
+	default:
+		break;
+	}
+}
+
+void Render()
+{
+	switch (currentScene)
+	{
+	case MENU:
+		MenuScene::Render();
+		break;
+	case PLAY:
+		break;
+	case END:
+		break;
+	default:
+		break;
+	}
+}
+

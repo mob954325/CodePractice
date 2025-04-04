@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a7021bc6-a5bb-40e3-934d-047b1aef7db1}</ProjectGuid>
-    <RootNamespace>My250403</RootNamespace>
+    <ProjectGuid>{1717204e-2d84-4f25-9476-ab78f44534e8}</ProjectGuid>
+    <RootNamespace>My250403Second</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,24 +127,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="main.h" />
+    <ClInclude Include="inc\Input.h" />
+    <ClInclude Include="inc\Renderer.h" />
+    <ClInclude Include="inc\Time.h" />
+    <ClInclude Include="WinMain.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Input.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="src\Scenes\MenuScene.cpp" />
+    <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="250403.rc" />
+    <ResourceCompile Include="250403_Second.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="250403.ico" />
+    <Image Include="250403_Second.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\Input.lib" />
+    <Library Include="lib\Renderer.lib" />
+    <Library Include="lib\Time.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,8 +9,8 @@ int animState = 0; // idle, x, x; , 3개까지만
 int animFrameWidth = 80;
 
 void DrawImageOnScreen(Gdiplus::Graphics* graphics, int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight);
-
 void DrawImageOnScreen(Gdiplus::Graphics* graphics, int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight, float alpha);
+void DrawImageOnScreen(Gdiplus::Graphics* graphics, int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight, float alpha, float rotationValue);
 
 void CheckFileLoad(HWND hwnd, Gdiplus::Bitmap* bitmap)
 {
@@ -157,8 +157,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	float maxAnimationTime = 0.08f;
 	int animFrame = 1;
 
+	// test values
 	float alphaValue = 1.0f;
 	float alphaIncreaseValue = 0.2f;
+	float rotateValue = 0.0f;
 
 	MSG msg = {};
 	while (true)
@@ -174,12 +176,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		Time::UpdateTime(); // 시간 업데이트
 		animationTimer += Time::GetDeltaTime();
+		rotateValue += Time::GetDeltaTime() * 30.0f;
 
 		// Renderer::BeginDraw()
 		PatBlt(g_BackBufferDC, 0, 0, g_width, g_height, BLACKNESS);
 
 		// Render()
-		DrawImageOnScreen(g_pBackBufferGraphics, 0, 50, g_pImageBitMap_Elf, 0, 0, elfWidth, elfHeight, alphaValue);
+		DrawImageOnScreen(g_pBackBufferGraphics, 0, 50, g_pImageBitMap_Elf, 0, 0, elfWidth, elfHeight, alphaValue); // alpha
+		DrawImageOnScreen(g_pBackBufferGraphics, 50, 50, g_pImageBitMap_Elf, 0, 0, elfWidth, elfHeight, rotateValue);		// rotate
 
 		switch (animState)
 		{
@@ -195,6 +199,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		default:
 			break;
 		}
+
+
 		if (animationTimer > maxAnimationTime)
 		{
 			animationTimer = 0.0f;
@@ -259,4 +265,31 @@ void DrawImageOnScreen(Gdiplus::Graphics* graphics, int x, int y, Gdiplus::Bitma
 	Gdiplus::Rect srcRect(srcX, srcY, srcWitdh, srcHeight); // 소스의 영역
 	Gdiplus::Rect destRect(x, y, srcRect.Width, srcRect.Height); // 화면에 그릴 영역
 	graphics->DrawImage(bitmap, destRect, srcRect.X, srcRect.Y, srcRect.Width, srcRect.Height, Gdiplus::UnitPixel, &imageAtt);
+}
+
+void DrawImageOnScreen(Gdiplus::Graphics* graphics, int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight, float alpha, float rotationValue)
+{
+	// Set TransformMatrix
+	Gdiplus::Matrix* imageMatrix = {};
+	//graphics->GetTransform(imageMatrix);
+	imageMatrix->Rotate(rotationValue);
+	imageMatrix->Scale(2.0f, 1.0f);
+	imageMatrix->Translate(5.0f, 0.0f);
+
+	// Set ColorMatrix
+	Gdiplus::ColorMatrix colorMatrix = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+						   0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+						   0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+						   0.0f, 0.0f, 0.0f, alpha, 0.0f,
+						   0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+	// Create an ImageAttributes object and set its color matrix.
+	Gdiplus::ImageAttributes imageAtt;
+	imageAtt.SetColorMatrix(&colorMatrix, Gdiplus::ColorMatrixFlagsDefault,
+		Gdiplus::ColorAdjustTypeBitmap);
+
+	// Draw
+	Gdiplus::Rect srcRect(srcX, srcY, srcWitdh, srcHeight); // 소스의 영역
+	Gdiplus::Rect destRect(x, y, srcRect.Width, srcRect.Height); // 화면에 그릴 영역
+	graphics->DrawImage(bitmap, destRect, srcRect.X, srcRect.Y, srcRect.Width, srcRect.Height, Gdiplus::UnitPixel, &imageAtt);
+	graphics->SetTransform(imageMatrix);
 }

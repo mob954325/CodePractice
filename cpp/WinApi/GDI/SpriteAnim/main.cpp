@@ -1,6 +1,7 @@
 ﻿#include <windows.h>
 #include <stdio.h>
 #include "Time.h"
+#include "Input.h"
 
 #include <gdiplus.h>
 #pragma comment(lib, "gdiplus.lib")
@@ -9,7 +10,7 @@
 int animState = 0; // idle, x, x; , 3개까지만
 int animFrameWidth = 80;
 
-void DrawImage(int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight, Gdiplus::Graphics* graphics)
+void DrawImage(Gdiplus::Graphics* graphics, int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight)
 {
 	Gdiplus::Rect srcRect(srcX, srcY, srcWitdh, srcHeight); // 소스의 영역
 	Gdiplus::Rect destRect(x, y, srcRect.Width, srcRect.Height); // 화면에 그릴 영역
@@ -33,6 +34,7 @@ LPCTSTR g_szClassName = TEXT("윈도우 클래스 이름");
 int g_width = 1024;
 int g_height = 768;
 
+// --
 HWND g_hWnd;
 HDC g_FrontBufferDC;    // 앞면 DC
 HDC g_BackBufferDC;    // 뒷면 DC
@@ -65,7 +67,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		break;
 	case WM_KEYDOWN:
-		if (wParam == VK_SPACE)
+		if(Input::IsKeyDown(VK_SPACE))
 		{
 			animState++;
 			animState %= 3;
@@ -180,13 +182,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		switch (animState)
 		{
 		case 0:
-			DrawImage(0, 0, g_pImageBitmap_Turn, animFrameWidth * animFrame, 0, 100, turnBitmapHeight, g_pBackBufferGraphics);
+			DrawImage(g_pBackBufferGraphics, 0, 0, g_pImageBitmap_Turn, animFrameWidth * animFrame, 0, 100, turnBitmapHeight);
 			break;
 		case 1:
-			DrawImage(0, 0, g_pImageBitmap_Idle, animFrameWidth * animFrame, 0, 100, idleBitmapHeight, g_pBackBufferGraphics);
+			DrawImage(g_pBackBufferGraphics, 0, 0, g_pImageBitmap_Idle, animFrameWidth * animFrame, 0, 100, idleBitmapHeight);
 			break;
 		case 2:
-			DrawImage(0, 0, g_pImageBitmap_Hit, animFrameWidth * animFrame, 0, 100, hitBitmapHeight, g_pBackBufferGraphics);
+			DrawImage(g_pBackBufferGraphics, 0, 0, g_pImageBitmap_Hit, animFrameWidth * animFrame, 0, 100, hitBitmapHeight);
 			break;
 		default:
 			break;
