@@ -4,6 +4,7 @@ namespace MenuScene
 {
 #pragma region Method
 	void ImagesLoad();
+	void ImagesInfoLoad();
 	void AnimRender();
 	void DrawImage(int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight, Gdiplus::Graphics* graphics);	
 	void CheckFileLoad(HWND hwnd, Gdiplus::Bitmap* bitmap);
@@ -19,21 +20,23 @@ namespace MenuScene
 	Gdiplus::Graphics* g_pBackBufferGraphics;
 
 	// 이미지
-	Gdiplus::Bitmap* g_pImageBitmap_Turn = {};  //new Gdiplus::Bitmap(L"./Resource/run_turnaround_Sheet.png");
-	Gdiplus::Bitmap* g_pImageBitmap_Idle = {};  //new Gdiplus::Bitmap(L"./Resource/idle_and_alter/Idle_Sheet.png");
-	Gdiplus::Bitmap* g_pImageBitmap_Hit = {};   //new Gdiplus::Bitmap(L"./Resource/idle_and_alter/Hurt_Sheet.png");
+	Gdiplus::Bitmap* g_pImageBitmap_Turn = {}; 
+	Gdiplus::Bitmap* g_pImageBitmap_Idle = {}; 
+	Gdiplus::Bitmap* g_pImageBitmap_Hit = {};
 
-	UINT turnBitmapHeight = 0; //g_pImageBitmap_Turn->GetHeight();
-	UINT idleBitmapHeight = 0; //g_pImageBitmap_Idle->GetHeight();
-	UINT hitBitmapHeight = 0;  //g_pImageBitmap_Hit->GetHeight();
+	UINT turnBitmapHeight = 0; 
+	UINT idleBitmapHeight = 0; 
+	UINT hitBitmapHeight = 0;  
 
 	// Animation Values
 	int animState = 0; // turn, idle, hit
-	int animFrameWidth = 80;
+	int* imageWidth;  // 각 스프라이트 한 칸의 크기
+	int* imageFrameCount;  // 각 스프라이트 칸 개수
 
 	float animationTimer = 0.0f;
 	float maxAnimationTime = 0.08f;
-	int animFrame = 1;
+	int* animFrame;
+	int imageCount = 0;
 #pragma endregion
 
 
@@ -55,8 +58,11 @@ namespace MenuScene
 		if (animationTimer > maxAnimationTime)
 		{
 			animationTimer = 0.0f;
-			animFrame++;
-			animFrame %= 5;
+			for (int i = 0; i < imageCount; i++)
+			{
+				animFrame[i]++;
+				animFrame[i] %= imageFrameCount[i];
+			}
 		}
 
 		if (Input::IsKeyPressed(VK_SPACE))
@@ -95,6 +101,9 @@ namespace MenuScene
 
 		delete g_pBackBufferGraphics;
 		Gdiplus::GdiplusShutdown(g_GdiPlusToken);
+
+		free(imageWidth);
+		free(imageFrameCount);
 	}
 
 	// 정의 =============================================================================================================================
@@ -112,6 +121,73 @@ namespace MenuScene
 		turnBitmapHeight = g_pImageBitmap_Turn->GetHeight();
 		idleBitmapHeight = g_pImageBitmap_Idle->GetHeight();
 		hitBitmapHeight = g_pImageBitmap_Hit->GetHeight();
+
+		// 스프라이트 정보 저장
+		ImagesInfoLoad();
+	}
+
+	void ImagesInfoLoad()
+	{
+		FILE* file = {};
+		_wfopen_s(&file, L"./Resource/animSize.csv", L"r");
+		wchar_t buffer[1024];
+		wchar_t* nextbuffer;
+		wchar_t* bufferToken;
+		wchar_t seps[] = L",\t\n";
+
+		memset(buffer, 0, 1024);
+
+		int* tempWidth = (int*)malloc(1024 * sizeof(int));
+		int* tempCount = (int*)malloc(1024 * sizeof(int));
+		int tempSize = 0;
+
+		if (file)
+		{
+			if (fgetws(buffer, 1024, file))
+			{
+				// BOM 무시
+				if ((unsigned char)buffer[0] == 0xEF &&
+					(unsigned char)buffer[1] == 0xBB &&
+					(unsigned char)buffer[2] == 0xBF)
+				{
+					memmove(buffer, buffer + 3, (wcslen(buffer + 3) + 1) * sizeof(wchar_t));
+				}
+
+				// 데이터 저장
+				do
+				{
+					bufferToken = wcstok_s(buffer, seps, &nextbuffer);
+					for (int i = 0; i < 2; i++)
+					{
+						bufferToken = wcstok_s(NULL, seps, &nextbuffer);
+						if (i == 0)
+						{
+							tempWidth[tempSize] = _wtoi(bufferToken);
+						}
+						else if (i == 1)
+						{
+							tempCount[tempSize] = _wtoi(bufferToken);
+						}
+					}
+					tempSize++;
+
+				} while (fgetws(buffer, 1024, file));
+
+				imageFrameCount = (int*)malloc(tempSize * sizeof(int));
+				imageWidth = (int*)malloc(tempSize * sizeof(int));
+				for (int i = 0; i < tempSize; i++)
+				{
+					imageFrameCount[i] = tempCount[i];
+					imageWidth[i] = tempWidth[i];
+				}
+
+				animFrame = (int*)calloc(tempSize, sizeof(int));
+				imageCount = tempSize;
+
+				free(tempCount);
+				free(tempWidth);
+			} // if getws
+		}
 	}
 
 	void DrawImage(int x, int y, Gdiplus::Bitmap* bitmap, int srcX, int srcY, int srcWitdh, int srcHeight, Gdiplus::Graphics* graphics)
@@ -135,13 +211,13 @@ namespace MenuScene
 		switch (animState)
 		{
 		case 0:
-			DrawImage(0, 0, g_pImageBitmap_Turn, animFrameWidth * animFrame, 0, 100, turnBitmapHeight, g_pBackBufferGraphics);
+			DrawImage(0, 0, g_pImageBitmap_Turn, imageWidth[0] * animFrame[0], 0, 100, turnBitmapHeight, g_pBackBufferGraphics);
 			break;
 		case 1:
-			DrawImage(0, 0, g_pImageBitmap_Idle, animFrameWidth * animFrame, 0, 100, idleBitmapHeight, g_pBackBufferGraphics);
+			DrawImage(0, 0, g_pImageBitmap_Idle, imageWidth[1] * animFrame[1], 0, 90, idleBitmapHeight, g_pBackBufferGraphics);
 			break;
 		case 2:
-			DrawImage(0, 0, g_pImageBitmap_Hit, animFrameWidth * animFrame, 0, 100, hitBitmapHeight, g_pBackBufferGraphics);
+			DrawImage(0, 0, g_pImageBitmap_Hit, imageWidth[2] * animFrame[2], 0, 90, hitBitmapHeight, g_pBackBufferGraphics);
 			break;
 		default:
 			break;

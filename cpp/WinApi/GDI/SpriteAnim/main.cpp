@@ -216,7 +216,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	DeleteObject(g_BackBufferBitmap);
 	DeleteDC(g_BackBufferDC);
-	ReleaseDC(hwnd, g_FrontBufferDC);
+	ReleaseDC(hwnd, g_FrontBufferDC); // main에서 해제
 	//////////////////////////////////////////////////////////////////////////
 
 	UninitConsole();  // 콘솔 출력 해제

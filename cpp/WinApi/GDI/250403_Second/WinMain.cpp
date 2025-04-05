@@ -58,7 +58,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
 	InitConsole();  // 콘솔 출력 초기화
-	Time::InitTime();
 
 	// 폴더 경로 콘솔 출력
 	char szPath[MAX_PATH] = { 0, };
@@ -91,16 +90,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	ShowWindow(hwnd, nCmdShow);
 	UpdateWindow(hwnd);
 
+	// 렌더러 초기화
+	Renderer::Initialize(hwnd, g_width, g_height);
+	g_FrontBufferDC = Renderer::GetFrontBuffer();
+	g_BackBufferDC = Renderer::GetBackBuffer();
 
-	g_FrontBufferDC = GetDC(hwnd); //윈도우 클라이언트 영역의 DeviceContext얻기
-	g_BackBufferDC = CreateCompatibleDC(g_FrontBufferDC); // 호환되는 DeviceContext 생성
-	g_BackBufferBitmap = CreateCompatibleBitmap(g_FrontBufferDC, g_width, g_height); // 메모리 영역생성
-	SelectObject(g_BackBufferDC, g_BackBufferBitmap); // MemDC의 메모리영역 지정
-
-	// 초기화
-	Renderer::Initialize(hwnd, g_FrontBufferDC, g_BackBufferDC, g_width, g_height);
+	// 나머지 초기화
 	MenuScene::Initialize(hwnd, g_FrontBufferDC, g_BackBufferDC);
+	Time::InitTime();
 
+
+
+	// 게임 루프
 	MSG msg = {};
 	while (true)
 	{
@@ -114,32 +115,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			DispatchMessage(&msg);
 		}
 
-		Input::Update();
-		Time::UpdateTime(); // 시간 업데이트
-		/*animationTimer += Time::GetDeltaTime();*/
-
-		Renderer::BeginDraw();
 		Update();
 		Render();
-		Renderer::EndDraw();
 	}
 
 	Renderer::Uninitialize();
+	ReleaseDC(hwnd, g_FrontBufferDC);
 
 	//////////////////////////////////////////////////////////////////////////
 	UninitConsole();  // 콘솔 출력 해제
 	return (int)msg.wParam;
 }
 
-void Uninitialize()
-{
-	DeleteObject(g_BackBufferBitmap);
-	DeleteDC(g_BackBufferDC);
-	ReleaseDC(g_hwnd, g_FrontBufferDC);
-}
+// 루프 함수 ===============================================================================
 
 void Update()
 {
+	Input::Update();
+	Time::UpdateTime();
+
 	switch (currentScene)
 	{
 	case MENU:
@@ -156,6 +150,8 @@ void Update()
 
 void Render()
 {
+	Renderer::BeginDraw();
+
 	switch (currentScene)
 	{
 	case MENU:
@@ -168,5 +164,7 @@ void Render()
 	default:
 		break;
 	}
+
+	Renderer::EndDraw();
 }
 
