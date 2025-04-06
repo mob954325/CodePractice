@@ -16,6 +16,7 @@ HDC g_FrontBufferDC;    // 앞면 DC
 HDC g_BackBufferDC;    // 뒷면 DC
 HBITMAP g_BackBufferBitmap;
 
+// Scene Control
 Scene currentScene = Scene::MENU;
 Scene nextScene = Scene::MENU;
 
@@ -45,9 +46,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		break;
 	case WM_KEYDOWN:
-		Input::IsKeyDown(wParam);
-		Input::IsKeyPressed(wParam);
-		Input::IsKeyReleased(wParam);
+		Input::IsKeyDown((int)wParam);
+		Input::IsKeyPressed((int)wParam);
+		Input::IsKeyReleased((int)wParam);
 		break;
 	}
 
@@ -96,9 +97,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	g_BackBufferDC = Renderer::GetBackBuffer();
 
 	// 나머지 초기화
+	GDIPlusManager::Initialize();
 	MenuScene::Initialize(hwnd, g_FrontBufferDC, g_BackBufferDC);
-	Time::InitTime();
-
+	GameTime::InitTime();
 
 
 	// 게임 루프
@@ -119,6 +120,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		Render();
 	}
 
+	GDIPlusManager::ShutDown();
 	Renderer::Uninitialize();
 	ReleaseDC(hwnd, g_FrontBufferDC);
 
@@ -132,7 +134,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 void Update()
 {
 	Input::Update();
-	Time::UpdateTime();
+	GameTime::UpdateTime();
 
 	switch (currentScene)
 	{

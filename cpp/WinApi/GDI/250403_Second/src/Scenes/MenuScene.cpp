@@ -14,9 +14,7 @@ namespace MenuScene
 	HWND g_hwnd;
 	HDC g_FrontBufferDC;    // 앞면 DC
 	HDC g_BackBufferDC;    // 뒷면 DC
-	ULONG_PTR g_GdiPlusToken;
 
-	Gdiplus::GdiplusStartupInput gsi;
 	Gdiplus::Graphics* g_pBackBufferGraphics;
 
 	// 이미지
@@ -33,8 +31,8 @@ namespace MenuScene
 	int* imageWidth;  // 각 스프라이트 한 칸의 크기
 	int* imageFrameCount;  // 각 스프라이트 칸 개수
 
-	float animationTimer = 0.0f;
-	float maxAnimationTime = 0.08f;
+	float animationGameTimer = 0.0f;
+	float maxAnimationGameTime = 0.08f;
 	int* animFrame;
 	int imageCount = 0;
 #pragma endregion
@@ -46,7 +44,6 @@ namespace MenuScene
 		g_FrontBufferDC = frontBufferDC;
 		g_BackBufferDC = backBufferDC;
 
-		Gdiplus::GdiplusStartup(&g_GdiPlusToken, &gsi, nullptr);
 		g_pBackBufferGraphics = Gdiplus::Graphics::FromHDC(g_BackBufferDC);
 
 		ImagesLoad();
@@ -54,10 +51,10 @@ namespace MenuScene
 
 	void Update()
 	{
-		animationTimer += Time::GetDeltaTime();
-		if (animationTimer > maxAnimationTime)
+		animationGameTimer += GameTime::GetDeltaTime();
+		if (animationGameTimer > maxAnimationGameTime)
 		{
-			animationTimer = 0.0f;
+			animationGameTimer = 0.0f;
 			for (int i = 0; i < imageCount; i++)
 			{
 				animFrame[i]++;
@@ -100,7 +97,6 @@ namespace MenuScene
 		delete g_pImageBitmap_Hit;
 
 		delete g_pBackBufferGraphics;
-		Gdiplus::GdiplusShutdown(g_GdiPlusToken);
 
 		free(imageWidth);
 		free(imageFrameCount);

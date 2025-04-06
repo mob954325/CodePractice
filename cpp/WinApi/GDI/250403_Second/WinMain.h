@@ -3,11 +3,15 @@
 
 #include <windows.h>
 #include <stdio.h>
+
+// Custom Header =======================================
+
+#include "Manager/GDIPlusManager.h"
 #include "./inc/Scenes/MenuScene.h"
 
 // Libraries ====================================
-#include "./inc/Time.h"
-#pragma comment(lib, "./lib/Time.lib")
+#include "./inc/GameTime.h"
+#pragma comment(lib, "./lib/GameTime.lib")
 
 #include "./inc/Renderer.h"
 #pragma comment(lib, "./lib/Renderer.lib")

@@ -27,9 +27,6 @@
     <ClInclude Include="WinMain.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="inc\Time.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="inc\Renderer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -37,6 +34,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="inc\Scenes\MenuScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Component\SpriteRenderer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Manager\GDIPlusManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GameTime.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -60,10 +66,16 @@
     <ClCompile Include="src\Scenes\MenuScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="src\Component\SpriteRenderer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Manager\GDIPlusManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib\Time.lib" />
     <Library Include="lib\Input.lib" />
     <Library Include="lib\Renderer.lib" />
+    <Library Include="lib\GameTime.lib" />
   </ItemGroup>
 </Project>

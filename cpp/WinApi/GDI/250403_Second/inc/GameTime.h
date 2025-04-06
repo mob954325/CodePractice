@@ -2,7 +2,7 @@
 #include <iostream>
 #include <windows.h>
 
-namespace Time
+namespace GameTime
 {
 	void InitTime();
 	void UpdateTime();
