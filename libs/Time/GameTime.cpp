@@ -9,6 +9,7 @@ void GameTime::InitTime()
 {
     QueryPerformanceFrequency(&freq); // QPC 주파수(초당 Tick 수) 가져오기
     QueryPerformanceCounter(&start);
+    QueryPerformanceCounter(&prev);
 
     deltaTime = 0;
     timeElapsed = 0;
