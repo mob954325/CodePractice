@@ -1,101 +1,112 @@
-// c
-// 숫자 야구
-// 사용되는 수는 0 - 9이다. 숫자는 중복되지 않는다.
-// 숫자는 맞지만 위치가 틀렸으면 BALL
-// 숫자와 위치가 전부 맞으면 STRIKE
-// 숫자와 위치가 전부 틀리면 OUT
-// 기회는 6번, 숫자의 개수는 3개
-
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <random>
 
-#define MAXINPUTCOUNT 6	// 인풋기회
-#define MAXBALLCOUNT 3	// 공 개수
+// 게임 규칙
+// 1. 랜덤한 숫자 3개를 생성하고 플레이어는 숫자 3개를 마춘다.
+// 2. 6회 시도안에 맞추면 축하 메세지 출력
+// 3. 맞추기 실패마다 Ball(자리x, 숫자o), Strike(자리o, 숫자o), Out(자리x, 숫자x)의 수를 알려준다.
+// 4. 최대 6회까지 맞추지 못하면 랜덤 숫자를 알려주고 종료한다.
 
-// 공 설정 함수
-void SetBallsNum(int arr[])
+#define MAX_BALLVALUE 11
+#define MAXBALLSIZE 3
+
+void SetNum(int balls[])
 {
-	bool used[10] { false, }; // 사용한 숫자
+	bool Used[MAX_BALLVALUE] = { false, };
+	srand(time(NULL)); // 의사 번호 생성기 초기값 설정
+	int index = 0;
+	int valueInMax = rand() % MAX_BALLVALUE;
 
-	int arrIndex = 0;
-	while (arrIndex < MAXBALLCOUNT)
-	{	
-		int randomNum = rand() % 10;
-		if (!used[randomNum])
-		{
-			used[randomNum] = true;
-			arr[arrIndex++] = randomNum;
-		}
+	while (Used[valueInMax] == false)
+	{
+		if (Used[valueInMax]) continue;
+		Used[valueInMax] = true;
+		balls[index++] = valueInMax;
+		if (index == MAXBALLSIZE) break;
+		valueInMax = rand() % MAX_BALLVALUE;
 	}
 }
 
-int IsVaildInput(int arr[])
+int CheckNum(int arr[], int num)
 {
-	bool used[10]{ false, }; // 사용한 숫자
-
-	for (int i = 0; i < MAXBALLCOUNT; i++)
+	for (int i = 0; i < MAXBALLSIZE; i++)
 	{
-		if (arr[i] < 0 || arr[i] > 9 || used[arr[i]]) return 0;
-		used[i] = true;
+		if (arr[i] == num) return i; // 인덱스 반환
 	}
 
-	return 1;
+	return -1;
 }
 
 int main()
 {
-	int balls[3] = { -1, -1, -1 };
-	int player[3] = { -1, -1, -1 };
-	int count = MAXINPUTCOUNT, strike = 0, ball = 0, out = MAXBALLCOUNT;
+	// 초기화
+	int count = 0;
+	int MAX_COUNT = 6;
 
-	srand(time(NULL));
-	SetBallsNum(balls);
+	// 랜덤 숫자 생성
+	int balls[3] = { 0 ,0, 0 };
+	int player[3] = { 0, 0, 0 };
+	SetNum(balls);
 
-	while(count > 0)
+	// 제출 전 주석 할 것
+	for (int i = 0; i < MAXBALLSIZE; i++)
 	{
-		scanf("%d %d %d", &player[0], &player[1], &player[2]);
-		if (!IsVaildInput(player))
-		{
-			printf("Invaild Input ! Enter unique numbers between 0 - 9 \n");
-			continue;
-		}
+		printf("%d ", *(balls + i));
+	}
+	printf("\n");
 
-		for (int i = 0; i < MAXBALLCOUNT; i++) // balls
+	int outCount = 3, strikeCount = 0, ballCount = 0;
+	while (count < MAX_COUNT)
+	{
+		scanf_s("%d %d %d", &player[0], &player[1], &player[2]);
+
+		// 확인
+		for (int i = 0; i < MAXBALLSIZE; i++)
 		{
-			for (int j = 0; j < MAXBALLCOUNT; j++) // player
+			for (int j = 0; j < MAXBALLSIZE; j++)
 			{
-				if (player[i] == balls[j])
+				if (i == j && balls[i] == player[j]) // strike
 				{
-					if (i == j) strike++;
-					else ball++;
-
-					out--;
+					strikeCount++;
+					outCount--;
+					break;
+				}
+				else if (i != j && balls[i] == player[j]) // ball
+				{
+					ballCount++;
+					outCount--;
 					break;
 				}
 			}
 		}
 
-		// 정답
-		if (strike == 3)
+		printf("ball : %d\n", ballCount);
+		printf("strike : %d\n", strikeCount);
+		printf("out : %d\n", outCount);
+
+
+		if (strikeCount == 3)
 		{
-			printf("You win !!! \n");
-			printf("strike %d, ball %d, out %d\n", strike, ball, out);
-			return 0;
-		}
-		else // 정답아님
-		{
-			printf("strike %d, ball %d, out %d\n", strike, ball, out);
-			printf("Incorrect .. \n");
-			printf("%d left until defeat\n", --count);
+			printf("You Win !!!\n\n");
+			printf("Count : %d\n", count);
+			break;
 		}
 
-		strike = 0, ball = 0, out = MAXBALLCOUNT;
-	}
+		ballCount = 0;
+		strikeCount = 0;
+		outCount = 3;
+		count++;
+	} // while end
 
-	printf("You lose .. \n");
-	for (int i = 0; i < MAXBALLCOUNT; i++)
+	if (strikeCount != 3)
 	{
-		printf("%d ", balls[i]);
+		printf("\n");
+		printf("You Lose ... \n");
+		printf("Answer is : ");
+		for (int i = 0; i < MAXBALLSIZE; i++)
+		{
+			printf("%d ", *(balls + i));
+		}
 	}
+	// 랜덤 숫자 출력
 }
