@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <stdio.h>
 #include <windows.h>
 
@@ -12,8 +12,8 @@ public:
 	static void ShutDown();
 
 private:
-	static ULONG_PTR g_GdiPlusToken;
-	static Gdiplus::GdiplusStartupInput gsi;
-	static bool initialized;
+	ULONG_PTR g_GdiPlusToken;
+	Gdiplus::GdiplusStartupInput gsi;
+	bool initialized;
 };
 

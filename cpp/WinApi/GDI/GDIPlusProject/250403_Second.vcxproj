@@ -24,6 +24,7 @@
     <ProjectGuid>{1717204e-2d84-4f25-9476-ab78f44534e8}</ProjectGuid>
     <RootNamespace>My250403Second</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>GDIPlusProject</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -155,10 +156,6 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="250403_Second.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="250403_Second.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
