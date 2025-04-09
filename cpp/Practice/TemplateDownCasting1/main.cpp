@@ -12,5 +12,9 @@ int main()
 
 	component1* dd = nullptr;
 
-	player->AddComponent<component1>(new component1());
+	player->AddComponent<component1>(a);
+	player->AddComponent<component2>(b);
+
+	dd = player->GetComponent<component1>();
+	dd->Func1();
 }
