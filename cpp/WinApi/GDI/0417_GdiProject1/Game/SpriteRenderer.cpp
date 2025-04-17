@@ -5,6 +5,7 @@ SpriteRenderer::~SpriteRenderer()
 	if (imageBitMap != nullptr)
 	{
 		delete imageBitMap;
+		imageBitMap = nullptr;
 	}
 }
 
@@ -32,11 +33,6 @@ void SpriteRenderer::DrawImage(Gdiplus::Graphics* graphics, int posX, int posY)
 	Gdiplus::Rect srcRect(imageWidth * currFrame, 0, imageWidth, imageHeight);	// 소스의 영역
 	Gdiplus::Rect destRect(posX, posY, srcRect.Width, srcRect.Height);			// 화면에 그릴 영역
 	graphics->DrawImage(imageBitMap, destRect, srcRect.X, srcRect.Y, srcRect.Width, srcRect.Height, Gdiplus::UnitPixel); // 소스의 일부분만을 그린다.
-}
-
-void SpriteRenderer::DeleteImage()
-{
-	delete imageBitMap;
 }
 
 void SpriteRenderer::GetImageInfo(const wchar_t* infoName, const wchar_t* path)

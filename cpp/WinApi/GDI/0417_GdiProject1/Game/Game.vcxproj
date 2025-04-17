@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="EndScene.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameApp.h" />
@@ -145,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="EndScene.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="MenuScene.cpp" />

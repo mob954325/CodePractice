@@ -14,4 +14,6 @@ public:
 	void Translate(Vector2 position);
 
 	Vector2 position;
+	float width = 0;
+	float height = 0;
 };

@@ -11,11 +11,11 @@ Collider::~Collider()
 
 void Collider::UpdateValue(GameObject* object)
 {
-	bound.left += object->transform->position.x;
-	bound.right += object->transform->position.x;
+	bound.left = object->transform->position.x;
+	bound.right = object->transform->position.x + object->transform->width;
 
-	bound.bottom += object->transform->position.y;
-	bound.top += object->transform->position.y;
+	bound.bottom = object->transform->position.y;
+	bound.top = object->transform->position.y + object->transform->height;
 }
 
 bool Collider::IsOverlap(Collider* objectA, Collider* objectB)

@@ -1,14 +1,14 @@
-﻿#pragma once
+#pragma once
 #include "framework.h"
 #include "../GDIEngineLib/GameObject.h"
 #include "SpriteRenderer.h"
 #include "Collider.h"
 
-class Player : public GameObject
+class Enemy : public GameObject
 {
 public:
-	Player(Gdiplus::Graphics* g) : graphics(g) { Initialize(); }
-	~Player();
+	Enemy(Gdiplus::Graphics* g) : graphics(g) { Initialize(); }
+	~Enemy();
 	void Initialize() override;
 	void Update() override;
 	void Render() override;
@@ -19,15 +19,12 @@ public:
 
 protected:
 	Gdiplus::Graphics* graphics = {};
-	SpriteRenderer* spriteRenderer[1];
+	SpriteRenderer* spriteRenderer;
 	Collider* collider = nullptr;
 	Vector2 moveDirection = {};
 
-	// state
-	int playerState = 0; //
-	float speed;		 // 플레이어 이동 속도
+	float speed = 0;
 
-	// time
 	float animationGameTimer;
 	float maxAnimationGameTime;
 };

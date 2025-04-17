@@ -28,6 +28,7 @@ void SceneManager::Update()
 	// 현재 업데이트
 	if (currentScene)
 	{
+		currentScene->PhysicsUpdate();
 		currentScene->Update();
 	}
 }

@@ -4,8 +4,6 @@
 
 Player::~Player()
 {
-	spriteRenderer[0]->DeleteImage();
-	printf("Player 소멸자 호출"); // 임시
 }
 
 void Player::Initialize()
@@ -23,15 +21,13 @@ void Player::Initialize()
 	maxAnimationGameTime = 0.1f;
 
 	speed = 350.0f;
-
-	// 안내 로그
-	printf("플레이어 상태 변경 : 스페이스바\n");
-	printf("플레이어 움직임 : 화살표 방향키\n");
+	transform->width = 50;
+	transform->height = 50;
+	collider->bound = { 0, 50, 50, 0 };
 }
 
 void Player::Update()
 {
-
 	animationGameTimer += g_GameTime.GetDeltaTime();
 	if (animationGameTimer > maxAnimationGameTime)
 	{
@@ -39,22 +35,6 @@ void Player::Update()
 
 		spriteRenderer[playerState]->currFrame++;
 		spriteRenderer[playerState]->currFrame %= spriteRenderer[playerState]->imageFrameCount;
-	}
-
-	if (g_Input.IsKeyPressed(VK_SPACE))
-	{
-		playerState++;
-		playerState %= 3;
-
-		switch (playerState)
-		{
-		case 0:
-			printf("플레이어 대기\n");
-			break;
-		default:
-			break;
-		}
-
 	}
 
 	moveDirection = Vector2(0.0f, 0.0f);
@@ -93,7 +73,7 @@ void Player::Render()
 
 void Player::OnColliderOverlap(GameObject* other)
 {
-	// 충돌 내용
+	//delete other; // 작동하는데 디글링 포인트 일어남
 }
 
 void Player::OnColliderExit(GameObject* other)
