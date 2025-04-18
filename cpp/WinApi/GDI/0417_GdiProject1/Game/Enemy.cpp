@@ -1,7 +1,6 @@
-#include "Enemy.h"
+﻿#include "Enemy.h"
 #include "../GDIEngineLib/GameTime.h"
 #include "../GDIEngineLib/Input.h"
-#include "random"
 
 Enemy::~Enemy()
 {
@@ -19,18 +18,17 @@ void Enemy::Initialize()
 	animationGameTimer = 0.0f;
 	maxAnimationGameTime = 0.1f;
 
-	//transform->position.x = rand() % 700;
-	//transform->position.y = rand() % 700;
-	transform->position.x = 500;
-	transform->position.y = 500;
-	transform->width = 50;
-	transform->height = 50;
+	transform->width = 28;
+	transform->height = 28;
 
 	collider->bound = { 0, (LONG)transform->height, (LONG)transform->width, 0 };
+	collider->UpdateValue(this);
 }
 
 void Enemy::Update()
 {
+	if (shouldBeDeleted) return;
+
 	animationGameTimer += g_GameTime.GetDeltaTime();
 	if (animationGameTimer > maxAnimationGameTime)
 	{
@@ -45,16 +43,20 @@ void Enemy::Update()
  
 void Enemy::Render()
 {
+	if (shouldBeDeleted) return;
+
 	if (graphics != nullptr)
 	{
-		spriteRenderer->DrawImage(graphics, transform->position.x, transform->position.y);
+		spriteRenderer->DrawImage(graphics, (int)transform->position.x, (int)transform->position.y);
 	}
 }
 
 void Enemy::OnColliderOverlap(GameObject* other)
 {
+	if (shouldBeDeleted) return;
 }
 
 void Enemy::OnColliderExit(GameObject* other)
 {
+	if (shouldBeDeleted) return;
 }

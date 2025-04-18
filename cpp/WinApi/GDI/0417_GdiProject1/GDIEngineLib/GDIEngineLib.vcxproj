@@ -151,6 +151,7 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="WinApp.h" />
+    <ClInclude Include="WindowConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="WinApp.cpp" />
+    <ClCompile Include="WindowConfig.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

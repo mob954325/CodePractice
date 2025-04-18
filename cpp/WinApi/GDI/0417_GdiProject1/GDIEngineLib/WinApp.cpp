@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "GameTime.h"
 #include "SceneManager.h"
+#include "WindowConfig.h"
 
 WinApp* WinApp::m_pInstance = nullptr;
 
@@ -90,6 +91,9 @@ void WinApp::Initialize()
 	g_GameTime.InitTime();
 	g_Renderer.Initialize(m_hWnd, m_Width, m_Height);
 	g_SceneManager.Initialize(m_hWnd, g_Renderer.GetFrontBuffer(), g_Renderer.GetBackBuffer());
+
+	g_WindowConfig.windowHeight = m_Height;
+	g_WindowConfig.windowWidth = m_Width;
 }
 
 void WinApp::Shutdown()

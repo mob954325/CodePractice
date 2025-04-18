@@ -20,7 +20,7 @@ public:
 protected:
 	Gdiplus::Graphics* graphics = {};
 	SpriteRenderer* spriteRenderer[1];
-	Collider* collider = nullptr;
+	Collider* collider = {};
 	Vector2 moveDirection = {};
 
 	// state

@@ -69,6 +69,9 @@
     <ClInclude Include="WinApp.h">
       <Filter>헤더 파일\App</Filter>
     </ClInclude>
+    <ClInclude Include="WindowConfig.h">
+      <Filter>헤더 파일\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GDIEngineLib.cpp">
@@ -106,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="WinApp.cpp">
       <Filter>소스 파일\App</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowConfig.cpp">
+      <Filter>소스 파일\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -10,7 +10,7 @@ void GameApp::Initialize()
 
 	g_SceneManager.CreateScene<MenuScene>();
 	g_SceneManager.CreateScene<PlayScene>();
-	//g_SceneManager.CreateScene<EndScene>();
+	g_SceneManager.CreateScene<EndScene>();
 
 	g_SceneManager.ChangeScene(0); // menu
 }

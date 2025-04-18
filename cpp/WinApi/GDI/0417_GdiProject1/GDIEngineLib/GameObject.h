@@ -30,8 +30,8 @@ public:
 	T* AddComponent();
 
 	// Elements
-	wchar_t* name;
-	Transform* transform;
+	Transform* transform = {};
+	bool shouldBeDeleted = false;	// 삭제 예정인지 확인하는 변수
 
 private:
 	std::vector<Component*> componentList;

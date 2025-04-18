@@ -9,14 +9,19 @@ public:
 	void PhysicsUpdate() override;
 	void Update() override;
 	void Render() override;
-	void Exit() override { Clear(); Gdiplus::GdiplusShutdown(s_GdiPlusToken);  };
+	void Exit() override { Clear(); Gdiplus::GdiplusShutdown(gdiPlusToken); };
 
 protected:
+	int enemyCount = 100;
+	int currEnemyCount = 0;
+	float sceneTimer = 0;
+	float sceneMaxTimer = 10;
+
 	HWND hwnd;
 	HDC FrontBufferDC;    // 앞면 DC
 	HDC BackBufferDC;    // 뒷면 DC
 
-	ULONG_PTR s_GdiPlusToken = 0;
-	Gdiplus::GdiplusStartupInput s_gsi = {};
+	ULONG_PTR gdiPlusToken = 0;
+	Gdiplus::GdiplusStartupInput gsi = {};
 	Gdiplus::Graphics* graphics = {};
 };

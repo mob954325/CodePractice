@@ -1,6 +1,7 @@
 ﻿#include "Player.h"
 #include "../GDIEngineLib/GameTime.h"
 #include "../GDIEngineLib/Input.h"
+#include "ScoreManager.h"
 
 Player::~Player()
 {
@@ -21,13 +22,19 @@ void Player::Initialize()
 	maxAnimationGameTime = 0.1f;
 
 	speed = 350.0f;
-	transform->width = 50;
-	transform->height = 50;
+
+	transform->position = Vector2(200, 200);
+	transform->width = 32;
+	transform->height = 32;
+
 	collider->bound = { 0, 50, 50, 0 };
+	collider->UpdateValue(this);
 }
 
 void Player::Update()
 {
+	if (shouldBeDeleted) return;
+
 	animationGameTimer += g_GameTime.GetDeltaTime();
 	if (animationGameTimer > maxAnimationGameTime)
 	{
@@ -57,12 +64,14 @@ void Player::Update()
 		moveDirection = Vector2(1.0f, moveDirection.y);
 	}
 
-	transform->Translate(moveDirection.x * speed * g_GameTime.GetDeltaTime(), moveDirection.y);
+	transform->Translate(moveDirection.x * speed * g_GameTime.GetDeltaTime(), moveDirection.y * speed * g_GameTime.GetDeltaTime());
 	collider->UpdateValue(this);
 }
 
 void Player::Render()
 {
+	if (shouldBeDeleted) return;
+
 	if (graphics != nullptr)
 	{
 		spriteRenderer[playerState]->DrawImage(graphics, (int)transform->position.x, (int)transform->position.y);
@@ -73,9 +82,13 @@ void Player::Render()
 
 void Player::OnColliderOverlap(GameObject* other)
 {
-	//delete other; // 작동하는데 디글링 포인트 일어남
+	if (shouldBeDeleted) return;
+
+	other->shouldBeDeleted = true;
+	g_ScoreManager.AddScore();
 }
 
 void Player::OnColliderExit(GameObject* other)
 {
+	if (shouldBeDeleted) return;
 }

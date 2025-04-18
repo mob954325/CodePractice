@@ -3,7 +3,6 @@
 
 GameObject::GameObject()
 {
-	name = NULL;
 	transform = AddComponent<Transform>();
 }
 
@@ -16,15 +15,7 @@ GameObject::~GameObject()
 		delete componentList[i];
 	}
 
-	if (name != NULL)
-	{
-		printf("%ws GameObject 소멸자 호출", name);
-		free(name);
-	}
-	else
-	{
-		printf("GameObject 소멸자 호출");
-	}
+	printf("GameObject 소멸자 호출");
 }
 
 void GameObject::Initialize()
@@ -35,20 +26,23 @@ void GameObject::Initialize()
 void GameObject::Update()
 {
 	// 업데이트
+	if (shouldBeDeleted) return;
 }
 
 void GameObject::Render()
 {
 	// 랜더링 내용
+	if (shouldBeDeleted) return;
 }
 
 void GameObject::OnColliderOverlap(GameObject* other)
 {
 	// 충돌 내용
-	printf("기본 오브젝트 내용 : %s, %s\n", typeid(*this).name(), typeid(*other).name());
+	if (shouldBeDeleted) return;
 }
 
 void GameObject::OnColliderExit(GameObject* other)
 {
 	// 충돌 안 할 때 실행
+	if (shouldBeDeleted) return;
 }
