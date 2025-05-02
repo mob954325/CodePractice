@@ -25,10 +25,19 @@ int main()
 	std::vector<int> stage_vector;
 
 	// layer에서 height의 요소 출력
-	for (const auto& result : j["layers"])
-	{
-		int curr = result["height"].get<int>();
-		printf("%d\n", curr);
+	for (const auto& result : j)	{
+
+		if (result["height"].is_number_integer())
+		{
+			int curr = result["height"].get<int>();
+			printf("%d\n", curr);
+		}
+		else if (result["height"].is_array())
+		{
+			const auto& data = result["height"];
+			stage_vector.insert(stage_vector.end(), data.begin(), data.end());
+		}
+
 	}
 
 	for (const auto& layer : j["layers"])
