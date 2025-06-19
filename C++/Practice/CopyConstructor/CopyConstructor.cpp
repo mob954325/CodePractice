@@ -1,24 +1,44 @@
-#include <iostream>
+癤�#include <iostream>
+#include <string.h>
 
-class MyClass 
+class Person
 {
 public:
-	MyClass();
-	MyClass(const MyClass& other); // 복사 생성자
+	Person(const char* str)
+	{
+		name = new char[strlen(str) + 1];
+		strcpy_s(name, strlen(str) + 1, str);
+	};
+	Person(const Person& per)
+	{
+		name = new char[strlen(per.name) + 1];
+		strcpy_s(name, strlen(per.name) + 1, per.name);
+	}
+
+	Person& operator=(const Person& other)
+	{
+		if (this != &other)
+		{
+			delete name;
+			name = new char[strlen(other.name) + 1];
+			strcpy_s(name, strlen(other.name) + 1, other.name);
+		}
+
+		return *this;
+	}
+
+	~Person() { delete[] name; };
+
+private:
+	char* name = nullptr;
 };
-
-MyClass::MyClass()
-{
-	std::cout << "기본 생성자\n";
-}
-
-MyClass::MyClass(const MyClass& other)
-{
-	std::cout << "복사 생성자\n";
-}
 
 int main()
 {
-	MyClass a;		// 기본 생성자 호출
-	MyClass b = a;  // 복사 생성자 호출
+	Person p1("name");
+	Person p2 = p1;
+
+	p2 = p1;
+
+	int a = 0;
 }
