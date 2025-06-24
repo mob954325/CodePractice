@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <functional>
 
@@ -46,8 +46,8 @@ private:
 	Action OnHit;
 
 public:
-	Player();
-	~Player();
+	Player() {};
+	~Player() {};
 
 	void OnStart()
 	{
@@ -60,17 +60,23 @@ public:
 	}
 };
 
-Player::Player()
+void TestEvent()
 {
-}
-
-Player::~Player()
-{
+	cout << "Call TestEvent Function\n";
 }
 
 int main()
 {
 	Player p;
 	p.OnStart();
-	p.Hit();  // Ãâ·Â: CppEventClass Executed
+	p.Hit();  // ì¶œë ¥: CppEventClass Executed
+
+	Action action1;
+	CppEventClass* cec1 = new CppEventClass();
+	action1.Add([&cec1]() { cec1->Execute(); });
+	action1.Invoke();
+
+	delete cec1;
+
+	action1.Invoke(); // ?? 
 }
