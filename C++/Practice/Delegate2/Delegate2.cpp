@@ -16,5 +16,5 @@ int main()
 	hpComp->Start();
 
 	player->OnHit(2);
-	
+	hpComp->Show();
 }
