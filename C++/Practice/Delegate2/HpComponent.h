@@ -15,7 +15,7 @@ public:
 		id1 = player->OnHpChange.Add(std::bind(&HpComponent::ChangeValue, this, std::placeholders::_1));
 		id2 = player->OnHpChange.Add(std::bind(&HpComponent::ChangeValue2, this, std::placeholders::_1));
 
-		player->OnHpChange.RemoveById(id2);
+		player->OnHpChange.RemoveByID(id2);
 
 		// id2 = player->OnHpChange += std::bind(&HpComponent::ChangeValue2, this, std::placeholders::_1);
 		// id2 = player->OnHpChange += [](int _) { std::cout << "Call lambda expresstion functoin by action class \n"; };
