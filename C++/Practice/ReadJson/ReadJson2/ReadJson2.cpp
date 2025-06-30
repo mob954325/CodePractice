@@ -103,14 +103,14 @@ int main()
 		std::cout << data << "\n";
 	}
 
-	v = manager.GetIntagerData(L"Stage1.json", std::vector<std::wstring>{ L"layers", L"testLayerDatas" });
+	v = manager.GetIntagerData(L"Stage1.json", { L"layers", L"testLayerDatas" });
 	for (int data : v)
 	{
 		std::cout << data << " ";
 	}
 
 	std::cout << "\n";
-	v = manager.GetIntagerData(L"Stage1.json", std::vector<std::wstring>{ L"layers", L"data" });
+	v = manager.GetIntagerData(L"Stage1.json", { L"layers", L"data" });
 	for (int data : v)
 	{
 		std::cout << data << " ";
