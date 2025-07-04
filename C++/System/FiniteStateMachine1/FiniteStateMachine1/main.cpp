@@ -23,7 +23,7 @@ int main()
 		Sleep(deltaTime * 1000); // 대기 
 		animInstance.Update(deltaTime); // 0.1초 단위로 업데이트
 
-		if (GetAsyncKeyState('A') & 0x8000) {
+		if (GetAsyncKeyState('A')) {
 			animInstance.SetFloat("speed", 1.0f);
 		}
 		else

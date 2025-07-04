@@ -27,10 +27,11 @@ private:
 
 	// trigger
 public:
-	// life
+	// eventCycle
 	void OnStart();
 	void OnExit();
 	void Update(float deltaTime);
+	bool EvaluateConditions(std::vector<Condition>& conditions);
 
 	// init
 	void SetAnimationController(AnimatorController& ac);
@@ -44,5 +45,10 @@ public:
 
 	float GetFloat(const std::string& paramName);
 	void SetFloat(const std::string& paramName, float value);
+
+	// flag
+	bool IsParameterChanged(Condition& condition);
 };
 
+// Update 순서
+// 시간 증가 -> AnyState 전이 확인 -> 현재 상태의 전이 확인 -> clipTime 확인
