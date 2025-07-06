@@ -67,6 +67,29 @@ void AnimationInstance::SetFloat(const std::string& paramName, float value)
 	it->second = value;
 }
 
+void AnimationInstance::SetTrigger(const std::string& paramName)
+{
+	auto it = triggerParams.find(paramName);
+	if (it == triggerParams.end())
+	{
+		std::cerr << "Error: Parameter " << paramName << " is not registered as Trigger type." << std::endl;
+		return;
+	}
+
+	it->second = true;
+}
+
+bool AnimationInstance::GetTrigger(const std::string& paramName)
+{
+	auto it = triggerParams.find(paramName);
+	if (it == triggerParams.end())
+	{
+		return false;
+	}
+
+	return it->second;
+}
+
 bool AnimationInstance::IsParameterChanged(Condition& condition)
 {
 	std::string param = condition.parameter;
@@ -107,9 +130,9 @@ bool AnimationInstance::IsParameterChanged(Condition& condition)
 	}
 	case ParameterType::Trigger:
 	{
-		//bool val = GetTrigger(param); // NOTE: Trigger 추가하면 주석 해제
-		//if (mode == "If") return val;
-		//if (mode == "IfNot") return !val;
+		bool val = GetTrigger(param);
+		if (mode == "If") return val;
+		if (mode == "IfNot") return !val;
 		break;
 	}
 	default:
@@ -175,7 +198,7 @@ void AnimationInstance::RegisterTriggerParameters()
 	{
 		if (it->type == "Trigger")
 		{
-			triggerParams[it->name] = it->defaultInt;
+			triggerParams[it->name] = it->defaultBool;
 		}
 
 		it++;
@@ -187,29 +210,73 @@ void AnimationInstance::ChangeState(const std::string& name)
 	if (name == "Exit") // AnyState의 종료 노드
 	{
 		int temp = currentStateIndex;
+
+		ExitStateBehavior(currentStateIndex);
+
 		currentStateIndex = prevStateIndex;	// 이전 상태로 되돌림
 		prevStateIndex = temp;				// Anystate의 노드를 이전 상태로 저장
+
+		StartStateBehavior(currentStateIndex);
 	}
 	else
 	{
 		State* state = controller->GetState(name);
-		if (state->index != currentStateIndex) // 교체할 상태가 같은 상태가 아닐때만 저장
+		if (state->index != currentStateIndex) // 교체할 상태가 같은 상태가 아닐때만
 		{
+			ExitStateBehavior(currentStateIndex);
+
 			prevStateIndex = currentStateIndex;
 			currentStateIndex = state->index;	
+
+			StartStateBehavior(currentStateIndex);
 		}
 	}
 
 	elapsedTime = 0.0f; // 시간 초기화
 }
 
+void AnimationInstance::ResetTrigger(const std::string& name)
+{
+	auto it = triggerParams.find(name);
+	if (it == triggerParams.end())
+	{
+		std::cerr << "Error: Parameter " << name << " is not registered as Trigger type." << std::endl;
+		return;
+	}
+
+	it->second = false;
+}
+
+void AnimationInstance::StartStateBehavior(int index)
+{
+	if (stateBehavitors[index] == nullptr) return;
+
+	stateBehavitors[index]->OnStateEnter();
+}
+
+void AnimationInstance::UpdateStateBehavior(int index)
+{
+	if (stateBehavitors[index] == nullptr) return;
+
+	stateBehavitors[index]->OnStateUpdate();
+}
+
+void AnimationInstance::ExitStateBehavior(int index)
+{
+	if (stateBehavitors[index] == nullptr) return;
+
+	stateBehavitors[index]->OnStateExit();
+}
+
 void AnimationInstance::OnStart()
 {
 	currentStateIndex = 0;
+	StartStateBehavior(currentStateIndex);
 }
 
 void AnimationInstance::OnExit()
 {
+	stateBehavitors[currentStateIndex]->OnStateExit();
 }
 
 void AnimationInstance::Update(float deltaTime)
@@ -220,41 +287,59 @@ void AnimationInstance::Update(float deltaTime)
 
 	// 1. 시간 증가
 	float clipLength = controller->states[currentStateIndex].clipLength;	// 해당 상태의 지속시간
-	float currentClipTimeRatio = elapsedTime / clipLength;					// 현재 시간 비율 (0.0 - 1.0)
+	float currentClipTimeRatio = 0.0f;
+	currentClipTimeRatio = elapsedTime / clipLength;					// 현재 시간 비율 (0.0 - 1.0)
+
 	std::cout << std::to_string(currentClipTimeRatio) << "--" << controller->states[currentStateIndex].motionName << std::endl;
 
 	// 2. AnyState 확인
-	for (auto& translition : controller->anyStateTransitions)
+	for (auto& transition : controller->anyStateTransitions)
 	{
-		for (auto& condition : translition.conditions)
+		// 컨디션 평가
+		if (EvaluateConditions(transition.conditions))
 		{
-			// 컨디션 평가
-			if (EvaluateConditions(translition.conditions))
+			// 컨디션이 확인하는 parameter값이 변경되었으면 상태 변경
+			ChangeState(transition.toState);
+
+			for (auto& condition : transition.conditions)
 			{
-				// 컨디션이 확인하는 parameter값이 변경되었으면 상태 변경
-				ChangeState(translition.toState);
-				return; // 변경을 감지하면 이번 프레임 업데이트 종료
+				if (condition.type == ParameterType::Trigger)
+				{
+					ResetTrigger(condition.parameter);
+				}
 			}
+
+			return; // 변경을 감지하면 이번 프레임 업데이트 종료
 		}
 	}
 
 	//  <-- State Upate 실행 구간
+	UpdateStateBehavior(currentStateIndex);
 
 	// 3. transition 확인
 	auto currState = controller->states.at(currentStateIndex);
-	for (auto& translition : currState.transitions)
+	for (auto& transition : currState.transitions)
 	{
 		// exit타임이 존재할 때 현재 state 상태의 시간이 exitTime만큼 지났는지 확인
-		if (translition.hasExitTime && elapsedTime < translition.exitTime) 
+		if (transition.hasExitTime && (currentClipTimeRatio < 1.0f))
 			continue;
 
-		for (auto& condition : translition.conditions)
+		for (auto& condition : transition.conditions)
 		{
 			// 컨디션 평가
-			if (EvaluateConditions(translition.conditions))
+			if (EvaluateConditions(transition.conditions))
 			{
 				// 컨디션이 확인하는 parameter값이 변경되었으면 상태 변경
-				ChangeState(translition.toState);
+				ChangeState(transition.toState);
+
+				for (auto& condition : transition.conditions)
+				{
+					if (condition.type == ParameterType::Trigger)
+					{
+						ResetTrigger(condition.parameter);
+					}
+				}
+
 				return; // 변경을 감지하면 이번 프레임 업데이트 종료
 			}			
 		}
@@ -290,6 +375,23 @@ void AnimationInstance::SetAnimationController(AnimatorController& ac)
 	RegisterFloatParameters();
 	RegisterBoolParameters();
 	RegisterTriggerParameters();
+
+	stateBehavitors.reserve(ac.states.size());
+	for (int i = 0; i < stateBehavitors.capacity(); i++)
+	{
+		stateBehavitors.push_back(nullptr);
+	}
+}
+
+void AnimationInstance::SetStateBehavior(std::string stateName, IStateBehaviorBase* state)
+{
+	if (controller == NULL) return;
+
+	auto it = controller->stateNameToIndex.find(stateName);
+	if (it != controller->stateNameToIndex.end())
+	{
+		stateBehavitors[it->second] = state;
+	}
 }
 
 /// translate 규칙
