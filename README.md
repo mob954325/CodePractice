@@ -1,7 +1,1 @@
-# Practice Languages
-
-Save practiced languages to reminding
-
-### List
-1. C# ( Game Development )
-2. C / C++ ( Game Development )
+2024 예전 공부 정리 파일 - 사용 안함
